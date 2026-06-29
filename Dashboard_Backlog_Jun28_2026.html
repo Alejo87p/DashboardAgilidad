@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Salud del Backlog Ágil | Jun 2026</title>
+<style>
+  :root{--primary:#1e3a5f;--primary-light:#2d5986;--accent:#e8700a;--accent-light:#f5a623;--danger:#c0392b;--warning:#e67e22;--success:#27ae60;--info:#2980b9;--bg:#f4f6f9;--card:#ffffff;--text:#2c3e50;--text-light:#7f8c8d;--border:#dde3ec;--zombie:#8e44ad;--zombie-light:#f3e5f5;--trans:#d35400;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);}
+  .header{background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;padding:28px 40px;}
+  .header h1{font-size:1.7rem;font-weight:700;}
+  .header .subtitle{margin-top:6px;font-size:0.92rem;opacity:.85;}
+  .header .meta{margin-top:12px;display:flex;gap:24px;font-size:0.82rem;opacity:.8;flex-wrap:wrap;}
+  .nav{background:var(--primary);display:flex;border-top:1px solid rgba(255,255,255,.15);overflow-x:auto;}
+  .nav button{background:none;border:none;color:rgba(255,255,255,.75);padding:12px 22px;font-size:0.85rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;}
+  .nav button:hover{color:#fff;background:rgba(255,255,255,.08);}
+  .nav button.active{color:#fff;border-bottom-color:var(--accent-light);background:rgba(255,255,255,.1);}
+  .main{padding:28px 32px;max-width:1400px;margin:0 auto;}
+  .section{display:none;}.section.active{display:block;}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px;}
+  .kpi-card{background:var(--card);border-radius:10px;padding:20px 16px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--border);text-align:center;}
+  .kpi-card.primary{border-left-color:var(--primary);} .kpi-card.success{border-left-color:var(--success);} .kpi-card.danger{border-left-color:var(--danger);} .kpi-card.warning{border-left-color:var(--warning);} .kpi-card.zombie{border-left-color:var(--zombie);} .kpi-card.info{border-left-color:var(--info);}
+  .kpi-value{font-size:2.2rem;font-weight:800;line-height:1;}
+  .kpi-label{font-size:.78rem;color:var(--text-light);margin-top:8px;text-transform:uppercase;letter-spacing:.5px;}
+  .kpi-sub{font-size:.72rem;color:var(--text-light);margin-top:4px;}
+  .card{background:var(--card);border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:24px;overflow:hidden;}
+  .card-header{background:var(--primary);color:#fff;padding:14px 20px;font-size:.95rem;font-weight:600;display:flex;justify-content:space-between;align-items:center;}
+  .card-header .badge{background:rgba(255,255,255,.2);border-radius:12px;padding:3px 10px;font-size:.78rem;}
+  .card-body{padding:20px;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:900px){.two-col{grid-template-columns:1fr;}}
+  .data-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+  .data-table th{background:#f0f4f8;color:var(--primary);font-weight:700;padding:10px 12px;text-align:left;border-bottom:2px solid var(--border);cursor:pointer;white-space:nowrap;}
+  .data-table th:hover{background:#e4eaf2;}
+  .data-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  .data-table tr:hover td{background:#f8fafc;}
+  .data-table tr:last-child td{border-bottom:none;}
+  .tbl-wrap{overflow-x:auto;max-height:500px;overflow-y:auto;}
+  .badge-estado{display:inline-block;padding:2px 9px;border-radius:10px;font-size:.72rem;font-weight:600;}
+  .badge-activo{background:#d5f5e3;color:#1a7a45;} .badge-transicion{background:#fdebd0;color:#a04000;} .badge-cerrado{background:#f2f3f4;color:#717d7e;} .badge-duplicado{background:#eaf0fb;color:#2e4482;}
+  .pct-bar{display:flex;align-items:center;gap:8px;}
+  .bar-outer{flex:1;background:#eee;border-radius:4px;height:8px;min-width:60px;}
+  .bar-inner{height:8px;border-radius:4px;background:var(--zombie);}
+  .bar-inner.low{background:var(--success);} .bar-inner.med{background:var(--warning);} .bar-inner.high{background:var(--danger);}
+  .num-zombie{color:var(--zombie);font-weight:700;} .num-danger{color:var(--danger);font-weight:700;} .num-success{color:var(--success);font-weight:700;}
+  .search-bar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+  .search-bar input,.search-bar select{border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:.85rem;color:var(--text);background:#fff;}
+  .search-bar input{flex:1;min-width:200px;}
+  .hallazgo{display:flex;gap:14px;padding:14px;border-radius:8px;margin-bottom:12px;border-left:4px solid;}
+  .hallazgo.critico{background:#fdf2f2;border-left-color:var(--danger);} .hallazgo.advertencia{background:#fef9f0;border-left-color:var(--warning);} .hallazgo.positivo{background:#f0fff4;border-left-color:var(--success);}
+  .hallazgo .icono{font-size:1.4rem;} .hallazgo .texto strong{display:block;margin-bottom:4px;font-size:.92rem;} .hallazgo .texto p{font-size:.84rem;color:var(--text-light);line-height:1.5;}
+  .rec{display:flex;gap:14px;padding:14px 16px;border-radius:8px;margin-bottom:10px;background:#f8fffe;border:1px solid #c8e6c9;}
+  .rec .num{background:var(--success);color:#fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;}
+  .rec .body strong{font-size:.9rem;display:block;margin-bottom:3px;} .rec .body p{font-size:.82rem;color:var(--text-light);line-height:1.4;}
+  .grooming-card{background:var(--card);border-radius:8px;border:1px solid var(--border);padding:16px;margin-bottom:14px;}
+  .grooming-card .eq-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+  .grooming-card h4{font-size:.95rem;color:var(--primary);} .grooming-card .stats{display:flex;gap:10px;flex-wrap:wrap;}
+  .grooming-card .stat-pill{background:var(--zombie-light);color:var(--zombie);padding:3px 10px;border-radius:10px;font-size:.78rem;font-weight:600;}
+  .grooming-card .stat-pill.open{background:#e8f4fd;color:var(--info);}
+  .grooming-card ol{margin-left:18px;font-size:.85rem;line-height:1.7;} .grooming-card ol li{margin-bottom:4px;}
+  .chart-bars{display:flex;flex-direction:column;gap:8px;}
+  .chart-row{display:flex;align-items:center;gap:10px;font-size:.82rem;}
+  .chart-label{min-width:190px;text-align:right;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .chart-bar{height:22px;border-radius:3px;background:var(--zombie);display:flex;align-items:center;padding-left:8px;color:#fff;font-size:.75rem;font-weight:600;min-width:2px;}
+  .chart-num{font-size:.8rem;color:var(--text-light);}
+  .footer{text-align:center;padding:24px;font-size:.78rem;color:var(--text-light);border-top:1px solid var(--border);margin-top:20px;}
+  .diff-badge{display:inline-block;background:#e8f5e9;color:#2e7d32;border-radius:4px;padding:2px 7px;font-size:.75rem;font-weight:600;margin-left:6px;}
+  .diff-badge.up{background:#fce4ec;color:#c62828;}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🏥 Dashboard — Salud del Backlog Ágil</h1>
+  <div class="subtitle">Instituto Nacional de Seguros | Equipos en Transición a Servicio Digital</div>
+  <div class="meta">
+    <span>📅 Corte: <strong>28 junio 2026</strong></span>
+    <span>📋 Fuente: <strong>BacklogJun4_2026.xlsx</strong> (4,175 ítems)</span>
+    <span>🧟 Umbral zombie: <strong>30 días</strong></span>
+    <span>🏢 Equipos: <strong>33</strong></span>
+  </div>
+</div>
+<div class="nav">
+  <button class="active" onclick="showSection('resumen',this)">📊 Resumen Ejecutivo</button>
+  <button onclick="showSection('equipos',this)">👥 Por Equipo</button>
+  <button onclick="showSection('zombies',this)">🧟 Zombies</button>
+  <button onclick="showSection('tipos',this)">🗂️ Por Tipo</button>
+  <button onclick="showSection('migracion',this)">🚚 Migración</button>
+  <button onclick="showSection('grooming',this)">💬 Grooming</button>
+</div>
+<div class="main">
+
+<!-- RESUMEN -->
+<div id="resumen" class="section active">
+  <div class="kpi-grid">
+    <div class="kpi-card primary"><div class="kpi-value">4,175</div><div class="kpi-label">Total ítems</div></div>
+    <div class="kpi-card info"><div class="kpi-value">1,314</div><div class="kpi-label">Ítems abiertos</div><div class="kpi-sub">31.5% del total</div></div>
+    <div class="kpi-card success"><div class="kpi-value">2,543</div><div class="kpi-label">Terminados</div><div class="kpi-sub">60.9% del total</div></div>
+    <div class="kpi-card warning"><div class="kpi-value">318</div><div class="kpi-label">Removidos</div><div class="kpi-sub">7.6% del total</div></div>
+    <div class="kpi-card zombie"><div class="kpi-value">526</div><div class="kpi-label">🧟 Zombies</div><div class="kpi-sub">40.0% de abiertos</div></div>
+    <div class="kpi-card danger"><div class="kpi-value">86</div><div class="kpi-label">Días inact. prom. zombie</div><div class="kpi-sub">Máx: 172 días</div></div>
+    <div class="kpi-card warning"><div class="kpi-value">3</div><div class="kpi-label">⚠️ Riesgo migración</div><div class="kpi-sub">2 equipos en transición</div></div>
+    <div class="kpi-card info"><div class="kpi-value">62</div><div class="kpi-label">Días antigüedad prom.</div><div class="kpi-sub">ítems abiertos</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header">🔍 Hallazgos Clave</div>
+      <div class="card-body">
+        <div class="hallazgo critico">
+          <span class="icono">🚨</span>
+          <div class="texto">
+            <strong>40% de ítems abiertos son zombies (526 de 1,314)</strong>
+            <p>4 de cada 10 ítems abiertos llevan más de 30 días sin actividad. La inactividad promedio es de 86 días y la máxima llega a 172 días. Afecta a prácticamente todos los equipos activos.</p>
+          </div>
+        </div>
+        <div class="hallazgo critico">
+          <span class="icono">🏗️</span>
+          <div class="texto">
+            <strong>317 Épicas y Features zombie de 409 abiertas (77%)</strong>
+            <p>149 Épicas abiertas con 123 zombie (82.6%) y 260 Features abiertas con 194 zombie (74.6%). Gestión360, Gastos Médicos y Automóviles -Laboratorio- concentran la mayor parte.</p>
+          </div>
+        </div>
+        <div class="hallazgo critico">
+          <span class="icono">📉</span>
+          <div class="texto">
+            <strong>Automóviles -Laboratorio- con 84.3% de zombie rate</strong>
+            <p>43 de 51 ítems abiertos son zombie. Es el equipo activo con mayor proporción de backlog sin movimiento. Gestión360 (71.8%), OCC (72.2%) y SISEPO (69.6%) también superan el 69%.</p>
+          </div>
+        </div>
+        <div class="hallazgo advertencia">
+          <span class="icono">⚠️</span>
+          <div class="texto">
+            <strong>MAC y Fábrica de Productos: migración pendiente con 100% de zombie rate</strong>
+            <p>3 ítems abiertos en equipos En Transición — todos zombies. Los 2 User Stories de MAC llevan 148 días sin actividad. La migración al equipo sucesor no está activa.</p>
+          </div>
+        </div>
+        <div class="hallazgo positivo">
+          <span class="icono">✅</span>
+          <div class="texto">
+            <strong>PCE y Cobro Digital: mejor higiene del backlog</strong>
+            <p>PCE tiene 12.3% de zombie rate y Cobro Digital 19.0% — los mejores entre equipos activos con volumen significativo. Son referentes de buenas prácticas de gestión de backlog.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">📋 Recomendaciones</div>
+      <div class="card-body">
+        <div class="rec"><div class="num">1</div><div class="body">
+          <strong>Saneamiento urgente en top 5 equipos zombie</strong>
+          <p>Programar sesiones de grooming en: Seguro Obligatorio Automotor (56), Gastos Médicos -Lab- (52), Gestión360 (51), APPClientes (50), Automóviles -Lab- (43). Decidir Cerrar, Reactivar o Remover en máx. 2 semanas.</p>
+        </div></div>
+        <div class="rec"><div class="num">2</div><div class="body">
+          <strong>Cerrar migración MAC → MAC Servicio Digital</strong>
+          <p>2 User Stories con 148 días sin actividad. Coordinar transferencia formal o cierre antes de fin de Q3 2026. Incluir el Epic de Fábrica de Productos (37 días).</p>
+        </div></div>
+        <div class="rec"><div class="num">3</div><div class="body">
+          <strong>Auditoría de Épicas y Features paralizadas</strong>
+          <p>123 Épicas y 194 Features zombie. Revisar roadmap: eliminar iniciativas sin actividad &gt;90 días o re-validar valor con el negocio. Prioridad en Gastos Médicos (64 EF abiertas) y Gestión360 (53 EF abiertas).</p>
+        </div></div>
+        <div class="rec"><div class="num">4</div><div class="body">
+          <strong>Establecer revisión quincenal de backlog</strong>
+          <p>Para equipos con zombie rate &gt;60%: Automóviles -Lab- (84.3%), OCC (72.2%), Gestión360 (71.8%), SISEPO (69.6%), COTINS SD (67.3%), SEC (63.5%), Point General (63.3%), RT-Virtual (61.9%).</p>
+        </div></div>
+        <div class="rec"><div class="num">5</div><div class="body">
+          <strong>Limpiar ítems en equipos Cerrados y Duplicados</strong>
+          <p>Analítica de Datos CERRADO y CAI CERRADO tienen ítems activos. Reasignar o cerrar formalmente para mantener coherencia en ADO.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">📊 Top 10 Equipos por Zombies</div>
+    <div class="card-body"><div class="chart-bars" id="chart-summary"></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">🔎 Control de Calidad</div>
+    <div class="card-body" style="font-size:.88rem;line-height:2;">
+      <p>✅ <strong>Total conciliado:</strong> Abiertos (1,314) + Terminales (2,543) + Removidos (318) = <strong>4,175 ✓</strong></p>
+      <p>✅ <strong>Equipos sin clasificar:</strong> 0 (se incorporó "Analítica de Datos en Nube" como Transversal/Activo)</p>
+      <p>✅ <strong>Fechas válidas:</strong> Sin nulos en Created Date ni Changed Date</p>
+      <p>✅ <strong>Zombies verificados:</strong> 526 ítems — todos son abiertos con ≥30 días de inactividad</p>
+      <p>✅ <strong>Hechos separados de recomendaciones</strong> — análisis basado únicamente en datos observados</p>
+      <p>✅ <strong>Fuente correcta:</strong> BacklogJun4_2026.xlsx (4,175 ítems) — diferente al WIJUN2026ALL2 usado en la versión anterior (3,946 ítems)</p>
+    </div>
+  </div>
+</div>
+
+<!-- EQUIPOS -->
+<div id="equipos" class="section">
+  <div class="card">
+    <div class="card-header">👥 Detalle por Equipo <span class="badge" id="count-equipos"></span></div>
+    <div class="card-body">
+      <div class="search-bar">
+        <input type="text" id="search-equipo" placeholder="🔍 Buscar equipo..." oninput="filterEquipos()">
+        <select id="filter-estado" onchange="filterEquipos()">
+          <option value="">Todos los estados</option>
+          <option value="Activo">Activo</option>
+          <option value="En Transición">En Transición</option>
+          <option value="Cerrado">Cerrado</option>
+          <option value="Duplicado">Duplicado</option>
+        </select>
+      </div>
+      <div class="tbl-wrap">
+        <table class="data-table" id="tbl-equipos">
+          <thead><tr>
+            <th onclick="sortTbl('tbl-equipos',0)">Equipo ↕</th>
+            <th onclick="sortTbl('tbl-equipos',1)">Estado</th>
+            <th onclick="sortTbl('tbl-equipos',2)">Total ↕</th>
+            <th onclick="sortTbl('tbl-equipos',3)">Abiertos ↕</th>
+            <th onclick="sortTbl('tbl-equipos',4)">Terminales ↕</th>
+            <th onclick="sortTbl('tbl-equipos',5)">Removidos ↕</th>
+            <th onclick="sortTbl('tbl-equipos',6)">🧟 Zombies ↕</th>
+            <th onclick="sortTbl('tbl-equipos',7)">% Zombie ↕</th>
+            <th onclick="sortTbl('tbl-equipos',8)">Riesgo Mig.</th>
+            <th>Sucesor</th>
+          </tr></thead>
+          <tbody id="tbody-equipos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ZOMBIES -->
+<div id="zombies" class="section">
+  <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+    <div class="kpi-card zombie"><div class="kpi-value">526</div><div class="kpi-label">Total zombies</div></div>
+    <div class="kpi-card danger"><div class="kpi-value">40.0%</div><div class="kpi-label">% sobre abiertos</div></div>
+    <div class="kpi-card warning"><div class="kpi-value">86</div><div class="kpi-label">Días inact. prom.</div></div>
+    <div class="kpi-card danger"><div class="kpi-value">172</div><div class="kpi-label">Días inact. máx.</div></div>
+    <div class="kpi-card zombie"><div class="kpi-value">123</div><div class="kpi-label">🏛️ Épicas zombie</div></div>
+    <div class="kpi-card zombie"><div class="kpi-value">194</div><div class="kpi-label">📌 Features zombie</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header">🧟 Top 10 Equipos por Zombies</div>
+      <div class="card-body"><div class="chart-bars" id="chart-z-full"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-header">🧟 Zombies por Tipo</div>
+      <div class="card-body"><div class="chart-bars" id="chart-z-tipo"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">🧟 Top 20 Ítems Zombie por Inactividad</div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table class="data-table">
+          <thead><tr><th>ID</th><th>Equipo</th><th>Tipo</th><th>Estado</th><th>Título</th><th>Inactividad (días)</th><th>Antigüedad (días)</th></tr></thead>
+          <tbody id="tbody-zombies"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIPOS -->
+<div id="tipos" class="section">
+  <div class="card">
+    <div class="card-header">🗂️ Distribución por Tipo de Work Item</div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table class="data-table">
+          <thead><tr><th>Tipo</th><th>Abiertos</th><th>Terminales</th><th>Removidos</th><th>Total</th><th>🧟 Zombies</th><th>% Zombie / Abiertos</th></tr></thead>
+          <tbody id="tbody-tipos"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">📊 Top 15 Equipos — Épicas y Features Abiertas</div>
+    <div class="card-body"><div class="chart-bars" id="chart-ef"></div></div>
+  </div>
+</div>
+
+<!-- MIGRACIÓN -->
+<div id="migracion" class="section">
+  <div class="card">
+    <div class="card-header" style="background:var(--trans)">⚠️ Ítems en Riesgo de Migración <span class="badge">Equipos En Transición con ítems abiertos</span></div>
+    <div class="card-body">
+      <p style="font-size:.88rem;color:var(--text-light);margin-bottom:16px;">Ítems abiertos en equipos "En Transición". Deben transferirse al sucesor o cerrarse formalmente.</p>
+      <div class="tbl-wrap">
+        <table class="data-table">
+          <thead><tr><th>ID</th><th>Equipo Origen</th><th>Equipo Sucesor</th><th>Tipo</th><th>Estado</th><th>Inactividad (días)</th><th>Título</th></tr></thead>
+          <tbody id="tbody-mig"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">📋 Equipos en Transición — Resumen</div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>Equipo</th><th>Sucesor</th><th>Abiertos</th><th>Zombies</th><th>% Zombie</th><th>Riesgo Mig.</th></tr></thead>
+        <tbody>
+          <tr><td><strong>MAC</strong></td><td style="color:var(--trans)">MAC Servicio Digital</td><td class="num-danger">2</td><td class="num-zombie">2</td><td>100%</td><td class="num-danger">⚠️ 2</td></tr>
+          <tr><td><strong>Fábrica de Productos</strong></td><td style="color:var(--trans)">Fábrica de Productos Digital</td><td class="num-danger">1</td><td class="num-zombie">1</td><td>100%</td><td class="num-danger">⚠️ 1</td></tr>
+          <tr><td>NICOLAS-Vida</td><td>Agile Ninjas</td><td>0</td><td>—</td><td>—</td><td class="num-success">0</td></tr>
+          <tr><td>Equipo Scrum Marchamo</td><td>Seguro Obligatorio Automotor</td><td>0</td><td>—</td><td>—</td><td class="num-success">0</td></tr>
+          <tr><td>Laboratorio de Autos</td><td>Automóviles -Laboratorio-</td><td>0</td><td>—</td><td>—</td><td class="num-success">0</td></tr>
+          <tr><td>SIFA</td><td>Ágil SIFA</td><td>0</td><td>—</td><td>—</td><td class="num-success">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- GROOMING -->
+<div id="grooming" class="section">
+  <div class="card">
+    <div class="card-header">💬 Preguntas de Grooming por Equipo <span class="badge">Top 10 por zombies</span></div>
+    <div class="card-body">
+      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:18px;">Generadas automáticamente a partir de las métricas reales. Usar en sesiones de refinamiento o retrospectiva de backlog.</p>
+      <div id="grooming-cards"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+<div class="footer">Dashboard — Salud del Backlog Ágil | INS | Corte: 28 jun 2026 | Fuente: BacklogJun4_2026.xlsx (4,175 ítems) | Generado con Cowork + Claude</div>
+
+<script>
+const DATA_EQUIPOS=[{"equipo": "Seguro Obligatorio Automotor", "total": 448, "abiertos": 154, "terminales": 272, "removidos": 22, "zombies": 56, "pct_zombie": 36.4, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Gastos Médicos -Laboratorio-", "total": 423, "abiertos": 143, "terminales": 269, "removidos": 11, "zombies": 52, "pct_zombie": 36.4, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Gestión360", "total": 264, "abiertos": 71, "terminales": 93, "removidos": 100, "zombies": 51, "pct_zombie": 71.8, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "APPClientes", "total": 306, "abiertos": 170, "terminales": 110, "removidos": 26, "zombies": 50, "pct_zombie": 29.4, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Automóviles -Laboratorio-", "total": 109, "abiertos": 51, "terminales": 58, "removidos": 0, "zombies": 43, "pct_zombie": 84.3, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "COTINS Servicio Digital", "total": 147, "abiertos": 55, "terminales": 84, "removidos": 8, "zombies": 37, "pct_zombie": 67.3, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "SEC", "total": 115, "abiertos": 52, "terminales": 62, "removidos": 1, "zombies": 33, "pct_zombie": 63.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "ESB-INS-Servicio Digital", "total": 323, "abiertos": 65, "terminales": 254, "removidos": 4, "zombies": 25, "pct_zombie": 38.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Point General Ágil", "total": 52, "abiertos": 30, "terminales": 20, "removidos": 2, "zombies": 19, "pct_zombie": 63.3, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "SISEPO", "total": 40, "abiertos": 23, "terminales": 15, "removidos": 2, "zombies": 16, "pct_zombie": 69.6, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Ins en Línea", "total": 93, "abiertos": 32, "terminales": 59, "removidos": 2, "zombies": 15, "pct_zombie": 46.9, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "AsesorINS", "total": 171, "abiertos": 40, "terminales": 103, "removidos": 28, "zombies": 14, "pct_zombie": 35.0, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "OCC", "total": 68, "abiertos": 18, "terminales": 47, "removidos": 3, "zombies": 13, "pct_zombie": 72.2, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "RT-Virtual", "total": 131, "abiertos": 21, "terminales": 103, "removidos": 7, "zombies": 13, "pct_zombie": 61.9, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Cobro Digital", "total": 230, "abiertos": 58, "terminales": 167, "removidos": 5, "zombies": 11, "pct_zombie": 19.0, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Ecosistema Digital", "total": 72, "abiertos": 26, "terminales": 46, "removidos": 0, "zombies": 10, "pct_zombie": 38.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Analítica Servicio Digital", "total": 181, "abiertos": 48, "terminales": 133, "removidos": 0, "zombies": 10, "pct_zombie": 20.8, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "ASEGURATE", "total": 120, "abiertos": 24, "terminales": 96, "removidos": 0, "zombies": 9, "pct_zombie": 37.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Soluciones Tecnológicas Ejecutivas", "total": 72, "abiertos": 24, "terminales": 48, "removidos": 0, "zombies": 9, "pct_zombie": 37.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Fábrica de Productos Digital", "total": 86, "abiertos": 37, "terminales": 42, "removidos": 7, "zombies": 6, "pct_zombie": 16.2, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "PCE", "total": 156, "abiertos": 57, "terminales": 99, "removidos": 0, "zombies": 6, "pct_zombie": 10.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Analítica de Datos CERRADO", "total": 23, "abiertos": 6, "terminales": 17, "removidos": 0, "zombies": 6, "pct_zombie": 100.0, "riesgo_mig": 0, "estado_equipo": "Cerrado", "sucesor": "Analítica Servicio Digital"}, {"equipo": "Seguro Riesgos del Trabajo", "total": 36, "abiertos": 5, "terminales": 16, "removidos": 15, "zombies": 5, "pct_zombie": 100.0, "riesgo_mig": 0, "estado_equipo": "Duplicado", "sucesor": "Seguro de Riesgos del Trabajo"}, {"equipo": "Ágil SIFA", "total": 24, "abiertos": 13, "terminales": 5, "removidos": 6, "zombies": 4, "pct_zombie": 30.8, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "ACD", "total": 186, "abiertos": 16, "terminales": 112, "removidos": 58, "zombies": 3, "pct_zombie": 18.8, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "CRM Servicio Digital", "total": 53, "abiertos": 24, "terminales": 25, "removidos": 4, "zombies": 3, "pct_zombie": 12.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "MAC", "total": 18, "abiertos": 2, "terminales": 14, "removidos": 2, "zombies": 2, "pct_zombie": 100.0, "riesgo_mig": 2, "estado_equipo": "En Transición", "sucesor": "MAC Servicio Digital"}, {"equipo": "Analítica de Datos en Nube", "total": 31, "abiertos": 16, "terminales": 15, "removidos": 0, "zombies": 2, "pct_zombie": 12.5, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "CAI CERRADO", "total": 1, "abiertos": 1, "terminales": 0, "removidos": 0, "zombies": 1, "pct_zombie": 100.0, "riesgo_mig": 0, "estado_equipo": "Cerrado", "sucesor": ""}, {"equipo": "Fábrica de Productos", "total": 6, "abiertos": 1, "terminales": 4, "removidos": 1, "zombies": 1, "pct_zombie": 100.0, "riesgo_mig": 1, "estado_equipo": "En Transición", "sucesor": "Fábrica de Productos Digital"}, {"equipo": "MAC Servicio Digital", "total": 84, "abiertos": 23, "terminales": 58, "removidos": 3, "zombies": 1, "pct_zombie": 4.3, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "Segmentación de Clientes", "total": 65, "abiertos": 5, "terminales": 59, "removidos": 1, "zombies": 0, "pct_zombie": 0.0, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}, {"equipo": "SIRERE Reaseg", "total": 41, "abiertos": 3, "terminales": 38, "removidos": 0, "zombies": 0, "pct_zombie": 0.0, "riesgo_mig": 0, "estado_equipo": "Activo", "sucesor": ""}];
+const DATA_EF=[{"equipo": "Gastos Médicos -Laboratorio-", "epicas": 26, "features": 42, "total_ef": 68}, {"equipo": "Gestión360", "epicas": 15, "features": 38, "total_ef": 53}, {"equipo": "Automóviles -Laboratorio-", "epicas": 18, "features": 19, "total_ef": 37}, {"equipo": "SEC", "epicas": 14, "features": 20, "total_ef": 34}, {"equipo": "APPClientes", "epicas": 10, "features": 21, "total_ef": 31}, {"equipo": "Fábrica de Productos Digital", "epicas": 0, "features": 24, "total_ef": 24}, {"equipo": "Analítica Servicio Digital", "epicas": 10, "features": 9, "total_ef": 19}, {"equipo": "COTINS Servicio Digital", "epicas": 7, "features": 8, "total_ef": 15}, {"equipo": "AsesorINS", "epicas": 4, "features": 10, "total_ef": 14}, {"equipo": "Ins en Línea", "epicas": 5, "features": 8, "total_ef": 13}, {"equipo": "PCE", "epicas": 4, "features": 8, "total_ef": 12}, {"equipo": "RT-Virtual", "epicas": 5, "features": 7, "total_ef": 12}, {"equipo": "OCC", "epicas": 5, "features": 6, "total_ef": 11}, {"equipo": "Soluciones Tecnológicas Ejecutivas", "epicas": 2, "features": 7, "total_ef": 9}, {"equipo": "CRM Servicio Digital", "epicas": 5, "features": 4, "total_ef": 9}, {"equipo": "Cobro Digital", "epicas": 3, "features": 5, "total_ef": 8}, {"equipo": "Ecosistema Digital", "epicas": 4, "features": 4, "total_ef": 8}, {"equipo": "Seguro Obligatorio Automotor", "epicas": 2, "features": 4, "total_ef": 6}, {"equipo": "Ágil SIFA", "epicas": 2, "features": 3, "total_ef": 5}, {"equipo": "SISEPO", "epicas": 2, "features": 2, "total_ef": 4}, {"equipo": "Analítica de Datos CERRADO", "epicas": 0, "features": 4, "total_ef": 4}, {"equipo": "ACD", "epicas": 2, "features": 2, "total_ef": 4}, {"equipo": "Analítica de Datos en Nube", "epicas": 1, "features": 2, "total_ef": 3}, {"equipo": "Point General Ágil", "epicas": 1, "features": 1, "total_ef": 2}, {"equipo": "SIRERE Reaseg", "epicas": 1, "features": 1, "total_ef": 2}, {"equipo": "ASEGURATE", "epicas": 0, "features": 1, "total_ef": 1}, {"equipo": "Fábrica de Productos", "epicas": 1, "features": 0, "total_ef": 1}];
+const DATA_ZOMBIES=[{"id": 253184, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: PROCESO NOTIFICACIÓN PÓLIZAS EN MORA (Filtro forma de pago)", "estado": "New", "inactividad": 172, "antiguedad": 172}, {"id": 253195, "equipo": "SEC", "tipo": "Epic", "titulo": "SEC: REPORTE DE TRANSACCIONES (Revisión)", "estado": "New", "inactividad": 172, "antiguedad": 172}, {"id": 253196, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: REPORTE DE TRANSACCIONES (Revisión)", "estado": "New", "inactividad": 172, "antiguedad": 172}, {"id": 253245, "equipo": "COTINS Servicio Digital", "tipo": "Epic", "titulo": ".NET Cambio en PDF de informe de cotización en COTINS", "estado": "To Do", "inactividad": 172, "antiguedad": 172}, {"id": 253262, "equipo": "Gastos Médicos -Laboratorio-", "tipo": "Product Backlog Item", "titulo": "Historia - VCCT - Corregir el valor de la tarifa ponderada según frecu...", "estado": "To Do", "inactividad": 172, "antiguedad": 172}, {"id": 253944, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Incorporación de nuevo modelo de asistencias (ASI)", "estado": "In Progress", "inactividad": 171, "antiguedad": 171}, {"id": 253955, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Incidencias del sistema I Trimestre 2026", "estado": "In Progress", "inactividad": 171, "antiguedad": 171}, {"id": 253958, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Incidencias del sistema III Trimestre 2026", "estado": "To Do", "inactividad": 171, "antiguedad": 171}, {"id": 253959, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Incidencias Enero", "estado": "In Progress", "inactividad": 171, "antiguedad": 171}, {"id": 253963, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Incidencias Febrero", "estado": "New", "inactividad": 171, "antiguedad": 171}, {"id": 253979, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Mejoras proceso inclusión", "estado": "New", "inactividad": 171, "antiguedad": 171}, {"id": 253981, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Módulo creación de casos", "estado": "To Do", "inactividad": 171, "antiguedad": 171}, {"id": 254047, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Caso por contingente", "estado": "In Progress", "inactividad": 170, "antiguedad": 170}, {"id": 254060, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Mejora en configuración del sistema", "estado": "In Progress", "inactividad": 170, "antiguedad": 170}, {"id": 254284, "equipo": "SEC", "tipo": "Epic", "titulo": "SEC: INS MOVIL (APP)", "estado": "New", "inactividad": 170, "antiguedad": 170}, {"id": 254286, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: Certificación de Exoneración RT para app INS Móvil", "estado": "New", "inactividad": 170, "antiguedad": 170}, {"id": 255348, "equipo": "SEC", "tipo": "Epic", "titulo": "SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS", "estado": "New", "inactividad": 165, "antiguedad": 165}, {"id": 255349, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS", "estado": "New", "inactividad": 165, "antiguedad": 165}, {"id": 256081, "equipo": "ASEGURATE", "tipo": "PBI Técnico", "titulo": "Ajustes sitio BN", "estado": "New", "inactividad": 163, "antiguedad": 163}, {"id": 256225, "equipo": "AsesorINS", "tipo": "Epic", "titulo": "Formularios Namirial INS", "estado": "New", "inactividad": 163, "antiguedad": 163}];
+const DATA_TIPOS=[{"tipo": "Epic", "Abiertos": 149, "Terminales": 9, "Removidos": 5, "Zombies": 123}, {"tipo": "Feature", "Abiertos": 260, "Terminales": 57, "Removidos": 8, "Zombies": 194}, {"tipo": "PBI Obligatorio", "Abiertos": 1, "Terminales": 0, "Removidos": 0, "Zombies": 0}, {"tipo": "PBI Técnico", "Abiertos": 192, "Terminales": 410, "Removidos": 11, "Zombies": 37}, {"tipo": "Product Backlog Item", "Abiertos": 148, "Terminales": 484, "Removidos": 113, "Zombies": 18}, {"tipo": "Servicio Digital", "Abiertos": 187, "Terminales": 523, "Removidos": 20, "Zombies": 56}, {"tipo": "User Story", "Abiertos": 377, "Terminales": 1060, "Removidos": 161, "Zombies": 98}];
+const DATA_MIG=[{"id": 261058, "equipo": "MAC", "sucesor": "MAC Servicio Digital", "tipo": "User Story", "estado": "New", "inactividad": 148, "titulo": ".NET Optimización del monitor de facturación"}, {"id": 261059, "equipo": "MAC", "sucesor": "MAC Servicio Digital", "tipo": "User Story", "estado": "New", "inactividad": 148, "titulo": ".NET Preparación para el pase de Develop a Master"}, {"id": 257508, "equipo": "Fábrica de Productos", "sucesor": "Fábrica de Productos Digital", "tipo": "Epic", "estado": "New", "inactividad": 37, "titulo": "Expomovil 2026"}];
+const DATA_PREGUNTAS=[{"equipo": "Seguro Obligatorio Automotor", "zombies": 56, "abiertos": 154, "pct_zombie": 36.4, "estado": "Activo", "preguntas": ["¿Cuáles de los 56 ítems zombie (36.4% de abiertos) siguen siendo relevantes o pueden cerrarse?", "¿Las 2 épicas y 4 features abiertas tienen priorización activa en el roadmap?"]}, {"equipo": "Gastos Médicos -Laboratorio-", "zombies": 52, "abiertos": 143, "pct_zombie": 36.4, "estado": "Activo", "preguntas": ["¿Cuáles de los 52 ítems zombie (36.4% de abiertos) siguen siendo relevantes o pueden cerrarse?", "¿Las 26 épicas y 42 features abiertas tienen priorización activa en el roadmap?"]}, {"equipo": "Gestión360", "zombies": 51, "abiertos": 71, "pct_zombie": 71.8, "estado": "Activo", "preguntas": ["¿Cuáles de los 51 ítems zombie (71.8% de abiertos) siguen siendo relevantes o pueden cerrarse?", "¿Las 15 épicas y 38 features abiertas tienen priorización activa en el roadmap?", "Con 71.8% de zombies, ¿cuándo se realizará la sesión de saneamiento del backlog?"]}, {"equipo": "APPClientes", "zombies": 50, "abiertos": 170, "pct_zombie": 29.4, "estado": "Activo", "preguntas": ["¿Cuáles de los 50 ítems zombie (29.4% de abiertos) siguen siendo relevantes o pueden cerrarse?", "¿Las 10 épicas y 21 features abiertas tienen priorización activa en el roadmap?"]}, {"equipo": "Automóviles -Laboratorio-", "zombies": 43, "abiertos": 51, "pct_zombie": 84.3, "estado": "Activo", "preguntas": ["¿Cuáles de los 43 ítems zombie (84.3% de abiertos) siguen siendo relevantes o pueden cerrarse?", "¿Las 18 épicas y 19 features abiertas tienen priorización activa en el roadmap?", "Con 84.3% de zombies, ¿cuándo se realizará la sesión de saneamiento del backlog?"]}, {"equipo": "COTINS Servicio Digital", "zombies": 37, "abiertos": 55, "pct_zombie": 67.3, "estado": "Activo", "preguntas": ["¿Cuáles de los 37 ítems zombie (67.3% de abiertos) siguen siendo relevantes o pueden cerrarse?", "¿Las 7 épicas y 8 features abiertas tienen priorización activa en el roadmap?", "Con 67.3% de zombies, ¿cuándo se realizará la sesión de saneamiento del backlog?"]}, {"equipo": "SEC", "zombies": 33, "abiertos": 52, "pct_zombie": 63.5, "estado": "Activo", "preguntas": ["¿Cuáles de los 33 ítems zombie (63.5% de abiertos) siguen siendo relevantes o pueden cerrarse?", "¿Las 14 épicas y 20 features abiertas tienen priorización activa en el roadmap?", "Con 63.5% de zombies, ¿cuándo se realizará la sesión de saneamiento del backlog?"]}, {"equipo": "ESB-INS-Servicio Digital", "zombies": 25, "abiertos": 65, "pct_zombie": 38.5, "estado": "Activo", "preguntas": ["¿Cuáles de los 25 ítems zombie (38.5% de abiertos) siguen siendo relevantes o pueden cerrarse?"]}, {"equipo": "Point General Ágil", "zombies": 19, "abiertos": 30, "pct_zombie": 63.3, "estado": "Activo", "preguntas": ["¿Cuáles de los 19 ítems zombie (63.3% de abiertos) siguen siendo relevantes o pueden cerrarse?", "Con 63.3% de zombies, ¿cuándo se realizará la sesión de saneamiento del backlog?"]}, {"equipo": "SISEPO", "zombies": 16, "abiertos": 23, "pct_zombie": 69.6, "estado": "Activo", "preguntas": ["¿Cuáles de los 16 ítems zombie (69.6% de abiertos) siguen siendo relevantes o pueden cerrarse?", "Con 69.6% de zombies, ¿cuándo se realizará la sesión de saneamiento del backlog?"]}];
+
+function showSection(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function badgeEstado(e){
+  const m={'Activo':'badge-activo','En Transición':'badge-transicion','Cerrado':'badge-cerrado','Duplicado':'badge-duplicado'};
+  return `<span class="badge-estado ${m[e]||''}">${e}</span>`;
+}
+function bar(pct){
+  const cls=pct<30?'low':pct<60?'med':'high';
+  return `<div class="pct-bar"><div class="bar-outer"><div class="bar-inner ${cls}" style="width:${Math.min(pct,100)}%"></div></div><span>${pct}%</span></div>`;
+}
+function renderEquipos(list){
+  document.getElementById('tbody-equipos').innerHTML=list.map(r=>`<tr>
+    <td><strong>${r.equipo}</strong></td><td>${badgeEstado(r.estado_equipo)}</td>
+    <td>${r.total}</td><td>${r.abiertos}</td><td class="num-success">${r.terminales}</td>
+    <td>${r.removidos}</td><td class="num-zombie">${r.zombies}</td><td>${bar(r.pct_zombie)}</td>
+    <td>${r.riesgo_mig>0?`<span class="num-danger">⚠️ ${r.riesgo_mig}</span>`:'—'}</td>
+    <td style="font-size:.78rem;color:var(--text-light)">${r.sucesor||'—'}</td>
+  </tr>`).join('');
+  document.getElementById('count-equipos').textContent=list.length+' equipos';
+}
+function filterEquipos(){
+  const q=document.getElementById('search-equipo').value.toLowerCase();
+  const est=document.getElementById('filter-estado').value;
+  renderEquipos(DATA_EQUIPOS.filter(r=>r.equipo.toLowerCase().includes(q)&&(!est||r.estado_equipo===est)));
+}
+function renderZombies(){
+  document.getElementById('tbody-zombies').innerHTML=DATA_ZOMBIES.map(r=>`<tr>
+    <td style="font-size:.78rem;color:var(--text-light)">${r.id}</td><td>${r.equipo}</td>
+    <td><code style="font-size:.75rem;background:#f0f0f0;padding:2px 6px;border-radius:3px">${r.tipo}</code></td>
+    <td>${r.estado}</td><td style="font-size:.8rem" title="${r.titulo}">${r.titulo}</td>
+    <td class="num-zombie"><strong>${r.inactividad}</strong></td><td style="color:var(--text-light)">${r.antiguedad}</td>
+  </tr>`).join('');
+}
+function renderTipos(){
+  document.getElementById('tbody-tipos').innerHTML=DATA_TIPOS.map(r=>{
+    const total=r.Abiertos+r.Terminales+r.Removidos;
+    const pct=r.Abiertos>0?Math.round(r.Zombies/r.Abiertos*100):0;
+    return `<tr><td><strong>${r.tipo}</strong></td><td class="num-danger">${r.Abiertos}</td>
+      <td class="num-success">${r.Terminales}</td><td>${r.Removidos}</td><td>${total}</td>
+      <td class="num-zombie">${r.Zombies}</td><td>${bar(pct)}</td></tr>`;
+  }).join('');
+}
+function renderMig(){
+  document.getElementById('tbody-mig').innerHTML=DATA_MIG.map(r=>`<tr>
+    <td style="font-size:.78rem;color:var(--text-light)">${r.id}</td>
+    <td><strong>${r.equipo}</strong></td><td style="color:var(--trans)">${r.sucesor}</td>
+    <td>${r.tipo}</td><td>${r.estado}</td>
+    <td class="num-danger"><strong>${r.inactividad}</strong></td>
+    <td style="font-size:.8rem">${r.titulo}</td>
+  </tr>`).join('');
+}
+function renderGrooming(){
+  document.getElementById('grooming-cards').innerHTML=DATA_PREGUNTAS.map(r=>`
+    <div class="grooming-card">
+      <div class="eq-header"><h4>${r.equipo}</h4>
+        <div class="stats">
+          <span class="stat-pill open">📂 ${r.abiertos} abiertos</span>
+          <span class="stat-pill">🧟 ${r.zombies} zombies (${r.pct_zombie}%)</span>
+        </div>
+      </div>
+      <ol>${r.preguntas.map(q=>`<li>${q}</li>`).join('')}</ol>
+    </div>`).join('');
+}
+function renderChart(id,data,keyVal,keyLabel,maxW){
+  const max=Math.max(...data.map(d=>d[keyVal]));
+  document.getElementById(id).innerHTML=data.map(d=>`
+    <div class="chart-row">
+      <div class="chart-label" title="${d[keyLabel]}">${d[keyLabel]}</div>
+      <div class="chart-bar" style="width:${Math.max(d[keyVal]/max*maxW,d[keyVal]>0?20:0)}px">${d[keyVal]>0?d[keyVal]:''}</div>
+      <div class="chart-num">${d.pct_zombie!==undefined?d.pct_zombie+'%':'de '+d.Abiertos+' ab.'}</div>
+    </div>`).join('');
+}
+function renderChartEF(){
+  const top15=DATA_EF.slice(0,15);const maxT=Math.max(...top15.map(e=>e.total_ef));
+  document.getElementById('chart-ef').innerHTML=top15.map(e=>`
+    <div class="chart-row">
+      <div class="chart-label" title="${e.equipo}">${e.equipo}</div>
+      <div style="display:flex;gap:2px">
+        <div class="chart-bar" style="background:var(--primary);width:${Math.max(e.epicas/maxT*200,e.epicas>0?14:0)}px">${e.epicas>0?e.epicas:''}</div>
+        <div class="chart-bar" style="background:var(--accent);width:${Math.max(e.features/maxT*200,e.features>0?14:0)}px">${e.features>0?e.features:''}</div>
+      </div>
+      <div class="chart-num">EF: ${e.total_ef}</div>
+    </div>`).join('')+
+    '<div style="margin-top:12px;font-size:.78rem;color:var(--text-light)"><span style="display:inline-block;width:12px;height:12px;background:var(--primary);margin-right:4px;border-radius:2px"></span>Épicas &nbsp;<span style="display:inline-block;width:12px;height:12px;background:var(--accent);margin-right:4px;border-radius:2px"></span>Features</div>';
+}
+let sortDir={};
+function sortTbl(tid,col){
+  const rows=[...document.getElementById(tid).querySelectorAll('tbody tr')];
+  const key=tid+col; sortDir[key]=!sortDir[key];
+  rows.sort((a,b)=>{
+    const av=a.cells[col]?.innerText.replace(/[^0-9.\-]/g,'')||'';
+    const bv=b.cells[col]?.innerText.replace(/[^0-9.\-]/g,'')||'';
+    const an=parseFloat(av),bn=parseFloat(bv);
+    if(!isNaN(an)&&!isNaN(bn)) return sortDir[key]?an-bn:bn-an;
+    return sortDir[key]?av.localeCompare(bv,'es'):bv.localeCompare(av,'es');
+  });
+  const tid2='tbody-'+tid.replace('tbl-','');
+  const tb=document.getElementById(tid2)||document.getElementById(tid).querySelector('tbody');
+  rows.forEach(r=>tb.appendChild(r));
+}
+// INIT
+renderEquipos(DATA_EQUIPOS);
+renderZombies();
+renderTipos();
+renderMig();
+renderGrooming();
+const top10eq=DATA_EQUIPOS.filter(e=>e.zombies>0).slice(0,10);
+renderChart('chart-summary',top10eq,'zombies','equipo',380);
+renderChart('chart-z-full',top10eq,'zombies','equipo',320);
+const tiposZ=DATA_TIPOS.filter(t=>t.Zombies>0).sort((a,b)=>b.Zombies-a.Zombies);
+document.getElementById('chart-z-tipo').innerHTML=tiposZ.map(t=>{
+  const max=Math.max(...tiposZ.map(x=>x.Zombies));
+  const ab=t.Abiertos>0?Math.round(t.Zombies/t.Abiertos*100):0;
+  return `<div class="chart-row"><div class="chart-label">${t.tipo}</div>
+    <div class="chart-bar" style="width:${Math.max(t.Zombies/max*280,20)}px">${t.Zombies}</div>
+    <div class="chart-num">de ${t.Abiertos} ab. (${ab}%)</div></div>`;
+}).join('');
+renderChartEF();
+</script>
+</body>
+</html>
