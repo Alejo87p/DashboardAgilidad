@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis de prácticas de los equipos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --navy:#0d1b2a; --navy2:#132a3e; --ink:#101828; --ink-soft:#475467;
+    --paper:#f5f6f8; --card:#ffffff; --line:#e4e7ec;
+    --teal:#0f6e56; --teal-l:#e1f5ee; --teal-d:#04342c;
+    --coral:#d85a30; --coral-l:#faece7; --coral-d:#4a1b0c;
+    --amber:#ba7517; --amber-l:#faeeda; --amber-d:#412402;
+    --red:#a32d2d; --red-l:#fcebeb; --red-d:#501313;
+    --green:#3b6d11; --green-l:#eaf3de; --green-d:#173404;
+    --blue:#185fa5; --blue-l:#e6f1fb; --blue-d:#042c53;
+    --purple:#534ab7; --purple-l:#eeedfe; --purple-d:#26215c;
+    --radius:14px; --shadow:0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px 80px;}
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:2.5px solid #6fb3f2; outline-offset:2px; border-radius:6px;
+  }
+  .hero :focus-visible{outline-color:#7fd8c0;}
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+    color:#fff; padding:48px 28px 30px;
+  }
+  .hero-inner{max-width:1180px; margin:0 auto;}
+  .eyebrow{
+    text-transform:uppercase; letter-spacing:.14em; font-size:12px; font-weight:700;
+    color:#7fd8c0; margin:0 0 12px;
+  }
+  .hero h1{
+    font-family:'Fraunces',serif; font-weight:500; font-size:40px; line-height:1.15;
+    margin:0 0 12px; max-width:780px;
+  }
+  .hero p.lead{ font-size:16px; color:#c4cdd8; max-width:680px; margin:0 0 24px; line-height:1.6;}
+  .hero-meta{display:flex; flex-wrap:wrap; gap:10px;}
+  .meta-chip{
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+    padding:6px 14px; border-radius:20px; font-size:13px; color:#dde3ea;
+  }
+  .meta-chip b{color:#fff;}
+
+  .navbar{
+    position:sticky; top:0; z-index:40; background:rgba(13,27,42,.97);
+    backdrop-filter:blur(6px); border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .navbar-inner{
+    max-width:1180px; margin:0 auto; padding:0 28px; display:flex;
+    align-items:center; justify-content:space-between; height:60px;
+  }
+  .navbar .brand{font-size:13px; font-weight:700; color:#fff; letter-spacing:.02em;}
+  .navbar .brand span{color:#7fd8c0;}
+  .tabbar{
+    display:flex; gap:4px; background:rgba(255,255,255,.07); padding:4px;
+    border-radius:12px;
+  }
+  .tab-btn{
+    border:none; background:transparent; color:#c4cdd8; font-family:inherit;
+    font-size:14px; font-weight:600; padding:9px 18px; border-radius:9px;
+    cursor:pointer; transition:background .15s, color .15s;
+  }
+  .tab-btn.active{background:#fff; color:var(--navy);}
+  .tab-btn[aria-selected="true"]{background:#fff; color:var(--navy);}
+  .tab-btn:not(.active):hover{color:#fff; background:rgba(255,255,255,.06);}
+
+  .page{display:none; padding-top:40px; scroll-margin-top:76px;}
+  .page.active{display:block; animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .kpi-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:28px;}
+  .kpi{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 18px 16px; box-shadow:var(--shadow);
+  }
+  .kpi .num{font-family:'Fraunces',serif; font-size:30px; font-weight:500; line-height:1; margin-bottom:6px;}
+  .kpi .lbl{font-size:12.5px; color:var(--ink-soft); font-weight:500; line-height:1.3;}
+  .kpi .tag{display:inline-block; margin-top:8px; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px;}
+
+  .section-title{
+    display:flex; align-items:baseline; gap:10px; margin:0 0 4px;
+  }
+  .section-title h2{font-family:'Fraunces',serif; font-weight:500; font-size:23px; margin:0; color:var(--ink);}
+  .section-num{
+    font-size:12px; font-weight:800; color:#fff; background:var(--navy);
+    width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
+  }
+  .section-sub{color:var(--ink-soft); font-size:14px; margin:0 0 20px;}
+  section{margin-bottom:44px;}
+
+  .grid2{display:grid; grid-template-columns:1.15fr .85fr; gap:18px;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:22px 24px; transition:box-shadow .18s, transform .18s;
+  }
+  .card h3{margin:0 0 14px; font-size:15px; font-weight:700;}
+  .chart-box{position:relative; height:260px;}
+
+  .insight-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .insight{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 20px; box-shadow:var(--shadow); border-top:3px solid var(--teal);
+    transition:box-shadow .18s, transform .18s;
+  }
+  .insight:hover, .card:hover{
+    box-shadow:0 4px 14px rgba(16,24,40,.09); transform:translateY(-2px);
+  }
+  .insight:nth-child(2){border-top-color:var(--coral);}
+  .insight:nth-child(3){border-top-color:var(--amber);}
+  .insight:nth-child(4){border-top-color:var(--purple);}
+  .insight:nth-child(5){border-top-color:var(--blue);}
+  .insight:nth-child(6){border-top-color:var(--red);}
+  .insight .k{font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:8px;}
+  .insight p{margin:0; font-size:14px; line-height:1.55;}
+  .insight strong{color:var(--ink);}
+
+  .chip-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .pat-chip{
+    background:var(--coral-l); color:var(--coral-d); border:1px solid #f0c3ad;
+    padding:9px 15px; border-radius:10px; font-size:13.5px; font-weight:500; line-height:1.4; max-width:340px;
+  }
+
+  .root-list{display:flex; flex-direction:column; gap:10px;}
+  .root-item{
+    display:grid; grid-template-columns:120px 1fr; gap:16px; align-items:start;
+    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 20px;
+  }
+  .cause-tag{
+    font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+    padding:5px 10px; border-radius:8px; text-align:center; height:fit-content;
+  }
+  .tag-proceso{background:var(--blue-l); color:var(--blue-d);}
+  .tag-cultura{background:var(--purple-l); color:var(--purple-d);}
+  .tag-liderazgo{background:var(--coral-l); color:var(--coral-d);}
+  .tag-skills{background:var(--amber-l); color:var(--amber-d);}
+  .root-item p{margin:0; font-size:14px; line-height:1.55; color:var(--ink);}
+  .root-item p b{color:var(--ink);}
+
+  .rec-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .rec-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:22px 24px; box-shadow:var(--shadow);}
+  .rec-card h3{display:flex; align-items:center; gap:8px; font-size:15px;}
+  .rec-badge{font-size:11px; font-weight:800; padding:3px 10px; border-radius:20px;}
+  .rec-badge.tac{background:var(--teal-l); color:var(--teal-d);}
+  .rec-badge.est{background:var(--navy); color:#fff;}
+  .rec-card ol{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:10px;}
+  .rec-card li{font-size:14px; line-height:1.55;}
+  .rec-card li::marker{font-weight:700; color:var(--ink-soft);}
+
+  .quad-wrap{display:grid; grid-template-columns:1fr; gap:8px;}
+  .quad-box{position:relative; height:380px;}
+  .quad-legend{display:flex; gap:18px; font-size:12px; color:var(--ink-soft); margin-top:8px;}
+  .quad-legend span{display:flex; align-items:center; gap:6px;}
+  .dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
+
+  .picker-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;}
+  .sort-group{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-soft);}
+  .sort-group select{
+    font-family:inherit; font-size:13px; font-weight:600; color:var(--ink);
+    border:1px solid var(--line); background:var(--card); border-radius:8px;
+    padding:6px 10px; cursor:pointer;
+  }
+  .team-picker{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; margin-bottom:28px;}
+  .team-tile{
+    background:var(--card); border:1.5px solid var(--line); border-radius:12px; padding:14px 16px;
+    cursor:pointer; transition:border-color .15s, box-shadow .15s, transform .15s; text-align:left;
+  }
+  .team-tile:hover{border-color:#c7cdd6; transform:translateY(-2px); box-shadow:var(--shadow);}
+  .team-tile.active{border-color:var(--navy); box-shadow:0 0 0 3px rgba(13,27,42,.08);}
+  .team-tile .tname{font-weight:700; font-size:14px; margin-bottom:8px; line-height:1.3; min-height:36px;}
+  .team-tile .tmeta{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .mbadge{font-size:10.5px; font-weight:800; padding:3px 9px; border-radius:20px; white-space:nowrap;}
+  .scount{font-size:12px; color:var(--ink-soft); white-space:nowrap;}
+
+  .team-detail{display:none;}
+  .team-detail.active{display:block; animation:fade .3s ease;}
+  .detail-head{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px; gap:20px;}
+  .detail-head h2{font-family:'Fraunces',serif; font-weight:500; font-size:26px; margin:0 0 6px;}
+  .detail-head .diag{font-size:14.5px; color:var(--ink-soft); max-width:640px; line-height:1.6; margin:0;}
+  .maturity-gauge{min-width:170px; text-align:right;}
+  .gauge-label{font-size:11px; font-weight:700; text-transform:uppercase; color:var(--ink-soft); letter-spacing:.05em; margin-bottom:6px;}
+  .gauge-track{height:8px; background:var(--line); border-radius:20px; overflow:hidden; margin-bottom:6px;}
+  .gauge-fill{height:100%; border-radius:20px;}
+  .gauge-val{font-size:13px; font-weight:700;}
+
+  .detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .ceremony-badge{display:inline-block; margin-left:8px; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; padding:3px 9px; border-radius:20px; background:var(--purple-l); color:var(--purple-d); vertical-align:middle;}
+  .eng-card{border-left:3px solid var(--teal); border-radius:12px;}
+  .detail-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow);}
+  .detail-card h4{margin:0 0 12px; font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); display:flex; align-items:center; gap:7px;}
+  .detail-card ul{margin:0; padding-left:16px; display:flex; flex-direction:column; gap:8px;}
+  .detail-card li{font-size:13.5px; line-height:1.5;}
+  .risk-pill{background:var(--red-l); color:var(--red-d); border-radius:8px; padding:8px 10px; font-size:13px; line-height:1.45; margin-bottom:8px; list-style:none;}
+  .detail-card.risks ul{padding-left:0;}
+  .sess-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;}
+  .sess-tag{font-size:11px; font-weight:600; padding:4px 9px; border-radius:7px; background:var(--paper); border:1px solid var(--line); color:var(--ink-soft);}
+
+  footer{text-align:center; color:var(--ink-soft); font-size:12.5px; padding:30px 0 10px;}
+
+  @media(max-width:980px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr);}
+    .grid2{grid-template-columns:1fr;}
+    .insight-grid{grid-template-columns:1fr;}
+    .rec-grid{grid-template-columns:1fr;}
+    .team-picker{grid-template-columns:repeat(2,1fr);}
+    .detail-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Coaching ágil · Síntesis estratégica</p>
+    <h1>Análisis de prácticas de los equipos</h1>
+    <p class="sr-only">Panel interactivo con dos vistas: vista global con métricas agregadas y vista por equipo con diagnóstico individual de 11 equipos.</p>
+    <p class="lead">Consolidado cuantitativo y cualitativo de 22 ceremonias ágiles en 11 equipos. Buena capacidad técnica y transparencia individual; madurez de proceso rezagada por facilitación pasiva, sobrecarga de Product Owners y retrospectivas prácticamente ausentes.</p>
+    <div class="hero-meta">
+      <span class="meta-chip"><b>17–29 jun 2026</b> · periodo analizado</span>
+      <span class="meta-chip"><b>22</b> sesiones · <b>11</b> equipos</span>
+      <span class="meta-chip">Madurez global: <b>Medio-Bajo</b></span>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar" aria-label="Navegación del panel">
+  <div class="navbar-inner">
+    <span class="brand">Análisis de prácticas <span>· dashboard</span></span>
+    <div class="tabbar" role="tablist" aria-label="Vistas del análisis">
+      <button class="tab-btn active" id="tab-global" role="tab" aria-selected="true" aria-controls="page-global" data-tab="global">Vista global</button>
+      <button class="tab-btn" id="tab-equipo" role="tab" aria-selected="false" aria-controls="page-equipo" data-tab="equipo" tabindex="-1">Vista por equipo</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div class="page active" id="page-global" role="tabpanel" aria-labelledby="tab-global" tabindex="0">
+
+    <section>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="num" style="color:var(--navy)">22</div>
+          <div class="lbl">Sesiones analizadas</div>
+        </div>
+        <div class="kpi">
+          <div class="num" style="color:var(--navy)">11</div>
+          <div class="lbl">Equipos cubiertos</div>
+        </div>
+        <div class="kpi">
+          <div class="num" style="color:var(--red)">9<span style="font-size:16px; color:var(--ink-soft)">/22</span></div>
+          <div class="lbl">Sesiones con gestión del tiempo débil</div>
+          <span class="tag" style="background:var(--red-l); color:var(--red-d)">criterio más bajo</span>
+        </div>
+        <div class="kpi">
+          <div class="num" style="color:var(--coral)">1<span style="font-size:16px; color:var(--ink-soft)">/22</span></div>
+          <div class="lbl">Retrospectivas con registro real</div>
+          <span class="tag" style="background:var(--coral-l); color:var(--coral-d)">ceremonia invisible</span>
+        </div>
+        <div class="kpi">
+          <div class="num" style="color:var(--amber)">2</div>
+          <div class="lbl">Equipos en riesgo alto de continuidad</div>
+          <span class="tag" style="background:var(--amber-l); color:var(--amber-d)">Gestión 360 · Equipo de Acción</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">1</span><h2>Laboratorio de Gastos Médicos: Metodología Scrum@Scale</h2></div>
+      <p class="section-sub">El Laboratorio de Seguros Personales / Gastos Médicos opera con metodología Scrum@Scale: 4 equipos coordinados por un Daily Scrum of Scrums y apoyados por un Equipo de Acción para escalados.</p>
+      <div class="card">
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
+          <span class="pat-chip" style="background:var(--teal-l); color:var(--teal-d); border-color:#9fe1cb;">Visionarios — con transcripciones</span>
+          <span class="pat-chip" style="background:var(--teal-l); color:var(--teal-d); border-color:#9fe1cb;">DevSquad — con transcripciones</span>
+          <span class="pat-chip" style="background:var(--paper); color:var(--ink-soft); border-color:var(--line);">La 501 — sin transcripciones identificadas</span>
+          <span class="pat-chip" style="background:var(--paper); color:var(--ink-soft); border-color:var(--line);">Agile Ninjas — sin transcripciones identificadas</span>
+          <span class="pat-chip" style="background:var(--purple-l); color:var(--purple-d); border-color:#cecbf6;">Daily Scrum of Scrums — ceremonia inter-equipos (2 sesiones)</span>
+          <span class="pat-chip" style="background:var(--purple-l); color:var(--purple-d); border-color:#cecbf6;">Equipo de Acción — resolución de escalados (3 sesiones)</span>
+        </div>
+        <p style="font-size:14px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px;">El Daily Scrum of Scrums y el Equipo de Acción no son equipos de desarrollo individuales — son <strong>mecanismos de coordinación</strong> que existen porque ningún equipo por sí solo resuelve impedimentos que cruzan las cuatro células (Visionarios, La 501, Agile Ninjas, DevSquad) o que involucran directamente al negocio. Su valor no se mide por velocidad de entrega de historias, sino por su capacidad de <strong>destrabar al resto del laboratorio</strong>. Se muestran como entradas propias en la vista por equipo porque así se registraron sus sesiones, marcadas con la etiqueta <span class="ceremony-badge" style="position:relative; top:-1px;">Ceremonia Scrum@Scale, no equipo</span>.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:12px;">
+          <div style="background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px;">
+            <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--purple-d); margin-bottom:4px;">Coordinación</div>
+            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Punto de mayor riesgo y mayor oportunidad para el laboratorio: cuando fallan (timebox, dominancia de voces), el costo lo paga la coordinación de las 4 células, no un solo equipo.</p>
+          </div>
+          <div style="background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px;">
+            <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--purple-d); margin-bottom:4px;">Prácticas aplicadas</div>
+            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Al no tener backlog propio, la disciplina ágil clásica no se traslada sola — ambas ceremonias tienden a degradarse hacia troubleshooting extendido sin estructura propia.</p>
+          </div>
+          <div style="background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px;">
+            <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--purple-d); margin-bottom:4px;">Protagonismo de roles</div>
+            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Integran negocio y, en la práctica, también Product Owners de equipo. Puede ser fortaleza (decisión con negocio presente) o síntoma de que el desarrollo no asume el protagonismo técnico esperado.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">2</span><h2>Cómo se ven las ceremonias, en números</h2></div>
+      <p class="section-sub">Calificación agregada (Alto / Medio / Bajo) de los 6 criterios de evaluación en las 22 sesiones, más la distribución por tipo de ceremonia.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>Evaluación agregada por criterio</h3>
+          <div class="chart-box"><canvas id="chartCriteria" role="img" aria-label="Gráfico de barras apiladas: gestión del tiempo y facilitación del Scrum Master son los criterios peor calificados de las 22 sesiones."></canvas></div>
+        </div>
+        <div class="card">
+          <h3>Sesiones por tipo de ceremonia</h3>
+          <div class="chart-box"><canvas id="chartTypes" role="img" aria-label="Gráfico de dona: 10 Daily, 6 Planning y 6 Review de un total de 22 sesiones."></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">3</span><h2>Insights clave</h2></div>
+      <p class="section-sub">Lecturas que van más allá de la descripción de cada sesión.</p>
+      <div class="insight-grid">
+        <div class="insight">
+          <div class="k">Daily desnaturalizado</div>
+          <p>El <strong>Daily funciona como cajón de sastre</strong>: en 6+ de 22 sesiones absorbe troubleshooting extenso o anuncios unidireccionales que exceden su propósito de sincronización.</p>
+        </div>
+        <div class="insight">
+          <div class="k">Facilitación pasiva</div>
+          <p>Donde existe Scrum Master, gestiona turnos y tablero pero <strong>no protege el timebox</strong> ni redirige activamente conversaciones fuera de foco.</p>
+        </div>
+        <div class="insight">
+          <div class="k">Dependencia de una voz</div>
+          <p>En <strong>5 de 11 equipos</strong> el Planning es una exposición unidireccional del PO o líder técnico, no una construcción colaborativa.</p>
+        </div>
+        <div class="insight">
+          <div class="k">Técnica ≠ proceso</div>
+          <p>Los equipos con mayor profundidad técnica (Equipo de Acción, Analítica de Datos) muestran las <strong>Reviews menos alineadas</strong> a su propósito ágil: sin voz de negocio validando valor.</p>
+        </div>
+        <div class="insight">
+          <div class="k">Retro invisible</div>
+          <p>Solo 1 de 22 archivos menciona una Retrospectiva, y ni siquiera registra su contenido — <strong>ruptura sistémica</strong> del ciclo de inspección-adaptación.</p>
+        </div>
+        <div class="insight">
+          <div class="k">Sobrecarga convergente</div>
+          <p>3 equipos sin relación entre sí (Gestión 360, Visionarios, Analítica de Datos) muestran el <strong>mismo patrón de PO sobrecargado</strong> — indicio de causa estructural, no coincidencia.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">4</span><h2>Patrones sistémicos</h2></div>
+      <p class="section-sub">Problemas que se repiten a nivel organizacional, no de un equipo aislado.</p>
+      <div class="chip-row">
+        <div class="pat-chip">Timebox no protegido en la mayoría de las ceremonias analizadas</div>
+        <div class="pat-chip">Baja participación estructural del equipo técnico cuando una sola voz domina</div>
+        <div class="pat-chip">Facilitación pasiva o ausente de Scrum Master en varios equipos</div>
+        <div class="pat-chip">Ceremonias que no generan el valor esperado de su tipo (Daily-troubleshooting, Planning-exposición, Review-sin-negocio)</div>
+        <div class="pat-chip">Ausencia de mecanismo de seguimiento de compromisos con dueño y fecha</div>
+        <div class="pat-chip">Gobernanza técnica y documental débil (accesos sin dueño, transcripciones incompletas)</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">5</span><h2>Desarrolladores subcontratados como ingenieros de soluciones, y protagonismo de roles</h2></div>
+      <p class="section-sub">Muchos desarrolladores pertenecen a una empresa subcontratada, con la expectativa de que se desempeñen como ingenieros de TI/soluciones: criterio técnico propio, diagnóstico de causa raíz y propuesta activa de diseño — no solo ejecución y reporte de estado.</p>
+      <div class="grid2">
+        <div class="card" style="border-left:3px solid var(--teal);">
+          <h3 style="color:var(--teal-d);">Ejemplo destacado (equipo de desarrollo)</h3>
+          <p style="font-size:14px; line-height:1.6; margin:0;"><strong>Roy Calderón Quirós y Agustín Castillo Picado</strong> (CRM) documentaron pruebas técnicas y correcciones con evidencia y trazabilidad clara de decisiones; <strong>Greivin, José y Hanssel</strong> (Gestión 360) mostraron refinamiento técnico colaborativo con validaciones de calidad entre pares — el patrón de ingeniería de soluciones más consistente del corpus, generado por el propio equipo técnico.</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--amber);">
+          <h3 style="color:var(--amber-d);">Caso de atención: protagonismo desplazado</h3>
+          <p style="font-size:14px; line-height:1.6; margin:0;">En la Daily Scrum of Scrums, el diagnóstico técnico más completo del corpus lo condujo <strong>Pablo Antonio Muñoz Sáenz — Product Owner del equipo La 501</strong>, no un desarrollador (según el catálogo oficial de POs/SM del laboratorio). Es una señal positiva de generación de valor del PO, pero también de <strong>protagonismo de roles invertido</strong>: es producto, no desarrollo, quien lidera la causa raíz técnica del laboratorio.</p>
+        </div>
+        <div class="card">
+          <h3>Lectura por equipo</h3>
+          <p style="font-size:13.5px; line-height:1.6; margin:0 0 8px;"><strong style="color:var(--green-d);">Alto:</strong> CRM, Gestión 360, Analítica de Datos (en Review)</p>
+          <p style="font-size:13.5px; line-height:1.6; margin:0 0 8px;"><strong style="color:var(--amber-d);">Medio:</strong> DevSquad, MAC, AppClientes-INSMóvil, Laboratorio de Seguros Personales</p>
+          <p style="font-size:13.5px; line-height:1.6; margin:0 0 8px;"><strong style="color:var(--amber-d);">Medio-Bajo:</strong> Scrum of Scrums (protagonismo técnico recae en el PO, no en el desarrollo)</p>
+          <p style="font-size:13.5px; line-height:1.6; margin:0;"><strong style="color:var(--red-d);">Bajo:</strong> ASESOR, Visionarios (participación técnica subordinada a la narrativa del PO)</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px;">
+        <p style="font-size:14px; line-height:1.6; margin:0 0 10px;"><strong>Interpretación — generación de valor y coordinación:</strong> la capacidad técnica de base parece estar presente en la mayoría de los equipos — el diferencial no es de habilidad, sino de si la dinámica de la ceremonia (y la facilitación) crea espacio para que esa capacidad se exprese como propuesta activa en vez de respuesta reactiva. Los equipos donde el PO domina la narrativa sin contrapeso (ASESOR, Visionarios y, en la práctica, la Daily Scrum of Scrums) son los que muestran menor comportamiento de ingeniero de soluciones en el desarrollo, independientemente de la competencia técnica individual de sus miembros. Cuando el desarrollo no lidera el diagnóstico técnico, el laboratorio depende de un número reducido de Product Owners para resolver problemas transversales — un riesgo de coordinación a nivel de todo el Scrum@Scale, no solo de un equipo.</p>
+        <p style="font-size:14px; line-height:1.6; margin:0;"><strong>Recomendación:</strong> usar el patrón de CRM y Gestión 360 como referencia (diagnóstico documentado, trazabilidad técnica generada por el equipo), y en la Daily Scrum of Scrums reservar explícitamente el rol de diagnóstico de causa raíz al equipo técnico, con el PO en un rol de acompañamiento y validación de impacto de negocio.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">6</span><h2>Causas raíz</h2></div>
+      <p class="section-sub">Por qué ocurren los problemas principales, y a qué dimensión organizacional pertenecen.</p>
+      <div class="root-list">
+        <div class="root-item">
+          <span class="cause-tag tag-skills">Skills / Proceso</span>
+          <p><b>Timebox no protegido</b> — probablemente ocurre porque no existe una cultura instalada de "parking lot" ni entrenamiento explícito a los SM sobre cómo redirigir conversaciones sin fricción social.</p>
+        </div>
+        <div class="root-item">
+          <span class="cause-tag tag-liderazgo">Liderazgo / Estructura</span>
+          <p><b>Sobrecarga de Product Owners</b> — probablemente ocurre porque el diseño organizacional no ha separado funciones de pruebas/validación/despliegue del rol de PO.</p>
+        </div>
+        <div class="root-item">
+          <span class="cause-tag tag-liderazgo">Cultura / Liderazgo</span>
+          <p><b>Ausencia de SM dedicado</b> en varios equipos — probablemente por restricciones de headcount o porque el rol no se percibe como crítico por el liderazgo.</p>
+        </div>
+        <div class="root-item">
+          <span class="cause-tag tag-cultura">Cultura</span>
+          <p><b>Retrospectivas ausentes del registro</b> — probablemente porque, bajo presión de entrega, es la primera ceremonia sacrificada al no producir un entregable visible inmediato.</p>
+        </div>
+        <div class="root-item">
+          <span class="cause-tag tag-proceso">Proceso / Cultura</span>
+          <p><b>Reviews sin voz de negocio</b> en equipos técnicos — probablemente porque tienen stakeholders menos definidos o no los convocan activamente.</p>
+        </div>
+        <div class="root-item">
+          <span class="cause-tag tag-proceso">Proceso</span>
+          <p><b>Gobernanza técnica y documental débil</b> — probablemente por alta rotación sin práctica estándar de documentación ni validación de integridad de archivos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">7</span><h2>Recomendaciones</h2></div>
+      <p class="section-sub">De lo inmediato a lo estructural.</p>
+      <div class="rec-grid">
+        <div class="rec-card">
+          <h3><span class="rec-badge tac">Táctico · corto plazo</span></h3>
+          <ol>
+            <li>Implementar un "parking lot" visible en cada ceremonia.</li>
+            <li>Timeboxing explícito: anunciar y respetar el tiempo restante.</li>
+            <li>Verificar activamente la participación de los miembros silenciosos.</li>
+            <li>Agendar la Retrospectiva como evento obligatorio y registrarla.</li>
+            <li>Registrar cada compromiso con dueño y fecha de seguimiento.</li>
+          </ol>
+        </div>
+        <div class="rec-card">
+          <h3><span class="rec-badge est">Estratégico · mediano/largo plazo</span></h3>
+          <ol>
+            <li>Redimensionar roles: separar pruebas/validación/despliegue del PO.</li>
+            <li>Asegurar cobertura de Scrum Master dedicado en todos los equipos.</li>
+            <li>Formalizar transferencia de conocimiento crítico en el Equipo de Acción antes de la salida del recurso clave.</li>
+            <li>Instalar un mecanismo único de seguimiento de acuerdos post-ceremonia.</li>
+            <li>Programa de coaching en facilitación para Scrum Masters actuales.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><span class="section-num">8</span><h2>Priorización de iniciativas</h2></div>
+      <p class="section-sub">Impacto vs. esfuerzo estimado. Esquina superior izquierda = alto impacto, bajo esfuerzo — empezar ahí.</p>
+      <div class="card quad-wrap">
+        <div class="quad-box"><canvas id="chartQuad"></canvas></div>
+        <div class="quad-legend">
+          <span><span class="dot" style="background:var(--teal)"></span>Prioridad alta</span>
+          <span><span class="dot" style="background:var(--amber)"></span>Prioridad media</span>
+          <span><span class="dot" style="background:var(--ink-soft)"></span>Prioridad baja</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="page" id="page-equipo" role="tabpanel" aria-labelledby="tab-equipo" tabindex="0">
+    <section>
+      <div class="picker-head">
+        <div class="section-title" style="margin:0;"><span class="section-num" aria-hidden="true">11</span><h2>Selecciona un equipo</h2></div>
+        <div class="sort-group">
+          <label for="sortSelect">Ordenar por</label>
+          <select id="sortSelect" aria-label="Ordenar equipos">
+            <option value="madurez-desc" selected>Madurez (mayor a menor)</option>
+            <option value="madurez">Madurez (menor a mayor)</option>
+            <option value="alfabetico">Alfabético</option>
+          </select>
+        </div>
+      </div>
+      <p class="section-sub">Haz clic en un equipo para ver su diagnóstico, patrones, riesgos y recomendaciones.</p>
+      <div class="team-picker" id="teamPicker" role="list"></div>
+    </section>
+    <section>
+      <div id="teamDetailHost" aria-live="polite"></div>
+    </section>
+  </div>
+
+</div>
+
+<footer>Análisis basado en 22 transcripciones de sesiones ágiles (17–29 jun 2026, más una Review Q2-2026) · Elaborado como síntesis del informe completo previamente entregado</footer>
+
+<script>
+const critLabels = ["Claridad del objetivo","Participación","Interacción entre roles","Gestión del tiempo","Facilitación del SM","Enfoque en valor"];
+const critAlto  = [13,11,8,5,5,8];
+const critMedio = [9,8,13,8,16,14];
+const critBajo  = [0,3,1,9,1,0];
+
+new Chart(document.getElementById('chartCriteria'), {
+  type:'bar',
+  data:{
+    labels:critLabels,
+    datasets:[
+      {label:'Alto', data:critAlto, backgroundColor:'#5dcaa5', stack:'s'},
+      {label:'Medio', data:critMedio, backgroundColor:'#fac775', stack:'s'},
+      {label:'Bajo', data:critBajo, backgroundColor:'#e24b4a', stack:'s'},
+    ]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    scales:{ x:{stacked:true, max:22, grid:{color:'#eef0f2'}, ticks:{font:{size:11}}},
+             y:{stacked:true, grid:{display:false}, ticks:{font:{size:12}}} },
+    plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}} }
+  }
+});
+
+new Chart(document.getElementById('chartTypes'), {
+  type:'doughnut',
+  data:{
+    labels:['Daily (10)','Planning (6)','Review (6)'],
+    datasets:[{ data:[10,6,6], backgroundColor:['#378ADD','#7F77DD','#D85A30'], borderWidth:3, borderColor:'#fff' }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:12}}} }
+  }
+});
+
+const quadItems = [
+  {l:'Redimensionar roles de PO', x:2, y:5, p:'alta'},
+  {l:'Cobertura de SM dedicado', x:4, y:5, p:'alta'},
+  {l:'Transferencia de conocimiento (Equipo de Acción)', x:5, y:1.3, p:'alta'},
+  {l:'Retrospectivas obligatorias', x:5, y:1.5, p:'alta'},
+  {l:'Timeboxing + parking lot', x:4.6, y:1.8, p:'alta'},
+  {l:'Seguimiento de acuerdos', x:3, y:1.6, p:'media'},
+  {l:'Voz de negocio en Reviews técnicas', x:3, y:3.2, p:'media'},
+  {l:'Coaching de facilitación', x:3, y:3, p:'media'},
+  {l:'Formato único de transcripciones', x:1.5, y:1.2, p:'media'},
+  {l:'Gobernanza técnica de ambientes (Scrum of Scrums)', x:3, y:3, p:'baja'},
+];
+const pColor = {alta:'#0f6e56', media:'#ba7517', baja:'#888780'};
+
+new Chart(document.getElementById('chartQuad'), {
+  type:'scatter',
+  data:{ datasets:[{
+    data: quadItems.map(d=>({x:d.x, y:d.y})),
+    backgroundColor: quadItems.map(d=>pColor[d.p]),
+    pointRadius: 8, pointHoverRadius:10
+  }]},
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    scales:{
+      x:{min:0, max:6, title:{display:true, text:'Esfuerzo →'}, grid:{color:'#f0f1f3'}, ticks:{display:false}},
+      y:{min:0, max:6, title:{display:true, text:'Impacto →'}, grid:{color:'#f0f1f3'}, ticks:{display:false}}
+    },
+    plugins:{
+      legend:{display:false},
+      tooltip:{ callbacks:{ label:(ctx)=> quadItems[ctx.dataIndex].l } }
+    }
+  }
+});
+Chart.register({
+  id:'quadLines',
+  afterDraw(chart){
+    if(chart.canvas.id!=='chartQuad') return;
+    const {ctx, chartArea:{left,right,top,bottom}, scales:{x,y}} = chart;
+    ctx.save(); ctx.strokeStyle='#e4e7ec'; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(x.getPixelForValue(3), top); ctx.lineTo(x.getPixelForValue(3), bottom); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(left, y.getPixelForValue(3)); ctx.lineTo(right, y.getPixelForValue(3)); ctx.stroke();
+    ctx.restore();
+  }
+});
+
+const TEAMS = [
+  { name:"CRM", score:4, label:"Medio-Alto", sessions:["Daily x2"],
+    diag:"El equipo con mejor claridad de objetivo y enfoque en valor del corpus, con una ambigüedad de liderazgo no resuelta entre quien abre y quien cierra la ceremonia.",
+    patterns:["Objetivo declarado explícitamente al abrir cada sesión","Doble liderazgo funcional sin roles formalizados","Gap de onboarding: miembro reciente sin convocatorias"],
+    risks:["Ambigüedad de liderazgo entre quien abre (SM) y quien cierra/coordina (PO/líder) la ceremonia","Gap de onboarding: un miembro reciente no recibe convocatorias a reviews quincenales","Participación desigual: dos personas concentran la mayoría del tiempo de habla"],
+    recs:["Clarificar y comunicar los roles de SM y PO/líder","Invitar explícitamente a los miembros de menor participación a confirmar avances o bloqueos propios"],
+    eng:"Uno de los mejores ejemplos del corpus: Roy y Agustín documentaron pruebas técnicas e implementación de API con evidencia; Berni coordinó proactivamente con arquitectura. Nivel: Alto." },
+  { name:"Laboratorio de Seguros Personales", score:4, label:"Medio-Alto", sessions:["Sprint Review x1"],
+    diag:"Buena cultura de feedback de negocio en formato multi-squad, con interacción sustantiva entre desarrollo y stakeholders, sin mecanismo formal de cierre de acuerdos.",
+    patterns:["Preguntas de control sustantivas de negocio durante la Review","Fallas técnicas repetidas al inicio de la sesión (audio, pantalla)"],
+    risks:["Compromisos solicitados por negocio sin dueño claro tras la sesión"],
+    recs:["Registrar formalmente compromisos con dueño y fecha","Checklist técnica pre-sesión para evitar fricción de arranque"],
+    eng:"Los desarrolladores respondieron con criterio técnico a preguntas de control de negocio (aceptación automática de pagos por IA), mostrando comprensión del impacto de negocio de sus decisiones. Nivel: Medio-Alto." },
+  { name:"DevSquad", score:3, label:"Medio", sessions:["Daily x4"],
+    diag:"Mecánica de Daily bien instalada con SM consistente, pero facilitación operativa que no protege el timebox frente a contenido de mayor alcance.",
+    patterns:["Daily usado para discusión técnica de detalle y, en un caso, como anuncio unidireccional","Participación desbalanceada sostenida entre sesiones"],
+    risks:["Resistencia al cambio (adopción de Copilot) expresada sin seguimiento visible","Problemas de conectividad recurrentes no resueltos"],
+    recs:["Parking lot activo para temas técnicos y anuncios extensos","Seguimiento 1:1 a la resistencia al cambio detectada"],
+    eng:"Participación técnica mayormente reactiva (dudas de alcance más que propuesta de diseño), aunque Andrés mostró iniciativa técnica ofreciéndose al piloto de Copilot. Nivel: Medio." },
+  { name:"MAC", score:3, label:"Medio", sessions:["Review + Retro x1"],
+    diag:"Buena dinámica de presentación técnica equilibrada, pero el ciclo de mejora continua está roto: la Retrospectiva anunciada no aparece registrada.",
+    patterns:["Participación equilibrada entre los tres desarrolladores","Ideas de mejora surgen de forma orgánica, no de una Retrospectiva formal"],
+    risks:["Oportunidades de mejora sin dueño ni fecha de seguimiento","Sin evidencia de que la Retrospectiva se haya ejecutado"],
+    recs:["Confirmar y registrar formalmente la Retrospectiva","Asignar dueño y fecha a cada oportunidad de mejora"],
+    eng:"Los tres desarrolladores propusieron ideas de mejora técnica por iniciativa propia (automatización de fechas, función reutilizable de \"cura de datos\"). Nivel: Medio-Alto." },
+  { name:"Gestión 360", score:3, label:"Medio", sessions:["Daily x1","Planning x1","Review x1"],
+    diag:"La señal de riesgo más seria del corpus: la propia PO verbaliza que la carga de pruebas, validación y coordinación de pases a producción es insostenible.",
+    patterns:["Sprint planificado sin buffer para reuniones o coordinación entre equipos","Refinamiento técnico colaborativo de buena calidad"],
+    risks:["Riesgo de burnout de la PO, sin SM dedicado que la releve","Proceso de pase a producción reactivo con dependencias externas múltiples"],
+    recs:["Escalar y resolver la sobrecarga de la PO de forma inmediata","Asignar un Scrum Master dedicado, distinto del PO"],
+    eng:"Greivin, José y Hanssel mostraron refinamiento técnico colaborativo de buena calidad, discutiendo enfoque de implementación entre pares. Nivel: Alto." },
+  { name:"Equipo de Acción (Lab. Seguros Personales)", ceremony:true, score:2, label:"Medio-Bajo", sessions:["Daily x1","Planning x1","Review x1"],
+    diag:"Sigla histórica \"ACD\". Equipo dedicado a resolver problemas escalados dentro del Laboratorio de Seguros Personales/Gastos Médicos (Scrum@Scale). Técnicamente sólido, pero su Review ha derivado en demo técnica entre pares, con conocimiento crítico concentrado en una sola persona próxima a salir.",
+    patterns:["Daily deriva en temas administrativos y ha reprogramado la Review","Review dominada casi en su totalidad por dos personas"],
+    risks:["Riesgo alto de bus factor: conocimiento crítico en una persona que deja el equipo","Ausencia de feedback de negocio en la Review"],
+    recs:["Prioridad inmediata: plan de transferencia de conocimiento","Redefinir el propósito de la Review e invitar a negocio"],
+    eng:"Alto en las personas clave (Lendeld, Jorge mostraron fuerte ownership técnico en demos y arquitectura), pero Bajo en distribución: el comportamiento de ingeniero de soluciones no se observa en el resto del equipo." },
+  { name:"Analítica de Datos - Servicio Digital (Datos en Nube)", score:2, label:"Medio-Bajo", sessions:["Planning x1","Review x1"],
+    diag:"Fuerte capacidad técnica pero ceremonias que no cumplen su función ágil: Planning como asignación descendente y Review sin PO de negocio.",
+    patterns:["Review extensa (+64 min, 10 personas) sin voz de negocio","Buena coordinación de capacity planning con vacaciones"],
+    risks:["Participación casi nula de un miembro con tareas asignadas","Cruce crítico entre vacaciones y fecha límite regulatoria gestionado de forma reactiva"],
+    recs:["Incorporar activamente a un PO de negocio en la Review","Timeboxing estricto dado el patrón de sesiones extensas"],
+    eng:"Alto en la Review: el equipo generó por iniciativa propia una discusión estratégica de ahorro de costos (evitar compra de productos redundantes). Medio en el Planning, de tipo asignación descendente con poco espacio para propuesta técnica propia." },
+  { name:"Visionarios (Equipo Nova)", score:2, label:"Medio-Bajo", sessions:["Planning x1"],
+    diag:"Fuerte trazabilidad de valor de negocio, pero el Planning depende casi por completo de la narrativa en vivo del PO durante casi 2 horas, sin facilitación.",
+    patterns:["El PO narra y ajusta criterios de aceptación en vivo para 9+ historias","Ausencia total de Scrum Master facilitando tiempos"],
+    risks:["El propio PO reconoce fatiga y confusión hacia el cierre de la sesión"],
+    recs:["Incorporar un SM que aplique timeboxing y reparta la narrativa","Refinar historias antes del Planning"],
+    eng:"El equipo técnico (Eliecer, Olser, Anthony) se limitó a preguntas de factibilidad, sin propuestas de diseño propio; participación subordinada a la narrativa de la PO. Nivel: Bajo-Medio." },
+  { name:"AppClientes-INSMóvil", score:2, label:"Medio-Bajo", sessions:["Planning x1","Review x1"],
+    diag:"Buen nivel técnico individual, pero gestión del tiempo reactiva y decisiones pendientes delegadas sistemáticamente a personas ausentes.",
+    patterns:["Demoras de arranque de hasta una hora por conversación social","El atraso de una ceremonia impactó en cascada a otro equipo (Front)"],
+    risks:["Sin Sprint Goal explícito ni estimación formal completa","Dependencia externa bloqueante sin plan de mitigación"],
+    recs:["Timebox estricto de apertura social (máx. 5 min)","Definir Sprint Goal explícito en cada Planning"],
+    eng:"Buena claridad técnica individual al presentar avances (Fran, Marco, Bryan, José), pero varias decisiones técnicas/UX se delegaron a una persona ausente en vez de resolverse con criterio propio del equipo. Nivel: Medio." },
+  { name:"ASESOR", score:2, label:"Medio-Bajo", sessions:["Planning x1"],
+    diag:"Fuerte enfoque en valor de negocio, pero la sesión es sustancialmente una exposición unidireccional de la PO sin evidencia de facilitación de SM.",
+    patterns:["Decisiones concretas de negocio centralizadas en una sola persona","El equipo de desarrollo interviene solo de forma reactiva"],
+    risks:["Dependencia total del criterio de la PO sin estimación colaborativa validada"],
+    recs:["Incorporar un rol de facilitación que balancee la participación","Fomentar estimación activa del equipo técnico"],
+    eng:"El equipo de desarrollo tuvo participación mínima y reactiva, sin evidencia de preguntas técnicas de factibilidad ni propuestas propias. Nivel: Bajo." },
+  { name:"Daily Scrum of Scrums (Lab. Seguros Personales)", ceremony:true, score:1.5, label:"Bajo-Medio", sessions:["Daily x2"],
+    diag:"Sigla histórica \"SOS\". Ceremonia inter-equipos del Laboratorio de Seguros Personales/Gastos Médicos que integra a las 4 células (Visionarios, La 501, Agile Ninjas, DevSquad) y a negocio, no es un equipo de desarrollo individual. Alta capacidad de diagnóstico técnico, pero la sesión ha dejado de ser breve y se ha convertido en el espacio por defecto de troubleshooting extendido.",
+    patterns:["Dominancia sostenida de las mismas tres voces en ambas sesiones","Duración muy por encima del estándar (hasta ~57 min)"],
+    risks:["Gobernanza técnica débil: configuraciones críticas sin responsable identificable","Transcripción del 18/06 severamente degradada — confiabilidad limitada"],
+    recs:["Separar troubleshooting profundo de la Daily con sesiones dedicadas","Documentar configuraciones críticas y asignar responsables"],
+    eng:"El diagnóstico técnico más completo del corpus lo condujo Pablo Antonio Muñoz Sáenz, quien según el catálogo oficial de roles del laboratorio es el Product Owner del equipo La 501, no un desarrollador. Comparó ambientes, formuló hipótesis y propuso pasos de verificación — señal positiva de generación de valor del PO, pero también de protagonismo de roles invertido: es producto, no desarrollo, quien lidera la causa raíz técnica. Alejandro Ulloa (desarrollador) aportó contrapeso puntual pero no lideró el diagnóstico. Nivel de ingeniería de soluciones en el desarrollo: Medio-Bajo." },
+];
+function scoreColor(score){
+  if(score>=4) return {bg:'#eaf3de', fg:'#173404', bar:'#639922'};
+  if(score>=3) return {bg:'#faeeda', fg:'#412402', bar:'#ef9f27'};
+  if(score>=2) return {bg:'#faece7', fg:'#4a1b0c', bar:'#d85a30'};
+  return {bg:'#fcebeb', fg:'#501313', bar:'#e24b4a'};
+}
+
+const picker = document.getElementById('teamPicker');
+const host = document.getElementById('teamDetailHost');
+let selectedTeamName = null;
+
+function sortTeams(mode){
+  const arr = [...TEAMS];
+  if(mode==='madurez-desc') arr.sort((a,b)=> b.score - a.score);
+  else if(mode==='madurez') arr.sort((a,b)=> a.score - b.score);
+  else arr.sort((a,b)=> a.name.localeCompare(b.name,'es'));
+  return arr;
+}
+
+function renderDetailByName(name){
+  const t = TEAMS.find(x=>x.name===name);
+  if(!t) return;
+  selectedTeamName = name;
+  const c = scoreColor(t.score);
+  const ceremonyBadge = t.ceremony ? `<span class="ceremony-badge">Ceremonia Scrum@Scale, no equipo</span>` : '';
+  host.innerHTML = `
+    <div class="team-detail active">
+      <div class="detail-head">
+        <div>
+          <h2>${t.name}${ceremonyBadge}</h2>
+          <p class="diag">${t.diag}</p>
+        </div>
+        <div class="maturity-gauge">
+          <div class="gauge-label">Madurez ágil</div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:${t.score/5*100}%; background:${c.bar}"></div></div>
+          <div class="gauge-val" style="color:${c.fg}">${t.label}</div>
+        </div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h4>Patrones observados</h4>
+          <ul>${t.patterns.map(p=>`<li>${p}</li>`).join('')}</ul>
+          <div class="sess-tags">${t.sessions.map(s=>`<span class="sess-tag">${s}</span>`).join('')}</div>
+        </div>
+        <div class="detail-card risks">
+          <h4>Riesgos</h4>
+          <ul>${t.risks.map(r=>`<li class="risk-pill">${r}</li>`).join('')}</ul>
+        </div>
+        <div class="detail-card">
+          <h4>Recomendaciones</h4>
+          <ul>${t.recs.map(r=>`<li>${r}</li>`).join('')}</ul>
+        </div>
+        <div class="detail-card eng-card">
+          <h4>Perspectiva de ingeniería de soluciones</h4>
+          <p style="font-size:13.5px; line-height:1.55; margin:0; color:var(--ink);">${t.eng || 'No evaluado en esta sesión.'}</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderPicker(mode){
+  const ordered = sortTeams(mode);
+  picker.innerHTML = '';
+  ordered.forEach((t)=>{
+    const c = scoreColor(t.score);
+    const tile = document.createElement('button');
+    tile.className = 'team-tile' + (t.name===selectedTeamName ? ' active':'');
+    tile.setAttribute('role','listitem');
+    tile.setAttribute('aria-pressed', t.name===selectedTeamName ? 'true':'false');
+    tile.innerHTML = `
+      <div class="tname">${t.name}</div>
+      <div class="tmeta">
+        <span class="mbadge" style="background:${c.bg}; color:${c.fg}">${t.label}</span>
+        <span class="scount">${t.sessions.length} tipo(s)</span>
+      </div>`;
+    tile.addEventListener('click', ()=>{
+      document.querySelectorAll('.team-tile').forEach(x=>{ x.classList.remove('active'); x.setAttribute('aria-pressed','false'); });
+      tile.classList.add('active'); tile.setAttribute('aria-pressed','true');
+      renderDetailByName(t.name);
+    });
+    picker.appendChild(tile);
+  });
+}
+
+document.getElementById('sortSelect').addEventListener('change', (e)=> renderPicker(e.target.value));
+
+renderPicker('madurez-desc');
+renderDetailByName(sortTeams('madurez-desc')[0].name);
+
+const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+function activateTab(btn){
+  tabs.forEach(b=>{
+    b.classList.remove('active');
+    b.setAttribute('aria-selected','false');
+    b.tabIndex = -1;
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+  btn.tabIndex = 0;
+  btn.focus();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+btn.dataset.tab).classList.add('active');
+}
+tabs.forEach((btn,i)=>{
+  btn.addEventListener('click', ()=> activateTab(btn));
+  btn.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowRight' || e.key==='ArrowLeft'){
+      e.preventDefault();
+      const next = e.key==='ArrowRight' ? (i+1)%tabs.length : (i-1+tabs.length)%tabs.length;
+      activateTab(tabs[next]);
+    }
+  });
+});
+</script>
+</body>
+</html>
