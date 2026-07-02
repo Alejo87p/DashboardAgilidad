@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Panel de mando del EAT (Equipo de Acción Ejecutiva) de Grupo INS: acceso a los tableros de prácticas de equipos y salud del backlog ágil.">
+<meta name="theme-color" content="#064350">
+<meta name="color-scheme" content="light">
+<title>EAT · Equipo de Acción Ejecutiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  /* Paleta y tokens tomados directamente de grupoins.com (Primary-100, Primary-50,
+     Primary-Dim, Primary-2, acento menta y el radio 2rem de sus tarjetas) */
+  :root{
+    --teal-900: #064350;   /* Primary-100 — titulares, texto de marca */
+    --teal-700: #086378;   /* Primary-50 — texto de enlaces/botones */
+    --teal-950: #042C34;   /* Primary-Dim — hover sólido */
+    --mint: #00AE8B;       /* acento de gradiente institucional */
+    --mint-bg: #E4EDEF;    /* Primary-2 — fondo de botón/pill */
+    --bg: #FCFCFC;         /* Gray-00 — fondo de página */
+    --surface: #FFFFFF;
+    --text: #212529;       /* body de grupoins.com */
+    --muted: #5B6B70;
+    --line: #E1E9EA;
+    --focus: #086378;
+    --radius-lg: 1.75rem;
+    --radius-pill: 999px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; height:100%; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    height: 100dvh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a{ -webkit-tap-highlight-color: transparent; }
+  img, svg{ max-width:100%; display:block; }
+
+  .skip-link{
+    position:absolute; top:-100px; left:20px; z-index:100;
+    background: var(--teal-900); color:#fff;
+    font-weight:600; font-size:0.9rem;
+    padding:12px 20px; border-radius: var(--radius-pill);
+    text-decoration:none; transition: top 0.2s ease;
+  }
+  .skip-link:focus{ top:16px; }
+
+  .wrap{ max-width:1240px; margin:0 auto; padding:0 32px; width:100%; }
+
+  /* Header — franja blanca, delgada, como grupoins.com */
+  header.topbar{
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .topbar-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0;
+    gap: 16px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+  }
+  .brand-mark{
+    width:42px; height:42px; border-radius:12px;
+    background: linear-gradient(135deg, var(--mint) 0%, var(--teal-900) 100%);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:800; font-size:14px; letter-spacing:0.02em;
+    flex-shrink:0;
+  }
+  .brand-text{ line-height:1.25; }
+  .brand-text .eat{ font-weight:700; font-size:1.02rem; color: var(--teal-900); }
+  .brand-text .sub{ font-weight:400; font-size:0.8rem; color: var(--muted); }
+
+  .badge-ins{
+    font-weight:600; font-size:0.8rem; color: var(--teal-700);
+    background: var(--mint-bg);
+    padding:8px 16px; border-radius: var(--radius-pill);
+    white-space:nowrap;
+  }
+
+  /* Main ocupa todo el espacio restante y centra el hero verticalmente:
+     esto es lo que evita el scroll */
+  main{
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .hero{
+    width:100%;
+    display: grid;
+    grid-template-columns: minmax(0,1.15fr) minmax(0,0.85fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+  }
+
+  .hero-text{ min-width:0; }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:700; font-size:0.85rem; letter-spacing:0.04em;
+    color: var(--teal-700);
+    background: var(--mint-bg);
+    padding:7px 15px; border-radius: var(--radius-pill);
+    margin-bottom: clamp(14px, 2vh, 22px);
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background: var(--mint); }
+
+  h1{
+    font-weight:700;
+    font-size: clamp(1.7rem, 3.4vw + 0.6rem, 2.9rem);
+    line-height: 1.14;
+    color: var(--teal-900);
+    max-width: 15ch;
+  }
+
+  .hero-sub{
+    margin-top: clamp(12px, 2vh, 20px);
+    max-width: 48ch;
+    font-size: clamp(0.92rem, 0.6vw + 0.75rem, 1.05rem);
+    line-height:1.6;
+    color: var(--muted);
+  }
+  .hero-sub strong{ color: var(--text); font-weight:600; }
+
+  /* ===== Accesos: columna derecha, alineada verticalmente con el texto ===== */
+  .access{
+    display:flex;
+    flex-direction:column;
+    gap: clamp(12px, 2vh, 18px);
+    min-width:0;
+  }
+
+  .access-label{
+    font-weight:700; font-size:0.78rem; letter-spacing:0.06em;
+    text-transform:uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .access-btn{
+    display:flex; align-items:center; gap:16px;
+    background: var(--surface);
+    border: 2px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: clamp(14px, 2vh, 20px) clamp(16px, 2vw, 22px);
+    text-decoration:none; color:inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .access-btn:focus-visible{
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-color: var(--teal-700);
+  }
+  .access-btn:active{ transform: scale(0.99); }
+
+  @media (hover:hover) and (pointer:fine){
+    .access-btn:hover{
+      border-color: var(--accent, var(--teal-700));
+      box-shadow: 0 14px 30px -18px rgba(6,67,80,0.35);
+      transform: translateY(-2px);
+    }
+    .access-btn:hover .access-arrow{
+      background: var(--accent, var(--teal-900));
+      color:#fff;
+    }
+    .access-btn:hover .access-arrow svg{ transform: translateX(3px); }
+  }
+
+  .access-icon{
+    width: clamp(40px, 4vw, 48px);
+    height: clamp(40px, 4vw, 48px);
+    border-radius: 14px;
+    background: var(--mint-bg);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+
+  .access-body{ flex: 1 1 auto; min-width:0; }
+
+  .access-tag{
+    font-weight:700; font-size:0.72rem; letter-spacing:0.05em;
+    text-transform:uppercase;
+    color: var(--accent, var(--teal-700));
+    margin-bottom: 4px;
+  }
+
+  .access-title{
+    font-weight:700;
+    font-size: clamp(0.98rem, 0.5vw + 0.85rem, 1.12rem);
+    line-height:1.3;
+    color: var(--teal-900);
+  }
+
+  .access-desc{
+    margin-top:3px;
+    font-size: 0.83rem;
+    line-height:1.4;
+    color: var(--muted);
+  }
+
+  .access-arrow{
+    flex-shrink:0;
+    width:38px; height:38px;
+    border-radius:50%;
+    background: var(--mint-bg);
+    color: var(--accent, var(--teal-700));
+    display:flex; align-items:center; justify-content:center;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .access-arrow svg{ width:16px; height:16px; transition: transform 0.25s ease; }
+
+  /* Footer — franja mínima, no compite por altura */
+  footer{
+    flex-shrink:0;
+    border-top:1px solid var(--line);
+    padding: 14px 0;
+  }
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:8px;
+  }
+  footer p{ font-size:0.78rem; color: var(--muted); }
+  footer p strong{ color: var(--teal-900); font-weight:700; }
+
+  /* ===== Tableta ===== */
+  @media (max-width:1024px) and (min-width:761px){
+    .wrap{ padding:0 24px; }
+    .hero{ grid-template-columns: 1fr; gap:28px; }
+    main{ align-items:flex-start; overflow-y:auto; padding-top:24px; }
+    body{ overflow-y:auto; height:auto; min-height:100dvh; }
+    h1{ max-width:22ch; }
+  }
+
+  /* ===== Móvil: se permite scroll — priorizar legibilidad sobre "una sola pantalla" ===== */
+  @media (max-width:760px){
+    body{ height:auto; min-height:100dvh; overflow-y:auto; }
+    .wrap{
+      padding-left:max(20px, env(safe-area-inset-left));
+      padding-right:max(20px, env(safe-area-inset-right));
+    }
+    .topbar-inner{ padding:14px 0; flex-wrap:wrap; }
+    .badge-ins{ font-size:0.75rem; padding:7px 13px; }
+    main{ align-items:flex-start; padding: 28px 0 8px; overflow:visible; }
+    .hero{ grid-template-columns:1fr; gap:26px; }
+    h1{ max-width:none; font-size:1.65rem; }
+    .hero-sub{ max-width:none; }
+    .access-title{ font-size:1rem; }
+    footer .wrap{ flex-direction:column; align-items:flex-start; padding-bottom:max(10px, env(safe-area-inset-bottom)); }
+  }
+
+  @media (max-height:600px) and (min-width:761px){
+    h1{ font-size: clamp(1.5rem, 2.6vw + 0.5rem, 2.2rem); }
+    .eyebrow{ margin-bottom:10px; }
+    .hero-sub{ font-size:0.92rem; margin-top:8px; }
+    .access-btn{ padding:12px 16px; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">EAT</div>
+      <div class="brand-text">
+        <div class="eat">Equipo de Acción Ejecutiva</div>
+        <div class="sub">Grupo INS · Transformación ágil</div>
+      </div>
+    </div>
+    <span class="badge-ins">Panel interno</span>
+  </div>
+</header>
+
+<main id="contenido">
+  <div class="wrap">
+    <div class="hero">
+
+      <div class="hero-text">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Panel de mando</p>
+        <h1 id="hero-title">Dos tableros para seguir la transformación ágil.</h1>
+        <p class="hero-sub">
+          Desde aquí el EAT accede a los indicadores que da seguimiento cada semana:
+          <strong>cómo están practicando los equipos</strong> y
+          <strong>cómo está la salud del backlog</strong> que esas prácticas producen.
+        </p>
+      </div>
+
+      <nav class="access" aria-labelledby="hero-title">
+        <p class="access-label">Tableros disponibles</p>
+
+        <a class="access-btn" style="--accent: var(--mint);" href="https://calm-moss-00494040f.7.azurestaticapps.net/sesiones.html" target="_blank" rel="noopener noreferrer" aria-label="Abrir Análisis de prácticas de los equipos (se abre en una pestaña nueva)">
+          <span class="access-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+              <path d="M4 15L10 9L14 13L22 5" stroke="#064350" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="22" cy="5" r="2" fill="#064350"/>
+              <circle cx="10" cy="9" r="1.5" fill="#064350" opacity="0.6"/>
+              <circle cx="14" cy="13" r="1.5" fill="#064350" opacity="0.6"/>
+            </svg>
+          </span>
+          <span class="access-body">
+            <span class="access-tag" aria-hidden="true">Equipos</span>
+            <span class="access-title">Análisis de prácticas de los equipos</span>
+            <span class="access-desc">Adopción y consistencia de ceremonias ágiles por equipo.</span>
+          </span>
+          <span class="access-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="access-btn" style="--accent: var(--teal-700);" href="https://calm-moss-00494040f.7.azurestaticapps.net/salud.html" target="_blank" rel="noopener noreferrer" aria-label="Abrir Salud del backlog ágil (se abre en una pestaña nueva)">
+          <span class="access-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+              <path d="M13 3A10 10 0 1 1 3 13" stroke="#064350" stroke-width="2" opacity="0.55"/>
+              <path d="M13 13L13 6" stroke="#064350" stroke-width="2" stroke-linecap="round"/>
+              <path d="M13 13L19 16" stroke="#064350" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="13" cy="13" r="2" fill="#064350"/>
+            </svg>
+          </span>
+          <span class="access-body">
+            <span class="access-tag" aria-hidden="true">Backlog</span>
+            <span class="access-title">Salud del backlog ágil</span>
+            <span class="access-desc">Ítems estancados, tiempos de espera y riesgo de migración.</span>
+          </span>
+          <span class="access-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </nav>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>EAT</strong> — Executive Action Team · Grupo INS</p>
+    <p>Ambos tableros se abren en una pestaña nueva</p>
+  </div>
+</footer>
+
+</body>
+</html>
