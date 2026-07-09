@@ -116,7 +116,7 @@
   .hero{
     width:100%;
     display: grid;
-    grid-template-columns: minmax(0,1.15fr) minmax(0,0.85fr);
+    grid-template-columns: minmax(0,1fr) minmax(0,1.05fr);
     gap: clamp(24px, 4vw, 56px);
     align-items: center;
   }
@@ -150,15 +150,16 @@
   }
   .hero-sub strong{ color: var(--text); font-weight:600; }
 
-  /* ===== Accesos: columna derecha, alineada verticalmente con el texto ===== */
+  /* ===== Accesos: grilla 2x2, alineada verticalmente con el texto ===== */
   .access{
-    display:flex;
-    flex-direction:column;
-    gap: clamp(9px, 1.5vh, 14px);
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: clamp(10px, 1.4vh, 14px) clamp(10px, 1.2vw, 14px);
     min-width:0;
   }
 
   .access-label{
+    grid-column: 1 / -1;
     font-weight:700; font-size:0.78rem; letter-spacing:0.06em;
     text-transform:uppercase;
     color: var(--muted);
@@ -166,11 +167,15 @@
   }
 
   .access-btn{
-    display:flex; align-items:center; gap:16px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
     background: var(--surface);
     border: 2px solid var(--line);
     border-radius: var(--radius-lg);
-    padding: clamp(11px, 1.5vh, 16px) clamp(14px, 2vw, 20px);
+    padding: clamp(14px, 1.8vh, 18px) clamp(14px, 1.6vw, 18px);
+    min-height:100%;
+    min-width:0;
     text-decoration:none; color:inherit;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   }
@@ -192,22 +197,35 @@
       background: var(--accent, var(--teal-900));
       color:#fff;
     }
-    .access-btn:hover .access-arrow svg{ transform: translateX(3px); }
+    .access-btn:hover .access-arrow svg{ transform: translateX(2px); }
   }
 
   .access-icon{
-    width: clamp(36px, 3.2vw, 44px);
-    height: clamp(36px, 3.2vw, 44px);
-    border-radius: 13px;
+    width: clamp(32px, 2.8vw, 38px);
+    height: clamp(32px, 2.8vw, 38px);
+    border-radius: 11px;
     background: var(--mint-bg);
     display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
+    margin-bottom: clamp(8px, 1.2vh, 12px);
   }
 
-  .access-body{ flex: 1 1 auto; min-width:0; }
+  .access-arrow{
+    position:absolute;
+    top: clamp(12px, 1.6vh, 16px);
+    right: clamp(12px, 1.4vw, 16px);
+    width:28px; height:28px;
+    border-radius:50%;
+    background: var(--mint-bg);
+    color: var(--accent, var(--teal-700));
+    display:flex; align-items:center; justify-content:center;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .access-arrow svg{ width:14px; height:14px; transition: transform 0.25s ease; }
+
+  .access-body{ display:contents; }
 
   .access-tag{
-    font-weight:700; font-size:0.72rem; letter-spacing:0.05em;
+    font-weight:700; font-size:0.68rem; letter-spacing:0.05em;
     text-transform:uppercase;
     color: var(--accent, var(--teal-700));
     margin-bottom: 4px;
@@ -215,28 +233,22 @@
 
   .access-title{
     font-weight:700;
-    font-size: clamp(0.98rem, 0.5vw + 0.85rem, 1.12rem);
-    line-height:1.3;
+    font-size: clamp(0.88rem, 0.3vw + 0.8rem, 0.98rem);
+    line-height:1.28;
     color: var(--teal-900);
+    padding-right: 30px;
   }
 
   .access-desc{
-    margin-top:3px;
-    font-size: 0.83rem;
+    margin-top: 5px;
+    font-size: 0.78rem;
     line-height:1.4;
     color: var(--muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-
-  .access-arrow{
-    flex-shrink:0;
-    width:38px; height:38px;
-    border-radius:50%;
-    background: var(--mint-bg);
-    color: var(--accent, var(--teal-700));
-    display:flex; align-items:center; justify-content:center;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .access-arrow svg{ width:16px; height:16px; transition: transform 0.25s ease; }
 
   /* Footer — franja mínima, no compite por altura */
   footer{
@@ -285,6 +297,10 @@
     .hero-sub{ max-width:none; }
     .access-title{ font-size:1rem; }
     footer .wrap{ flex-direction:column; align-items:flex-start; padding-bottom:max(10px, env(safe-area-inset-bottom)); }
+  }
+
+  @media (max-width:480px){
+    .access{ grid-template-columns: 1fr; }
   }
 
   @media (max-height:680px) and (min-width:761px){
@@ -389,6 +405,23 @@
             <span class="access-tag" aria-hidden="true">Calendario</span>
             <span class="access-title">Calendario Sprints S2 2026</span>
             <span class="access-desc">Cadencia organizacional bimestral y calendario operativo del segundo semestre.</span>
+          </span>
+          <span class="access-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="access-btn" style="--accent: var(--teal-700);" href="https://calm-moss-00494040f.7.azurestaticapps.net/witest.html" target="_blank" rel="noopener noreferrer" aria-label="Abrir Dashboard de elementos en estado Test, corte 1 de julio 2026 (se abre en una pestaña nueva)">
+          <span class="access-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
+              <path d="M13 4L22 8.5V17.5L13 22L4 17.5V8.5L13 4Z" stroke="#064350" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9.5 13L12 15.5L17 10" stroke="#064350" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="access-body">
+            <span class="access-tag" aria-hidden="true">Backlog · Test</span>
+            <span class="access-title">Elementos en estado Test — corte JUL 1, 2026</span>
+            <span class="access-desc">Aging, esfuerzo invertido y riesgo de los ítems detenidos en Test.</span>
           </span>
           <span class="access-arrow" aria-hidden="true">
             <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
