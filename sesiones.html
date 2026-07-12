@@ -201,6 +201,11 @@
 
   .detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   .ceremony-badge{display:inline-block; margin-left:8px; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; padding:3px 9px; border-radius:20px; background:var(--purple-l); color:var(--purple-d); vertical-align:middle;}
+  .topo-badge{display:inline-block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; padding:3px 8px; border-radius:20px; white-space:nowrap;}
+  .topo-lab{background:var(--purple-l); color:var(--purple-d);}
+  .topo-serv{background:var(--blue-l); color:var(--blue-d);}
+  .topo-scrum{background:var(--amber-l); color:var(--amber-d);}
+  .detail-head .topo-badge{margin-bottom:8px;}
   .eng-card{border-left:3px solid var(--teal); border-radius:12px;}
   .detail-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow);}
   .detail-card h4{margin:0 0 12px; font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); display:flex; align-items:center; gap:7px;}
@@ -230,11 +235,12 @@
   <div class="hero-inner">
     <p class="eyebrow">Coaching ágil · Síntesis estratégica</p>
     <h1>Análisis de prácticas de los equipos</h1>
-    <p class="sr-only">Panel interactivo con dos vistas: vista global con métricas agregadas y vista por equipo con diagnóstico individual de 11 equipos.</p>
-    <p class="lead">Consolidado cuantitativo y cualitativo de 22 ceremonias ágiles en 11 equipos. Buena capacidad técnica y transparencia individual; madurez de proceso rezagada por facilitación pasiva, sobrecarga de Product Owners y retrospectivas prácticamente ausentes.</p>
+    <p class="sr-only">Panel interactivo con dos vistas: vista global con métricas agregadas y vista por equipo con diagnóstico individual.</p>
+    <p class="lead">Consolidado cuantitativo y cualitativo de 22 ceremonias ágiles, leído a través del Modelo Operativo de Agilidad. Las sesiones cubren tres topologías de equipo (un único Laboratorio Digital activo —Gastos Médicos—, Equipos de Servicio Digital y Equipos Scrum). Buena capacidad técnica y transparencia individual; la madurez de proceso se rezaga por facilitación pasiva, roles fusionados, sobrecarga de Product Owners y ceremonias que no siempre corresponden a la topología del equipo.</p>
     <div class="hero-meta">
       <span class="meta-chip"><b>17–29 jun 2026</b> · periodo analizado</span>
-      <span class="meta-chip"><b>22</b> sesiones · <b>11</b> equipos</span>
+      <span class="meta-chip"><b>22</b> sesiones · <b>3</b> topologías</span>
+      <span class="meta-chip"><b>1</b> laboratorio activo: <b>Gastos Médicos</b></span>
       <span class="meta-chip">Madurez global: <b>Medio-Bajo</b></span>
     </div>
   </div>
@@ -261,8 +267,8 @@
           <div class="lbl">Sesiones analizadas</div>
         </div>
         <div class="kpi">
-          <div class="num" style="color:var(--navy)">11</div>
-          <div class="lbl">Equipos cubiertos</div>
+          <div class="num" style="color:var(--navy)">9<span style="font-size:16px; color:var(--ink-soft)">+3</span></div>
+          <div class="lbl">Equipos de desarrollo + ceremonias de coordinación del laboratorio</div>
         </div>
         <div class="kpi">
           <div class="num" style="color:var(--red)">9<span style="font-size:16px; color:var(--ink-soft)">/22</span></div>
@@ -271,42 +277,57 @@
         </div>
         <div class="kpi">
           <div class="num" style="color:var(--coral)">1<span style="font-size:16px; color:var(--ink-soft)">/22</span></div>
-          <div class="lbl">Retrospectivas con registro real</div>
+          <div class="lbl">Retrospectivas efectivamente registradas</div>
           <span class="tag" style="background:var(--coral-l); color:var(--coral-d)">ceremonia invisible</span>
         </div>
         <div class="kpi">
           <div class="num" style="color:var(--amber)">2</div>
           <div class="lbl">Equipos en riesgo alto de continuidad</div>
-          <span class="tag" style="background:var(--amber-l); color:var(--amber-d)">Gestión 360 · Equipo de Acción</span>
+          <span class="tag" style="background:var(--amber-l); color:var(--amber-d)">Gestión 360 · ACD (concentración)</span>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="section-title"><span class="section-num">1</span><h2>Laboratorio de Gastos Médicos: Metodología Scrum@Scale</h2></div>
-      <p class="section-sub">El Laboratorio de Seguros Personales / Gastos Médicos opera con metodología Scrum@Scale: 4 equipos coordinados por un Daily Scrum of Scrums y apoyados por un Equipo de Acción para escalados.</p>
-      <div class="card">
-        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
-          <span class="pat-chip" style="background:var(--teal-l); color:var(--teal-d); border-color:#9fe1cb;">Visionarios — con transcripciones</span>
-          <span class="pat-chip" style="background:var(--teal-l); color:var(--teal-d); border-color:#9fe1cb;">DevSquad — con transcripciones</span>
-          <span class="pat-chip" style="background:var(--paper); color:var(--ink-soft); border-color:var(--line);">La 501 — sin transcripciones identificadas</span>
-          <span class="pat-chip" style="background:var(--paper); color:var(--ink-soft); border-color:var(--line);">Agile Ninjas — sin transcripciones identificadas</span>
-          <span class="pat-chip" style="background:var(--purple-l); color:var(--purple-d); border-color:#cecbf6;">Daily Scrum of Scrums — ceremonia inter-equipos (2 sesiones)</span>
-          <span class="pat-chip" style="background:var(--purple-l); color:var(--purple-d); border-color:#cecbf6;">Equipo de Acción — resolución de escalados (3 sesiones)</span>
+      <div class="section-title"><span class="section-num">1</span><h2>Topología de equipos según el Modelo Operativo</h2></div>
+      <p class="section-sub">El Modelo Operativo de Agilidad define tres topologías, cada una con su propia estructura, roles y ceremonias. Un equipo debe evaluarse contra el marco que le corresponde, no contra un molde Scrum único. Hoy existe <strong>un solo Laboratorio Digital activo (Gastos Médicos)</strong>; los demás equipos analizados son Equipos de Servicio Digital o Equipos Scrum que, en el futuro, podrían conformarse como laboratorios.</p>
+      <div class="insight-grid" style="margin-bottom:16px;">
+        <div class="insight" style="border-top-color:var(--purple);">
+          <div class="k">Topología 1 · Laboratorio Digital</div>
+          <p><strong>Único activo: Gastos Médicos.</strong> Construye y evoluciona producto con aprendizaje continuo bajo Scrum@Scale. Éxito = valor, adopción, flujo. Células analizadas: <strong>Visionarios y DevSquad</strong> (La 501 y Agile Ninjas no tuvieron sesiones en este período), coordinadas por el <strong>Daily Scrum of Scrums</strong> y el <strong>Equipo de Acción</strong>. Liderazgo del laboratorio: <strong>Chief Product Owner</strong> (Alexandra Symes), <strong>Líder Técnico</strong> (Alejandro Ulloa) y <strong>Líder Ágil</strong> (Olman Angulo).</p>
         </div>
-        <p style="font-size:14px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px;">El Daily Scrum of Scrums y el Equipo de Acción no son equipos de desarrollo individuales — son <strong>mecanismos de coordinación</strong> que existen porque ningún equipo por sí solo resuelve impedimentos que cruzan las cuatro células (Visionarios, La 501, Agile Ninjas, DevSquad) o que involucran directamente al negocio. Su valor no se mide por velocidad de entrega de historias, sino por su capacidad de <strong>destrabar al resto del laboratorio</strong>. Se muestran como entradas propias en la vista por equipo porque así se registraron sus sesiones, marcadas con la etiqueta <span class="ceremony-badge" style="position:relative; top:-1px;">Ceremonia Scrum@Scale, no equipo</span>.</p>
+        <div class="insight" style="border-top-color:var(--blue);">
+          <div class="k">Topología 2 · Equipos de Servicio Digital</div>
+          <p>Continuidad, disponibilidad y soporte bajo <strong>Kanban</strong>. Éxito = estabilidad, SLAs, DORA. Roles esperados: <strong>Service Owner + Flow Engineer</strong>; ceremonias: Daily Kanban, Service Review, Delivery Planning. Analizados: <strong>CRM, MAC, Analítica de Datos</strong>.</p>
+        </div>
+        <div class="insight" style="border-top-color:var(--amber);">
+          <div class="k">Topología 3 · Equipos Scrum / Proyecto</div>
+          <p>Producto o iniciativa con Scrum clásico (Sprint Planning, Review, <strong>Retrospectiva</strong>). Candidatos a convertirse en laboratorios. Analizados: <strong>Gestión 360, AppClientes-INSMóvil, ASESOR, ACD</strong>.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>El Laboratorio de Gastos Médicos y sus mecanismos de coordinación</h3>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin:6px 0 16px;">
+          <span class="pat-chip" style="background:var(--teal-l); color:var(--teal-d); border-color:#9fe1cb;">Visionarios — analizado</span>
+          <span class="pat-chip" style="background:var(--teal-l); color:var(--teal-d); border-color:#9fe1cb;">DevSquad — analizado</span>
+          <span class="pat-chip" style="background:var(--paper); color:var(--ink-soft); border-color:var(--line);">La 501 — sin sesiones en este período</span>
+          <span class="pat-chip" style="background:var(--paper); color:var(--ink-soft); border-color:var(--line);">Agile Ninjas — sin sesiones en este período</span>
+          <span class="pat-chip" style="background:var(--purple-l); color:var(--purple-d); border-color:#cecbf6;">Daily Scrum of Scrums — ceremonia inter-equipos (2 sesiones)</span>
+          <span class="pat-chip" style="background:var(--purple-l); color:var(--purple-d); border-color:#cecbf6;">Equipo de Acción del Laboratorio — coordinación de escalados (1 sesión)</span>
+        </div>
+        <p style="font-size:14px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px;">Dentro del laboratorio, el <strong>Daily Scrum of Scrums</strong> y el <strong>Equipo de Acción del Laboratorio</strong> no son equipos de desarrollo individuales — son <strong>mecanismos de coordinación de Scrum@Scale</strong> que existen porque ningún equipo por sí solo resuelve impedimentos que cruzan las cuatro células o que involucran directamente al negocio. Su valor no se mide por velocidad de entrega de historias, sino por su capacidad de <strong>destrabar al resto del laboratorio</strong>. Se muestran como entradas propias en la vista por equipo, marcadas con <span class="ceremony-badge" style="position:relative; top:-1px;">Ceremonia de coordinación</span>.</p>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:12px;">
           <div style="background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px;">
             <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--purple-d); margin-bottom:4px;">Coordinación</div>
-            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Punto de mayor riesgo y mayor oportunidad para el laboratorio: cuando fallan (timebox, dominancia de voces), el costo lo paga la coordinación de las 4 células, no un solo equipo.</p>
+            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Punto de mayor riesgo y mayor oportunidad del laboratorio: cuando fallan (control del tiempo, dominancia de voces), el costo lo paga la coordinación de las cuatro células, no un solo equipo.</p>
           </div>
           <div style="background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px;">
             <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--purple-d); margin-bottom:4px;">Prácticas aplicadas</div>
-            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Al no tener backlog propio, la disciplina ágil clásica no se traslada sola — ambas ceremonias tienden a degradarse hacia troubleshooting extendido sin estructura propia.</p>
+            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Al no tener trabajo propio priorizado, la disciplina ágil clásica no se traslada sola — ambas ceremonias tienden a degradarse hacia la resolución extendida de incidencias, sin estructura propia.</p>
           </div>
           <div style="background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:12px 14px;">
             <div style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--purple-d); margin-bottom:4px;">Protagonismo de roles</div>
-            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Integran negocio y, en la práctica, también Product Owners de equipo. Puede ser fortaleza (decisión con negocio presente) o síntoma de que el desarrollo no asume el protagonismo técnico esperado.</p>
+            <p style="font-size:13px; line-height:1.5; margin:0; color:var(--ink-soft);">Integran negocio y, en la práctica, también Product Owners de equipo. Puede ser fortaleza (decisión con negocio presente) o síntoma de que el desarrollo no asume el protagonismo técnico esperado por el modelo.</p>
           </div>
         </div>
       </div>
@@ -333,27 +354,27 @@
       <div class="insight-grid">
         <div class="insight">
           <div class="k">Daily desnaturalizado</div>
-          <p>El <strong>Daily funciona como cajón de sastre</strong>: en 6+ de 22 sesiones absorbe troubleshooting extenso o anuncios unidireccionales que exceden su propósito de sincronización.</p>
+          <p>El <strong>Daily funciona como cajón de sastre</strong>: en más de 6 de 22 sesiones absorbe resolución extensa de incidencias o anuncios unidireccionales que exceden su propósito de sincronización.</p>
         </div>
         <div class="insight">
           <div class="k">Facilitación pasiva</div>
-          <p>Donde existe Scrum Master, gestiona turnos y tablero pero <strong>no protege el timebox</strong> ni redirige activamente conversaciones fuera de foco.</p>
+          <p>Donde existe Scrum Master, gestiona turnos y tablero pero <strong>no protege el tiempo</strong> ni redirige activamente las conversaciones fuera de foco.</p>
         </div>
         <div class="insight">
           <div class="k">Dependencia de una voz</div>
-          <p>En <strong>5 de 11 equipos</strong> el Planning es una exposición unidireccional del PO o líder técnico, no una construcción colaborativa.</p>
+          <p>En <strong>6 de 11 sesiones</strong> la voz dominante es el Product Owner, no el desarrollo; el Planning tiende a ser una exposición unidireccional en vez de una construcción colaborativa.</p>
         </div>
         <div class="insight">
           <div class="k">Técnica ≠ proceso</div>
-          <p>Los equipos con mayor profundidad técnica (Equipo de Acción, Analítica de Datos) muestran las <strong>Reviews menos alineadas</strong> a su propósito ágil: sin voz de negocio validando valor.</p>
+          <p>Los equipos con mayor profundidad técnica (ACD, Analítica de Datos) muestran las <strong>Reviews menos alineadas</strong> a su propósito ágil: sin voz de negocio validando valor.</p>
         </div>
         <div class="insight">
-          <div class="k">Retro invisible</div>
-          <p>Solo 1 de 22 archivos menciona una Retrospectiva, y ni siquiera registra su contenido — <strong>ruptura sistémica</strong> del ciclo de inspección-adaptación.</p>
+          <div class="k">Retrospectiva invisible</div>
+          <p>Solo 1 de 22 sesiones registra una Retrospectiva. El <strong>ciclo de aprender y ajustar prácticamente no deja rastro</strong>: no se observa ni la Retrospectiva de los equipos Scrum ni la mejora continua por métricas de los equipos de servicio.</p>
         </div>
         <div class="insight">
           <div class="k">Sobrecarga convergente</div>
-          <p>3 equipos sin relación entre sí (Gestión 360, Visionarios, Analítica de Datos) muestran el <strong>mismo patrón de PO sobrecargado</strong> — indicio de causa estructural, no coincidencia.</p>
+          <p>3 equipos sin relación entre sí (Gestión 360, Visionarios, Analítica de Datos) muestran el <strong>mismo patrón de Product Owner sobrecargado</strong> — indicio de una causa estructural, no una coincidencia.</p>
         </div>
       </div>
     </section>
@@ -362,38 +383,55 @@
       <div class="section-title"><span class="section-num">4</span><h2>Patrones sistémicos</h2></div>
       <p class="section-sub">Problemas que se repiten a nivel organizacional, no de un equipo aislado.</p>
       <div class="chip-row">
-        <div class="pat-chip">Timebox no protegido en la mayoría de las ceremonias analizadas</div>
+        <div class="pat-chip">Control del tiempo no protegido en la mayoría de las ceremonias analizadas</div>
         <div class="pat-chip">Baja participación estructural del equipo técnico cuando una sola voz domina</div>
         <div class="pat-chip">Facilitación pasiva o ausente de Scrum Master en varios equipos</div>
-        <div class="pat-chip">Ceremonias que no generan el valor esperado de su tipo (Daily-troubleshooting, Planning-exposición, Review-sin-negocio)</div>
-        <div class="pat-chip">Ausencia de mecanismo de seguimiento de compromisos con dueño y fecha</div>
-        <div class="pat-chip">Gobernanza técnica y documental débil (accesos sin dueño, transcripciones incompletas)</div>
+        <div class="pat-chip">Ceremonias que no cumplen su propósito (la Daily como resolución de incidencias, el Planning como exposición, la Review sin negocio)</div>
+        <div class="pat-chip">Ausencia de un mecanismo de seguimiento de compromisos con responsable y fecha</div>
+        <div class="pat-chip">Gobernanza técnica débil: accesos y configuraciones críticas sin responsable asignado</div>
       </div>
     </section>
 
     <section>
-      <div class="section-title"><span class="section-num">5</span><h2>Desarrolladores subcontratados como ingenieros de soluciones, y protagonismo de roles</h2></div>
-      <p class="section-sub">Muchos desarrolladores pertenecen a una empresa subcontratada, con la expectativa de que se desempeñen como ingenieros de TI/soluciones: criterio técnico propio, diagnóstico de causa raíz y propuesta activa de diseño — no solo ejecución y reporte de estado.</p>
+      <div class="section-title"><span class="section-num">5</span><h2>Participación en sesiones y protagonismo de roles</h2></div>
+      <p class="section-sub">Cómo se distribuye la palabra en las sesiones: quién interviene, quién permanece en silencio toda la reunión y qué rol concentra la conversación. Cada equipo combina un líder técnico, un Product Owner y un equipo de desarrollo —en su mayoría de proveedores externos— del que se espera que aporte criterio propio de ingeniería de soluciones.</p>
       <div class="grid2">
-        <div class="card" style="border-left:3px solid var(--teal);">
-          <h3 style="color:var(--teal-d);">Ejemplo destacado (equipo de desarrollo)</h3>
-          <p style="font-size:14px; line-height:1.6; margin:0;"><strong>Roy Calderón Quirós y Agustín Castillo Picado</strong> (CRM) documentaron pruebas técnicas y correcciones con evidencia y trazabilidad clara de decisiones; <strong>Greivin, José y Hanssel</strong> (Gestión 360) mostraron refinamiento técnico colaborativo con validaciones de calidad entre pares — el patrón de ingeniería de soluciones más consistente del corpus, generado por el propio equipo técnico.</p>
-        </div>
-        <div class="card" style="border-left:3px solid var(--amber);">
-          <h3 style="color:var(--amber-d);">Caso de atención: protagonismo desplazado</h3>
-          <p style="font-size:14px; line-height:1.6; margin:0;">En la Daily Scrum of Scrums, el diagnóstico técnico más completo del corpus lo condujo <strong>Pablo Antonio Muñoz Sáenz — Product Owner del equipo La 501</strong>, no un desarrollador (según el catálogo oficial de POs/SM del laboratorio). Es una señal positiva de generación de valor del PO, pero también de <strong>protagonismo de roles invertido</strong>: es producto, no desarrollo, quien lidera la causa raíz técnica del laboratorio.</p>
+        <div class="card">
+          <h3>Cobertura de participación (9 equipos de desarrollo)</h3>
+          <div class="chart-box"><canvas id="chartPart" role="img" aria-label="Gráfico de dona: 6 de 9 equipos con participación plena y 3 con integrantes que no intervienen."></canvas></div>
         </div>
         <div class="card">
-          <h3>Lectura por equipo</h3>
-          <p style="font-size:13.5px; line-height:1.6; margin:0 0 8px;"><strong style="color:var(--green-d);">Alto:</strong> CRM, Gestión 360, Analítica de Datos (en Review)</p>
-          <p style="font-size:13.5px; line-height:1.6; margin:0 0 8px;"><strong style="color:var(--amber-d);">Medio:</strong> DevSquad, MAC, AppClientes-INSMóvil, Laboratorio de Seguros Personales</p>
-          <p style="font-size:13.5px; line-height:1.6; margin:0 0 8px;"><strong style="color:var(--amber-d);">Medio-Bajo:</strong> Scrum of Scrums (protagonismo técnico recae en el PO, no en el desarrollo)</p>
-          <p style="font-size:13.5px; line-height:1.6; margin:0;"><strong style="color:var(--red-d);">Bajo:</strong> ASESOR, Visionarios (participación técnica subordinada a la narrativa del PO)</p>
+          <h3>Voz dominante de la sesión, por rol y tipo de ceremonia (11 sesiones)</h3>
+          <div class="chart-box"><canvas id="chartRoles" role="img" aria-label="Gráfico de barras apiladas: la voz dominante es el Product Owner en 6 sesiones (4 Planning y 2 Review), un desarrollador en 4 (1 Daily, 2 Planning, 1 Review) y el Scrum Master en 1 (Review)."></canvas></div>
+        </div>
+      </div>
+      <div class="insight-grid" style="margin-top:16px;">
+        <div class="insight">
+          <div class="k">Participación plena</div>
+          <p>En <strong>6 de 9 equipos</strong> toda la plantilla registrada intervino al menos una vez. La asistencia activa es la norma cuando la dinámica de la ceremonia lo propicia.</p>
+        </div>
+        <div class="insight">
+          <div class="k">Silencio estructural</div>
+          <p>En <strong>3 de 9 equipos</strong> uno o más integrantes no dijeron una sola palabra en toda la sesión. En el caso más agudo, <strong>~44%</strong> del equipo —incluido su propio Scrum Master— permaneció en silencio.</p>
+        </div>
+        <div class="insight">
+          <div class="k">Protagonismo del Product Owner</div>
+          <p>En <strong>6 de 11 sesiones</strong> la voz que más habla no es del desarrollo sino del Product Owner; solo en 4 lidera un desarrollador y en 1 el Scrum Master.</p>
+        </div>
+      </div>
+      <div class="grid2" style="margin-top:16px;">
+        <div class="card" style="border-left:3px solid var(--teal);">
+          <h3 style="color:var(--teal-d);">Dónde el desarrollo toma el protagonismo</h3>
+          <p style="font-size:14px; line-height:1.6; margin:0;">En las cuatro sesiones donde la voz principal es un desarrollador aparece el comportamiento esperado de ingeniero de soluciones: diagnóstico técnico documentado, trazabilidad de decisiones y validación de calidad entre pares generada por el propio equipo. El patrón más sano combina una voz de desarrollo al frente con <strong>participación distribuida</strong> —ningún integrante en silencio— y no una sola persona acaparando la conversación.</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--amber);">
+          <h3 style="color:var(--amber-d);">Dónde el protagonismo se desplaza</h3>
+          <p style="font-size:14px; line-height:1.6; margin:0;">En las seis sesiones donde la palabra la concentra el Product Owner, cuanto más domina su narrativa más cae la participación del desarrollo: los dos equipos con integrantes en silencio prolongado son también aquellos donde la voz del Product Owner supera el <strong>40% de las intervenciones</strong> y no hay facilitación de un Scrum Master. Caso aparte: en una sesión de equipo técnico la conversación se concentra en <strong>~80% en solo dos voces de desarrollo</strong> —no es dominancia de producto, sino un riesgo distinto: el conocimiento vive en una o dos personas.</p>
         </div>
       </div>
       <div class="card" style="margin-top:14px;">
-        <p style="font-size:14px; line-height:1.6; margin:0 0 10px;"><strong>Interpretación — generación de valor y coordinación:</strong> la capacidad técnica de base parece estar presente en la mayoría de los equipos — el diferencial no es de habilidad, sino de si la dinámica de la ceremonia (y la facilitación) crea espacio para que esa capacidad se exprese como propuesta activa en vez de respuesta reactiva. Los equipos donde el PO domina la narrativa sin contrapeso (ASESOR, Visionarios y, en la práctica, la Daily Scrum of Scrums) son los que muestran menor comportamiento de ingeniero de soluciones en el desarrollo, independientemente de la competencia técnica individual de sus miembros. Cuando el desarrollo no lidera el diagnóstico técnico, el laboratorio depende de un número reducido de Product Owners para resolver problemas transversales — un riesgo de coordinación a nivel de todo el Scrum@Scale, no solo de un equipo.</p>
-        <p style="font-size:14px; line-height:1.6; margin:0;"><strong>Recomendación:</strong> usar el patrón de CRM y Gestión 360 como referencia (diagnóstico documentado, trazabilidad técnica generada por el equipo), y en la Daily Scrum of Scrums reservar explícitamente el rol de diagnóstico de causa raíz al equipo técnico, con el PO en un rol de acompañamiento y validación de impacto de negocio.</p>
+        <p style="font-size:14px; line-height:1.6; margin:0 0 10px;"><strong>Interpretación:</strong> la capacidad técnica está presente en casi todos los equipos; el diferencial no es la habilidad, sino si la dinámica de la sesión y la facilitación crean espacio para que esa capacidad se exprese como propuesta activa en vez de respuesta reactiva. Cuando el desarrollo lidera el diagnóstico técnico, el equipo genera valor; cuando el Product Owner concentra la narrativa sin contrapeso, el desarrollo se vuelve reactivo y varios integrantes desaparecen de la conversación. Depender de unas pocas voces de producto para el protagonismo técnico es un <strong>riesgo de continuidad</strong>, no un logro del equipo.</p>
+        <p style="font-size:14px; line-height:1.6; margin:0;"><strong>Recomendación:</strong> reservar explícitamente el diagnóstico de causa raíz al equipo de desarrollo, con el Product Owner en rol de validación de impacto de negocio; y en cada ceremonia verificar activamente la intervención de los integrantes silenciosos, cuya ausencia de voz se concentra justo donde no hay facilitación del Scrum Master.</p>
       </div>
     </section>
 
@@ -403,27 +441,31 @@
       <div class="root-list">
         <div class="root-item">
           <span class="cause-tag tag-skills">Skills / Proceso</span>
-          <p><b>Timebox no protegido</b> — probablemente ocurre porque no existe una cultura instalada de "parking lot" ni entrenamiento explícito a los SM sobre cómo redirigir conversaciones sin fricción social.</p>
+          <p><b>Tiempo no protegido</b> — probablemente porque no existe una práctica instalada para aparcar los temas fuera de foco ni entrenamiento a los facilitadores sobre cómo redirigir las conversaciones sin fricción.</p>
         </div>
         <div class="root-item">
           <span class="cause-tag tag-liderazgo">Liderazgo / Estructura</span>
-          <p><b>Sobrecarga de Product Owners</b> — probablemente ocurre porque el diseño organizacional no ha separado funciones de pruebas/validación/despliegue del rol de PO.</p>
+          <p><b>Sobrecarga de Product Owners</b> — probablemente porque el diseño organizacional no ha separado las funciones de pruebas, validación y despliegue del rol de Product Owner.</p>
         </div>
         <div class="root-item">
-          <span class="cause-tag tag-liderazgo">Cultura / Liderazgo</span>
-          <p><b>Ausencia de SM dedicado</b> en varios equipos — probablemente por restricciones de headcount o porque el rol no se percibe como crítico por el liderazgo.</p>
+          <span class="cause-tag tag-liderazgo">Estructura / Roles</span>
+          <p><b>Roles fusionados y sin especializar</b> — una misma persona ejerce como <em>Líder Técnico y Scrum Master</em> a la vez, en vez de separar el liderazgo técnico del de facilitación como pide el modelo; los Equipos de Servicio aún no adoptan los roles de <em>Service Owner</em> y <em>Flow Engineer</em>. La facilitación queda subordinada a la carga técnica.</p>
+        </div>
+        <div class="root-item">
+          <span class="cause-tag tag-proceso">Proceso / Estructura</span>
+          <p><b>Ceremonias no alineadas a la topología</b> — Equipos de Servicio en transición siguen ejecutando eventos tipo Sprint (Planning/Review) en lugar de Daily Kanban, Service Review y gestión de flujo; se les mide con una vara que no es la suya.</p>
         </div>
         <div class="root-item">
           <span class="cause-tag tag-cultura">Cultura</span>
-          <p><b>Retrospectivas ausentes del registro</b> — probablemente porque, bajo presión de entrega, es la primera ceremonia sacrificada al no producir un entregable visible inmediato.</p>
+          <p><b>Inspección-adaptación ausente del registro</b> — donde el modelo prescribe Retrospectiva (Laboratorio/Scrum) es la primera ceremonia sacrificada bajo presión de entrega; en Servicio, la mejora continua por métricas de flujo tampoco se evidencia.</p>
         </div>
         <div class="root-item">
           <span class="cause-tag tag-proceso">Proceso / Cultura</span>
-          <p><b>Reviews sin voz de negocio</b> en equipos técnicos — probablemente porque tienen stakeholders menos definidos o no los convocan activamente.</p>
+          <p><b>Reviews sin voz de negocio</b> en equipos técnicos — probablemente porque tienen áreas de negocio menos definidas o no las convocan activamente.</p>
         </div>
         <div class="root-item">
           <span class="cause-tag tag-proceso">Proceso</span>
-          <p><b>Gobernanza técnica y documental débil</b> — probablemente por alta rotación sin práctica estándar de documentación ni validación de integridad de archivos.</p>
+          <p><b>Gobernanza técnica débil</b> — probablemente por alta rotación, sin una práctica estándar de documentación ni responsables asignados a las configuraciones críticas.</p>
         </div>
       </div>
     </section>
@@ -435,21 +477,21 @@
         <div class="rec-card">
           <h3><span class="rec-badge tac">Táctico · corto plazo</span></h3>
           <ol>
-            <li>Implementar un "parking lot" visible en cada ceremonia.</li>
-            <li>Timeboxing explícito: anunciar y respetar el tiempo restante.</li>
-            <li>Verificar activamente la participación de los miembros silenciosos.</li>
+            <li>Habilitar un espacio visible para aparcar los temas fuera de foco en cada ceremonia.</li>
+            <li>Control del tiempo explícito: anunciar y respetar el tiempo restante.</li>
+            <li>Verificar activamente la participación de los integrantes silenciosos.</li>
             <li>Agendar la Retrospectiva como evento obligatorio y registrarla.</li>
-            <li>Registrar cada compromiso con dueño y fecha de seguimiento.</li>
+            <li>Registrar cada compromiso con responsable y fecha de seguimiento.</li>
           </ol>
         </div>
         <div class="rec-card">
           <h3><span class="rec-badge est">Estratégico · mediano/largo plazo</span></h3>
           <ol>
-            <li>Redimensionar roles: separar pruebas/validación/despliegue del PO.</li>
-            <li>Asegurar cobertura de Scrum Master dedicado en todos los equipos.</li>
-            <li>Formalizar transferencia de conocimiento crítico en el Equipo de Acción antes de la salida del recurso clave.</li>
-            <li>Instalar un mecanismo único de seguimiento de acuerdos post-ceremonia.</li>
-            <li>Programa de coaching en facilitación para Scrum Masters actuales.</li>
+            <li>Alinear ceremonias y roles a la topología de cada equipo: Service Owner + Flow Engineer y Daily Kanban/Service Review en Servicios; Scrum@Scale en el laboratorio.</li>
+            <li>Separar el rol de Líder Ágil/Scrum Master del Líder Tecnológico, hoy fusionados en una sola persona.</li>
+            <li>Redimensionar roles: separar pruebas, validación y despliegue del Product Owner.</li>
+            <li>Distribuir el conocimiento técnico hoy concentrado en una o dos personas (ACD y otros equipos con la palabra muy concentrada).</li>
+            <li>Instalar un mecanismo único de seguimiento de acuerdos post-ceremonia y programa de coaching en facilitación.</li>
           </ol>
         </div>
       </div>
@@ -493,10 +535,10 @@
 
 </div>
 
-<footer>Análisis basado en 22 transcripciones de sesiones ágiles (17–29 jun 2026, más una Review Q2-2026) · Elaborado como síntesis del informe completo previamente entregado</footer>
+<footer>Análisis basado en 22 sesiones ágiles (junio 2026), evaluadas según el Modelo Operativo de Agilidad de la organización.</footer>
 
 <script>
-const critLabels = ["Claridad del objetivo","Participación","Interacción entre roles","Gestión del tiempo","Facilitación del SM","Enfoque en valor"];
+const critLabels = ["Claridad del objetivo","Participación","Interacción entre roles","Gestión del tiempo","Facilitación del Scrum Master","Enfoque en valor"];
 const critAlto  = [13,11,8,5,5,8];
 const critMedio = [9,8,13,8,16,14];
 const critBajo  = [0,3,1,9,1,0];
@@ -531,17 +573,47 @@ new Chart(document.getElementById('chartTypes'), {
   }
 });
 
+new Chart(document.getElementById('chartPart'), {
+  type:'doughnut',
+  data:{
+    labels:['Participación plena (6)','Con integrantes en silencio (3)'],
+    datasets:[{ data:[6,3], backgroundColor:['#5dcaa5','#d85a30'], borderWidth:3, borderColor:'#fff' }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false, cutout:'62%',
+    plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:12}}} }
+  }
+});
+
+new Chart(document.getElementById('chartRoles'), {
+  type:'bar',
+  data:{
+    labels:['Product Owner','Desarrollador','Scrum Master'],
+    datasets:[
+      { label:'Daily', data:[0,1,0], backgroundColor:'#378ADD', stack:'s' },
+      { label:'Planning', data:[4,2,0], backgroundColor:'#7F77DD', stack:'s' },
+      { label:'Review', data:[2,1,1], backgroundColor:'#D85A30', stack:'s' },
+    ]
+  },
+  options:{
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    scales:{ x:{stacked:true, max:11, grid:{color:'#eef0f2'}, ticks:{stepSize:2, font:{size:11}}},
+             y:{stacked:true, grid:{display:false}, ticks:{font:{size:12}}} },
+    plugins:{ legend:{position:'bottom', labels:{boxWidth:10, font:{size:11}}} }
+  }
+});
+
 const quadItems = [
-  {l:'Redimensionar roles de PO', x:2, y:5, p:'alta'},
-  {l:'Cobertura de SM dedicado', x:4, y:5, p:'alta'},
-  {l:'Transferencia de conocimiento (Equipo de Acción)', x:5, y:1.3, p:'alta'},
+  {l:'Redimensionar el rol de Product Owner', x:2, y:5, p:'alta'},
+  {l:'Facilitador dedicado en cada equipo', x:4, y:5, p:'alta'},
+  {l:'Distribuir el conocimiento concentrado', x:5, y:1.3, p:'alta'},
   {l:'Retrospectivas obligatorias', x:5, y:1.5, p:'alta'},
-  {l:'Timeboxing + parking lot', x:4.6, y:1.8, p:'alta'},
+  {l:'Control del tiempo y foco en las ceremonias', x:4.6, y:1.8, p:'alta'},
   {l:'Seguimiento de acuerdos', x:3, y:1.6, p:'media'},
-  {l:'Voz de negocio en Reviews técnicas', x:3, y:3.2, p:'media'},
-  {l:'Coaching de facilitación', x:3, y:3, p:'media'},
-  {l:'Formato único de transcripciones', x:1.5, y:1.2, p:'media'},
-  {l:'Gobernanza técnica de ambientes (Scrum of Scrums)', x:3, y:3, p:'baja'},
+  {l:'Voz de negocio en las revisiones técnicas', x:3, y:3.2, p:'media'},
+  {l:'Acompañamiento en facilitación', x:3, y:3, p:'media'},
+  {l:'Estandarizar el registro de las sesiones', x:1.5, y:1.2, p:'media'},
+  {l:'Gobernanza técnica de los ambientes', x:3, y:3, p:'baja'},
 ];
 const pColor = {alta:'#0f6e56', media:'#ba7517', baja:'#888780'};
 
@@ -578,72 +650,101 @@ Chart.register({
 
 const TEAMS = [
   { name:"CRM", score:4, label:"Medio-Alto", sessions:["Daily x2"],
-    diag:"El equipo con mejor claridad de objetivo y enfoque en valor del corpus, con una ambigüedad de liderazgo no resuelta entre quien abre y quien cierra la ceremonia.",
-    patterns:["Objetivo declarado explícitamente al abrir cada sesión","Doble liderazgo funcional sin roles formalizados","Gap de onboarding: miembro reciente sin convocatorias"],
-    risks:["Ambigüedad de liderazgo entre quien abre (SM) y quien cierra/coordina (PO/líder) la ceremonia","Gap de onboarding: un miembro reciente no recibe convocatorias a reviews quincenales","Participación desigual: dos personas concentran la mayoría del tiempo de habla"],
-    recs:["Clarificar y comunicar los roles de SM y PO/líder","Invitar explícitamente a los miembros de menor participación a confirmar avances o bloqueos propios"],
-    eng:"Uno de los mejores ejemplos del corpus: Roy y Agustín documentaron pruebas técnicas e implementación de API con evidencia; Berni coordinó proactivamente con arquitectura. Nivel: Alto." },
+    diag:"El equipo con mejor claridad de objetivo y enfoque en valor, con una ambigüedad de liderazgo no resuelta entre quien abre y quien cierra la sesión.",
+    patterns:["Participación plena: intervienen los cinco integrantes","El objetivo se declara explícitamente al abrir cada sesión","Doble liderazgo funcional sin roles formalizados","Un integrante recién incorporado no recibe todas las convocatorias"],
+    risks:["Ambigüedad de liderazgo entre quien abre y quien coordina la sesión","Un integrante reciente no recibe convocatorias a las revisiones quincenales","Dos personas concentran la mayor parte del tiempo de habla"],
+    recs:["Clarificar y comunicar los roles de facilitación y de producto","Invitar explícitamente a los integrantes de menor participación a exponer sus avances y bloqueos"],
+    eng:"El equipo documenta pruebas técnicas e implementación con evidencia y coordina de forma proactiva con arquitectura — el mejor ejemplo de ingeniería de soluciones generada por el propio equipo. Nivel: Alto." },
   { name:"Laboratorio de Seguros Personales", score:4, label:"Medio-Alto", sessions:["Sprint Review x1"],
-    diag:"Buena cultura de feedback de negocio en formato multi-squad, con interacción sustantiva entre desarrollo y stakeholders, sin mecanismo formal de cierre de acuerdos.",
-    patterns:["Preguntas de control sustantivas de negocio durante la Review","Fallas técnicas repetidas al inicio de la sesión (audio, pantalla)"],
-    risks:["Compromisos solicitados por negocio sin dueño claro tras la sesión"],
-    recs:["Registrar formalmente compromisos con dueño y fecha","Checklist técnica pre-sesión para evitar fricción de arranque"],
-    eng:"Los desarrolladores respondieron con criterio técnico a preguntas de control de negocio (aceptación automática de pagos por IA), mostrando comprensión del impacto de negocio de sus decisiones. Nivel: Medio-Alto." },
+    diag:"Revisión de escalados a nivel de laboratorio, con presencia de su liderazgo. Buena cultura de feedback de negocio en formato multi-equipo, con interacción sustantiva entre desarrollo y áreas de negocio, aunque sin un cierre formal de acuerdos.",
+    patterns:["Preguntas de control sustantivas de negocio durante la revisión","Fallas técnicas repetidas al inicio de la sesión"],
+    risks:["Compromisos solicitados por el negocio sin responsable claro tras la sesión"],
+    recs:["Registrar formalmente los compromisos con responsable y fecha","Verificación técnica previa a la sesión para evitar fricción de arranque"],
+    eng:"Los desarrolladores respondieron con criterio técnico a preguntas de negocio, mostrando comprensión del impacto de sus decisiones. Nivel: Medio-Alto." },
   { name:"DevSquad", score:3, label:"Medio", sessions:["Daily x4"],
-    diag:"Mecánica de Daily bien instalada con SM consistente, pero facilitación operativa que no protege el timebox frente a contenido de mayor alcance.",
-    patterns:["Daily usado para discusión técnica de detalle y, en un caso, como anuncio unidireccional","Participación desbalanceada sostenida entre sesiones"],
-    risks:["Resistencia al cambio (adopción de Copilot) expresada sin seguimiento visible","Problemas de conectividad recurrentes no resueltos"],
-    recs:["Parking lot activo para temas técnicos y anuncios extensos","Seguimiento 1:1 a la resistencia al cambio detectada"],
-    eng:"Participación técnica mayormente reactiva (dudas de alcance más que propuesta de diseño), aunque Andrés mostró iniciativa técnica ofreciéndose al piloto de Copilot. Nivel: Medio." },
+    diag:"Rutina de Daily bien instalada con facilitación consistente, pero que no protege el tiempo frente a temas de mayor alcance.",
+    patterns:["Participación plena en las cuatro sesiones: intervienen los siete integrantes","La Daily se usa para discusión técnica de detalle y, en un caso, como anuncio unidireccional","Participación desbalanceada sostenida entre sesiones"],
+    risks:["Resistencia al cambio ante nuevas herramientas, expresada sin seguimiento visible","Problemas de conectividad recurrentes no resueltos"],
+    recs:["Derivar los temas técnicos y anuncios extensos fuera de la Daily","Dar seguimiento a la resistencia al cambio detectada"],
+    eng:"Participación técnica mayormente reactiva (dudas de alcance más que propuesta de diseño), con algún caso de iniciativa propia al ofrecerse a un piloto tecnológico. Nivel: Medio." },
   { name:"MAC", score:3, label:"Medio", sessions:["Review + Retro x1"],
-    diag:"Buena dinámica de presentación técnica equilibrada, pero el ciclo de mejora continua está roto: la Retrospectiva anunciada no aparece registrada.",
-    patterns:["Participación equilibrada entre los tres desarrolladores","Ideas de mejora surgen de forma orgánica, no de una Retrospectiva formal"],
-    risks:["Oportunidades de mejora sin dueño ni fecha de seguimiento","Sin evidencia de que la Retrospectiva se haya ejecutado"],
-    recs:["Confirmar y registrar formalmente la Retrospectiva","Asignar dueño y fecha a cada oportunidad de mejora"],
-    eng:"Los tres desarrolladores propusieron ideas de mejora técnica por iniciativa propia (automatización de fechas, función reutilizable de \"cura de datos\"). Nivel: Medio-Alto." },
+    diag:"Buena dinámica de presentación técnica equilibrada, pero el ciclo de mejora continua está roto: la Retrospectiva anunciada no se realiza ni se registra.",
+    patterns:["Participación equilibrada entre los desarrolladores; el Product Owner no interviene en la sesión","Las ideas de mejora surgen de forma orgánica, no de una Retrospectiva formal"],
+    risks:["Oportunidades de mejora sin responsable ni fecha de seguimiento","Sin evidencia de que la Retrospectiva se haya realizado"],
+    recs:["Confirmar y registrar formalmente la Retrospectiva","Asignar responsable y fecha a cada oportunidad de mejora"],
+    eng:"Los desarrolladores proponen mejoras técnicas por iniciativa propia, como automatización y reutilización de componentes. Nivel: Medio-Alto." },
   { name:"Gestión 360", score:3, label:"Medio", sessions:["Daily x1","Planning x1","Review x1"],
-    diag:"La señal de riesgo más seria del corpus: la propia PO verbaliza que la carga de pruebas, validación y coordinación de pases a producción es insostenible.",
-    patterns:["Sprint planificado sin buffer para reuniones o coordinación entre equipos","Refinamiento técnico colaborativo de buena calidad"],
-    risks:["Riesgo de burnout de la PO, sin SM dedicado que la releve","Proceso de pase a producción reactivo con dependencias externas múltiples"],
-    recs:["Escalar y resolver la sobrecarga de la PO de forma inmediata","Asignar un Scrum Master dedicado, distinto del PO"],
-    eng:"Greivin, José y Hanssel mostraron refinamiento técnico colaborativo de buena calidad, discutiendo enfoque de implementación entre pares. Nivel: Alto." },
-  { name:"Equipo de Acción (Lab. Seguros Personales)", ceremony:true, score:2, label:"Medio-Bajo", sessions:["Daily x1","Planning x1","Review x1"],
-    diag:"Sigla histórica \"ACD\". Equipo dedicado a resolver problemas escalados dentro del Laboratorio de Seguros Personales/Gastos Médicos (Scrum@Scale). Técnicamente sólido, pero su Review ha derivado en demo técnica entre pares, con conocimiento crítico concentrado en una sola persona próxima a salir.",
-    patterns:["Daily deriva en temas administrativos y ha reprogramado la Review","Review dominada casi en su totalidad por dos personas"],
-    risks:["Riesgo alto de bus factor: conocimiento crítico en una persona que deja el equipo","Ausencia de feedback de negocio en la Review"],
-    recs:["Prioridad inmediata: plan de transferencia de conocimiento","Redefinir el propósito de la Review e invitar a negocio"],
-    eng:"Alto en las personas clave (Lendeld, Jorge mostraron fuerte ownership técnico en demos y arquitectura), pero Bajo en distribución: el comportamiento de ingeniero de soluciones no se observa en el resto del equipo." },
-  { name:"Analítica de Datos - Servicio Digital (Datos en Nube)", score:2, label:"Medio-Bajo", sessions:["Planning x1","Review x1"],
-    diag:"Fuerte capacidad técnica pero ceremonias que no cumplen su función ágil: Planning como asignación descendente y Review sin PO de negocio.",
-    patterns:["Review extensa (+64 min, 10 personas) sin voz de negocio","Buena coordinación de capacity planning con vacaciones"],
-    risks:["Participación casi nula de un miembro con tareas asignadas","Cruce crítico entre vacaciones y fecha límite regulatoria gestionado de forma reactiva"],
-    recs:["Incorporar activamente a un PO de negocio en la Review","Timeboxing estricto dado el patrón de sesiones extensas"],
-    eng:"Alto en la Review: el equipo generó por iniciativa propia una discusión estratégica de ahorro de costos (evitar compra de productos redundantes). Medio en el Planning, de tipo asignación descendente con poco espacio para propuesta técnica propia." },
-  { name:"Visionarios (Equipo Nova)", score:2, label:"Medio-Bajo", sessions:["Planning x1"],
-    diag:"Fuerte trazabilidad de valor de negocio, pero el Planning depende casi por completo de la narrativa en vivo del PO durante casi 2 horas, sin facilitación.",
-    patterns:["El PO narra y ajusta criterios de aceptación en vivo para 9+ historias","Ausencia total de Scrum Master facilitando tiempos"],
-    risks:["El propio PO reconoce fatiga y confusión hacia el cierre de la sesión"],
-    recs:["Incorporar un SM que aplique timeboxing y reparta la narrativa","Refinar historias antes del Planning"],
-    eng:"El equipo técnico (Eliecer, Olser, Anthony) se limitó a preguntas de factibilidad, sin propuestas de diseño propio; participación subordinada a la narrativa de la PO. Nivel: Bajo-Medio." },
+    diag:"La señal de riesgo más seria del análisis: la propia Product Owner expresa que la carga de pruebas, validación y coordinación de pases a producción es insostenible.",
+    patterns:["Participación plena: los seis integrantes intervienen activamente en las tres ceremonias","Sprint planificado sin margen para reuniones o coordinación entre equipos","Refinamiento técnico colaborativo de buena calidad"],
+    risks:["Riesgo de agotamiento de la Product Owner, sin un facilitador dedicado que la releve","Proceso de pase a producción reactivo, con múltiples dependencias externas"],
+    recs:["Resolver la sobrecarga de la Product Owner de forma inmediata","Asignar un Scrum Master dedicado, distinto del Product Owner"],
+    eng:"Los desarrolladores muestran refinamiento técnico colaborativo de buena calidad, discutiendo el enfoque de implementación entre pares. Nivel: Alto." },
+  { name:"ACD", score:2, label:"Medio-Bajo", sessions:["Planning x1","Review x1"],
+    diag:"Equipo de desarrollo enfocado en construir y ajustar funcionalidades para las unidades de negocio e integrar procesos con otros sistemas. Técnicamente sólido, pero con la palabra muy concentrada y su Review convertida en una demostración técnica entre pares.",
+    patterns:["Intervienen los cuatro integrantes a lo largo del Planning y la Review","En el Planning, dos voces concentran cerca del 80% de la conversación, con baja intervención del resto","Review sin voz de negocio, en formato de demostración técnica entre pares"],
+    risks:["Conocimiento y participación concentrados en pocas personas","Ausencia de feedback de negocio en la Review"],
+    recs:["Distribuir la participación técnica más allá de una o dos voces","Redefinir el propósito de la Review e incorporar al negocio"],
+    eng:"Fuerte dominio técnico en las personas clave (demostraciones y arquitectura), pero un comportamiento de ingeniería de soluciones poco distribuido en el resto del equipo." },
+  { name:"Equipo de Acción — Laboratorio de Gastos Médicos", ceremony:true, score:1.5, label:"Bajo-Medio", sessions:["Daily x1"],
+    diag:"Espacio de coordinación del laboratorio, convocado por su liderazgo junto con los líderes técnicos de las células para resolver impedimentos que cruzan a varios equipos. Su valor es destrabar al resto del laboratorio.",
+    patterns:["Reúne al liderazgo del laboratorio y a representantes de varias células","Tiende a convertirse en el espacio por defecto para resolver incidencias, sin límite de tiempo","La palabra la concentra el liderazgo, con poco espacio para las células"],
+    risks:["Sin una estructura propia, la sesión deriva en resolución de incidencias sin control de tiempo","Acuerdos de coordinación sin responsable ni fecha visibles"],
+    recs:["Separar la resolución profunda de incidencias de la sesión de coordinación","Que el liderazgo facilite y abra espacio a las células, registrando cada impedimento con responsable y fecha"],
+    eng:"Es un espacio de coordinación del laboratorio, no un equipo de desarrollo." },
+  { name:"Analítica de Datos", score:2, label:"Medio-Bajo", sessions:["Planning x1","Review x1"],
+    diag:"Fuerte capacidad técnica, pero ceremonias que no cumplen su función: el Planning opera como asignación descendente y la Review, muy extensa, transcurre sin voz de negocio.",
+    patterns:["Participación plena del equipo; la Review suma al grupo ampliado de analítica (más de 10 voces)","Review extensa (más de una hora, 10 personas) sin voz de negocio","Buena coordinación de la capacidad del equipo frente a vacaciones"],
+    risks:["Participación casi nula de un integrante con tareas asignadas","Cruce crítico entre vacaciones y una fecha límite regulatoria, gestionado de forma reactiva"],
+    recs:["Incorporar activamente a un responsable de negocio en la Review","Controlar el tiempo dado el patrón de sesiones extensas"],
+    eng:"En la Review, el equipo generó por iniciativa propia una discusión estratégica de ahorro de costos. En el Planning, de tipo asignación descendente, con poco espacio para propuesta técnica propia." },
+  { name:"Visionarios", score:2, label:"Medio-Bajo", sessions:["Planning x1"],
+    diag:"Fuerte trazabilidad de valor de negocio, pero el Planning depende casi por completo de la narrativa en vivo del Product Owner durante casi dos horas, sin facilitación.",
+    patterns:["3 de 7 integrantes —todos desarrolladores— no intervienen en todo el Planning","El Product Owner narra y ajusta los criterios de aceptación en vivo para más de nueve historias","Ausencia total de facilitación del tiempo"],
+    risks:["El propio Product Owner reconoce fatiga y confusión hacia el cierre de la sesión"],
+    recs:["Incorporar un facilitador que controle el tiempo y reparta la narrativa","Refinar las historias antes del Planning"],
+    eng:"El equipo técnico se limitó a preguntas de factibilidad, sin propuestas de diseño propio; participación subordinada a la narrativa de producto. Nivel: Bajo-Medio." },
   { name:"AppClientes-INSMóvil", score:2, label:"Medio-Bajo", sessions:["Planning x1","Review x1"],
-    diag:"Buen nivel técnico individual, pero gestión del tiempo reactiva y decisiones pendientes delegadas sistemáticamente a personas ausentes.",
-    patterns:["Demoras de arranque de hasta una hora por conversación social","El atraso de una ceremonia impactó en cascada a otro equipo (Front)"],
-    risks:["Sin Sprint Goal explícito ni estimación formal completa","Dependencia externa bloqueante sin plan de mitigación"],
-    recs:["Timebox estricto de apertura social (máx. 5 min)","Definir Sprint Goal explícito en cada Planning"],
-    eng:"Buena claridad técnica individual al presentar avances (Fran, Marco, Bryan, José), pero varias decisiones técnicas/UX se delegaron a una persona ausente en vez de resolverse con criterio propio del equipo. Nivel: Medio." },
+    diag:"Buen nivel técnico individual, pero gestión del tiempo reactiva y decisiones pendientes delegadas de forma sistemática a personas ausentes.",
+    patterns:["Participación plena; el Planning suma voces de un equipo relacionado","Demoras de arranque de hasta una hora por conversación social","El atraso de una ceremonia impactó en cascada a otro equipo"],
+    risks:["Sin objetivo de sprint explícito ni estimación formal completa","Dependencia externa bloqueante sin plan de mitigación"],
+    recs:["Limitar la apertura social a pocos minutos","Definir un objetivo de sprint explícito en cada Planning"],
+    eng:"Buena claridad técnica individual al presentar avances, pero varias decisiones técnicas y de diseño se delegaron a una persona ausente en vez de resolverse con criterio propio del equipo. Nivel: Medio." },
   { name:"ASESOR", score:2, label:"Medio-Bajo", sessions:["Planning x1"],
-    diag:"Fuerte enfoque en valor de negocio, pero la sesión es sustancialmente una exposición unidireccional de la PO sin evidencia de facilitación de SM.",
-    patterns:["Decisiones concretas de negocio centralizadas en una sola persona","El equipo de desarrollo interviene solo de forma reactiva"],
-    risks:["Dependencia total del criterio de la PO sin estimación colaborativa validada"],
-    recs:["Incorporar un rol de facilitación que balancee la participación","Fomentar estimación activa del equipo técnico"],
-    eng:"El equipo de desarrollo tuvo participación mínima y reactiva, sin evidencia de preguntas técnicas de factibilidad ni propuestas propias. Nivel: Bajo." },
-  { name:"Daily Scrum of Scrums (Lab. Seguros Personales)", ceremony:true, score:1.5, label:"Bajo-Medio", sessions:["Daily x2"],
-    diag:"Sigla histórica \"SOS\". Ceremonia inter-equipos del Laboratorio de Seguros Personales/Gastos Médicos que integra a las 4 células (Visionarios, La 501, Agile Ninjas, DevSquad) y a negocio, no es un equipo de desarrollo individual. Alta capacidad de diagnóstico técnico, pero la sesión ha dejado de ser breve y se ha convertido en el espacio por defecto de troubleshooting extendido.",
-    patterns:["Dominancia sostenida de las mismas tres voces en ambas sesiones","Duración muy por encima del estándar (hasta ~57 min)"],
-    risks:["Gobernanza técnica débil: configuraciones críticas sin responsable identificable","Transcripción del 18/06 severamente degradada — confiabilidad limitada"],
-    recs:["Separar troubleshooting profundo de la Daily con sesiones dedicadas","Documentar configuraciones críticas y asignar responsables"],
-    eng:"El diagnóstico técnico más completo del corpus lo condujo Pablo Antonio Muñoz Sáenz, quien según el catálogo oficial de roles del laboratorio es el Product Owner del equipo La 501, no un desarrollador. Comparó ambientes, formuló hipótesis y propuso pasos de verificación — señal positiva de generación de valor del PO, pero también de protagonismo de roles invertido: es producto, no desarrollo, quien lidera la causa raíz técnica. Alejandro Ulloa (desarrollador) aportó contrapeso puntual pero no lideró el diagnóstico. Nivel de ingeniería de soluciones en el desarrollo: Medio-Bajo." },
+    diag:"Fuerte enfoque en valor de negocio, pero la sesión es esencialmente una exposición unidireccional de la Product Owner, sin facilitación.",
+    patterns:["4 de 9 integrantes no intervienen, incluido el propio facilitador — la participación más baja del análisis","Las decisiones de negocio se centralizan en una sola persona","El equipo de desarrollo interviene solo de forma reactiva"],
+    risks:["Dependencia total del criterio de la Product Owner, sin estimación colaborativa"],
+    recs:["Incorporar facilitación que equilibre la participación","Fomentar la estimación activa del equipo técnico"],
+    eng:"El equipo de desarrollo tuvo participación mínima y reactiva, sin preguntas de factibilidad ni propuestas propias. Nivel: Bajo." },
+  { name:"Daily Scrum of Scrums", ceremony:true, score:1.5, label:"Bajo-Medio", sessions:["Daily x2"],
+    diag:"Ceremonia de coordinación entre las células del laboratorio, su liderazgo y el negocio. Alta capacidad de diagnóstico técnico, pero ha dejado de ser breve y se ha convertido en el espacio por defecto para resolver incidencias extensas.",
+    patterns:["Dominancia sostenida de las mismas voces (el liderazgo del laboratorio y algunos líderes de célula) en ambas sesiones","Duración muy por encima del estándar (hasta ~57 minutos)"],
+    risks:["Gobernanza técnica débil: configuraciones críticas sin responsable identificable","Acuerdos de coordinación sin responsable ni fecha"],
+    recs:["Separar la resolución profunda de incidencias en sesiones dedicadas","Documentar las configuraciones críticas y asignar responsables"],
+    eng:"El diagnóstico de causa raíz lo condujo el liderazgo técnico del laboratorio, con participación activa de un Product Owner de célula — coherente con su rol. El matiz está en las células: los desarrolladores intervinieron poco y no lideraron el diagnóstico." },
 ];
+const TOPO = {
+  lab:   {cls:'topo-lab',   label:'Laboratorio · Scrum@Scale'},
+  serv:  {cls:'topo-serv',  label:'Servicio Digital · Kanban'},
+  scrum: {cls:'topo-scrum', label:'Equipo Scrum · futuro lab'},
+};
+const teamTopo = {
+  "CRM":"serv",
+  "Laboratorio de Seguros Personales":"lab",
+  "DevSquad":"lab",
+  "MAC":"serv",
+  "Gestión 360":"scrum",
+  "ACD":"scrum",
+  "Equipo de Acción — Laboratorio de Gastos Médicos":"lab",
+  "Analítica de Datos":"serv",
+  "Visionarios":"lab",
+  "AppClientes-INSMóvil":"scrum",
+  "ASESOR":"scrum",
+  "Daily Scrum of Scrums":"lab",
+};
+function topoBadge(name){
+  const t = TOPO[teamTopo[name]];
+  return t ? `<span class="topo-badge ${t.cls}">${t.label}</span>` : '';
+}
 function scoreColor(score){
   if(score>=4) return {bg:'#eaf3de', fg:'#173404', bar:'#639922'};
   if(score>=3) return {bg:'#faeeda', fg:'#412402', bar:'#ef9f27'};
@@ -668,11 +769,12 @@ function renderDetailByName(name){
   if(!t) return;
   selectedTeamName = name;
   const c = scoreColor(t.score);
-  const ceremonyBadge = t.ceremony ? `<span class="ceremony-badge">Ceremonia Scrum@Scale, no equipo</span>` : '';
+  const ceremonyBadge = t.ceremony ? `<span class="ceremony-badge">Ceremonia de coordinación</span>` : '';
   host.innerHTML = `
     <div class="team-detail active">
       <div class="detail-head">
         <div>
+          <div>${topoBadge(t.name)}</div>
           <h2>${t.name}${ceremonyBadge}</h2>
           <p class="diag">${t.diag}</p>
         </div>
@@ -714,6 +816,7 @@ function renderPicker(mode){
     tile.setAttribute('role','listitem');
     tile.setAttribute('aria-pressed', t.name===selectedTeamName ? 'true':'false');
     tile.innerHTML = `
+      <div style="margin-bottom:8px;">${topoBadge(t.name)}</div>
       <div class="tname">${t.name}</div>
       <div class="tmeta">
         <span class="mbadge" style="background:${c.bg}; color:${c.fg}">${t.label}</span>
