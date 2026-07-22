@@ -2,298 +2,1376 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard — Salud del Backlog Ágil | 2026-07-11</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Dashboard de salud del backlog ágil — INS — corte 2026-07-21">
+<title>Salud del Backlog Ágil · INS · 2026-07-21</title>
 <style>
-  :root{--p:#1e3a5f;--pl:#2d5986;--a:#e8700a;--al:#f5a623;--d:#c0392b;--w:#e67e22;--s:#27ae60;--i:#2980b9;--bg:#f4f6f9;--card:#fff;--t:#2c3e50;--tl:#7f8c8d;--b:#dde3ec;--z:#8e44ad;--zl:#f3e5f5;--tr:#d35400;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--t);}
-  .hdr{background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;padding:24px 36px;}
-  .hdr h1{font-size:1.6rem;font-weight:700;} .hdr .sub{margin-top:5px;font-size:.9rem;opacity:.85;}
-  .hdr .meta{margin-top:10px;display:flex;gap:20px;font-size:.8rem;opacity:.8;flex-wrap:wrap;}
-  .nav{background:var(--p);display:flex;border-top:1px solid rgba(255,255,255,.15);overflow-x:auto;}
-  .nav button{background:none;border:none;color:rgba(255,255,255,.75);padding:11px 20px;font-size:.83rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;}
-  .nav button.active,.nav button:hover{color:#fff;border-bottom-color:var(--al);background:rgba(255,255,255,.08);}
-  .main{padding:24px 30px;max-width:1400px;margin:0 auto;}
-  .sec{display:none;}.sec.active{display:block;}
-  .kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:24px;}
-  .kcard{background:var(--card);border-radius:10px;padding:18px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06);border-left:4px solid var(--b);text-align:center;}
-  .kcard.p{border-left-color:var(--p);} .kcard.s{border-left-color:var(--s);} .kcard.d{border-left-color:var(--d);}
-  .kcard.w{border-left-color:var(--w);} .kcard.z{border-left-color:var(--z);} .kcard.i{border-left-color:var(--i);}
-  .kv{font-size:2.1rem;font-weight:800;line-height:1;} .kl{font-size:.75rem;color:var(--tl);margin-top:7px;text-transform:uppercase;letter-spacing:.5px;} .ks{font-size:.7rem;color:var(--tl);margin-top:4px;}
-  .card{background:var(--card);border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:22px;overflow:hidden;}
-  .ch{background:var(--p);color:#fff;padding:13px 18px;font-size:.93rem;font-weight:600;display:flex;justify-content:space-between;align-items:center;}
-  .ch .bdg{background:rgba(255,255,255,.2);border-radius:10px;padding:2px 9px;font-size:.75rem;}
-  .cb{padding:18px;}
-  .tc{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-  @media(max-width:900px){.tc{grid-template-columns:1fr;}}
-  table{width:100%;border-collapse:collapse;font-size:.84rem;}
-  th{background:#f0f4f8;color:var(--p);font-weight:700;padding:9px 11px;text-align:left;border-bottom:2px solid var(--b);cursor:pointer;white-space:nowrap;}
-  th:hover{background:#e4eaf2;}
-  td{padding:8px 11px;border-bottom:1px solid var(--b);vertical-align:middle;}
-  tr:hover td{background:#f8fafc;} tr:last-child td{border-bottom:none;}
-  .tw{overflow-x:auto;max-height:480px;overflow-y:auto;}
-  .be{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:600;}
-  .ba{background:#d5f5e3;color:#1a7a45;} .bt{background:#fdebd0;color:#a04000;} .bc{background:#f2f3f4;color:#717d7e;} .bd{background:#eaf0fb;color:#2e4482;}
-  .pb{display:flex;align-items:center;gap:7px;} .po{flex:1;background:#eee;border-radius:4px;height:7px;min-width:50px;} .pi{height:7px;border-radius:4px;}
-  .pl{background:var(--s);} .pm{background:var(--w);} .ph{background:var(--d);}
-  .nz{color:var(--z);font-weight:700;} .nd{color:var(--d);font-weight:700;} .ns{color:var(--s);font-weight:700;}
-  .sb{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;}
-  .sb input,.sb select{border:1px solid var(--b);border-radius:6px;padding:7px 11px;font-size:.83rem;color:var(--t);background:#fff;}
-  .sb input{flex:1;min-width:180px;}
-  .hl{display:flex;gap:12px;padding:13px;border-radius:8px;margin-bottom:11px;border-left:4px solid;}
-  .hl.cr{background:#fdf2f2;border-left-color:var(--d);} .hl.av{background:#fef9f0;border-left-color:var(--w);} .hl.ok{background:#f0fff4;border-left-color:var(--s);}
-  .hl .ic{font-size:1.3rem;} .hl .tx strong{display:block;margin-bottom:3px;font-size:.9rem;} .hl .tx p{font-size:.82rem;color:var(--tl);line-height:1.5;}
-  .rc{display:flex;gap:12px;padding:13px 15px;border-radius:8px;margin-bottom:9px;background:#f8fffe;border:1px solid #c8e6c9;}
-  .rc .rn{background:var(--s);color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;}
-  .rc .rb strong{font-size:.88rem;display:block;margin-bottom:2px;} .rc .rb p{font-size:.8rem;color:var(--tl);line-height:1.4;}
-  .gc{background:var(--card);border-radius:8px;border:1px solid var(--b);padding:15px;margin-bottom:13px;}
-  .gc .gh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px;}
-  .gc h4{font-size:.93rem;color:var(--p);} .gc .gs{display:flex;gap:9px;flex-wrap:wrap;}
-  .gc .gp{background:var(--zl);color:var(--z);padding:3px 9px;border-radius:10px;font-size:.75rem;font-weight:600;}
-  .gc .gp.go{background:#e8f4fd;color:var(--i);}
-  .gc ol{margin-left:16px;font-size:.83rem;line-height:1.7;} .gc ol li{margin-bottom:3px;}
-  .cbars{display:flex;flex-direction:column;gap:7px;}
-  .crow{display:flex;align-items:center;gap:9px;font-size:.8rem;}
-  .clbl{min-width:180px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .cbar{height:20px;border-radius:3px;background:var(--z);display:flex;align-items:center;padding-left:7px;color:#fff;font-size:.72rem;font-weight:600;min-width:2px;}
-  .cnum{font-size:.78rem;color:var(--tl);}
-  .ftr{text-align:center;padding:20px;font-size:.75rem;color:var(--tl);border-top:1px solid var(--b);margin-top:16px;}
+:root{
+  --p:#1e3a5f; --p-700:#16304d; --p-300:#4a6b93;
+  --a:#e8700a; --s:#27ae60; --i:#2980b9; --z:#8e44ad; --tr:#d35400;
+  --ok-bg:#e3f6ea; --ok-fg:#15693a;
+  --warn-bg:#fdf1de; --warn-fg:#8f5304;
+  --bad-bg:#fbe4e4; --bad-fg:#961f24;
+  --bg:#f1f4f8; --card:#fff; --txt:#1c2836; --muted:#5f7286; --border:#e3e8ee;
+  --shadow-sm:0 1px 2px rgba(16,35,58,.06);
+  --shadow-md:0 2px 8px rgba(16,35,58,.08), 0 1px 2px rgba(16,35,58,.04);
+  --shadow-lg:0 8px 24px rgba(16,35,58,.10);
+  --r:12px; --r-sm:8px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px; --sp-7:48px;
+  --ff:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --fmono:"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:var(--ff);background:var(--bg);color:var(--txt);
+  font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{line-height:1.25;letter-spacing:-.01em;}
+:focus-visible{outline:3px solid var(--a);outline-offset:2px;border-radius:4px;}
 
-  /* Indicadores + Glosario */
-  .vbars{display:flex;align-items:flex-end;gap:10px;height:200px;padding:8px 4px 0;}
-  .vbar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;}
-  .vbar .bcol{width:100%;border-radius:4px 4px 0 0;min-height:2px;position:relative;}
-  .vbar .bval{font-size:.72rem;font-weight:700;color:var(--t);}
-  .vbar .blbl{font-size:.72rem;color:var(--tl);}
-  .ind-note{font-size:.76rem;color:var(--tl);margin-top:12px;font-style:italic;line-height:1.5;}
-  .kcard.g{border-left-color:var(--al);} .kcard.z2{border-left-color:var(--tr);}
-  .kv .u{font-size:1rem;font-weight:600;color:var(--tl);}
-  .glos-cat{font-size:.95rem;font-weight:700;color:var(--p);margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--b);display:flex;align-items:center;gap:7px;}
-  .glos table td{vertical-align:top;font-size:.82rem;line-height:1.5;}
-  .glos table td:first-child{font-weight:700;color:var(--p);white-space:nowrap;width:210px;}
-  .glos table td:nth-child(2){color:var(--t);}
-  .glos code{background:#eef2f7;padding:1px 6px;border-radius:4px;font-size:.78rem;color:var(--tr);}
-  .tag-si{color:var(--s);font-weight:700;} .tag-no{color:var(--d);font-weight:700;}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--a);color:#fff;padding:10px 16px;z-index:999;border-radius:0 0 var(--r-sm) 0;}
+.skip-link:focus{left:0;}
+
+/* ---------- HEADER ---------- */
+header{background:linear-gradient(135deg,var(--p) 0%,#152b47 100%);color:#fff;padding:var(--sp-6) var(--sp-6) var(--sp-5);}
+.header-inner{max-width:1480px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:var(--sp-5);flex-wrap:wrap;}
+.header-titles{min-width:280px;}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;font-weight:600;margin:0 0 6px;}
+header h1{margin:0;font-size:clamp(20px,2.4vw,27px);font-weight:650;}
+.meta-strip{display:flex;flex-wrap:wrap;gap:var(--sp-2);margin-top:var(--sp-4);}
+.meta-pill{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.16);
+  padding:5px 12px;border-radius:999px;font-size:12px;backdrop-filter:blur(4px);}
+.meta-pill b{font-weight:650;}
+.header-actions{display:flex;gap:var(--sp-2);}
+.hbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;
+  padding:9px 15px;border-radius:var(--r-sm);font-size:12.5px;cursor:pointer;font-weight:600;
+  transition:background .15s,transform .1s;font-family:inherit;}
+.hbtn:hover{background:rgba(255,255,255,.22);}
+.hbtn:active{transform:translateY(1px);}
+
+/* ---------- NAV ---------- */
+nav{background:var(--p-700);position:sticky;top:0;z-index:50;box-shadow:var(--shadow-md);}
+.nav-inner{max-width:1480px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:thin;padding:0 var(--sp-5);}
+.nav-inner::-webkit-scrollbar{height:3px;}
+.nav-inner::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);}
+nav button{background:none;border:none;color:#b9c9db;padding:14px 17px;font-size:13.5px;cursor:pointer;
+  border-bottom:3px solid transparent;white-space:nowrap;font-family:inherit;transition:color .15s,border-color .15s;}
+nav button:hover{color:#fff;border-bottom-color:rgba(232,112,10,.45);}
+nav button[aria-selected="true"]{color:#fff;border-bottom-color:var(--a);font-weight:650;}
+
+main{padding:var(--sp-6) var(--sp-6) var(--sp-7);max-width:1480px;margin:0 auto;}
+.tab{display:none;animation:fade .28s ease;}
+.tab.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+/* ---------- SECTION TITLES ---------- */
+.page-title{margin:0 0 var(--sp-2);font-size:19px;color:var(--p);}
+.page-sub{margin:0 0 var(--sp-5);color:var(--muted);font-size:13.5px;max-width:76ch;}
+
+/* ---------- KPI ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:var(--sp-3);margin-bottom:var(--sp-5);}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:var(--sp-4) var(--sp-4) var(--sp-4) 18px;
+  box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:box-shadow .18s,transform .18s;}
+.kpi:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--p-300);}
+.kpi.accent-a::before{background:var(--a);} .kpi.accent-s::before{background:var(--s);}
+.kpi.accent-z::before{background:var(--z);} .kpi.accent-i::before{background:var(--i);}
+.kpi.accent-tr::before{background:var(--tr);} .kpi.accent-bad::before{background:#c0392b;}
+.kpi .n{font-size:29px;font-weight:680;color:var(--p);line-height:1.1;letter-spacing:-.02em;}
+.kpi .n small{font-size:15px;font-weight:600;color:var(--muted);margin-left:2px;}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:4px;font-weight:500;}
+.kpi .hint{font-size:11px;color:var(--muted);opacity:.85;margin-top:6px;}
+
+/* ---------- CARD ---------- */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:var(--sp-5);margin-bottom:var(--sp-5);box-shadow:var(--shadow-sm);}
+.card h3{margin:0 0 var(--sp-4);font-size:15px;color:var(--p);font-weight:650;
+  padding-bottom:var(--sp-3);border-bottom:1px solid var(--border);}
+.section-head{margin-bottom:var(--sp-4);}
+.section-head h3{border:none;padding-bottom:0;margin-bottom:2px;}
+.section-sub{margin:0;font-size:12.5px;color:var(--muted);}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:var(--sp-5);}
+
+/* ---------- TOOLBAR ---------- */
+.table-toolbar{display:flex;gap:var(--sp-3);align-items:center;margin-bottom:var(--sp-3);flex-wrap:wrap;}
+.filter-wrap{position:relative;flex:1;min-width:210px;display:flex;align-items:center;}
+.filter-icon{position:absolute;left:11px;color:var(--muted);font-size:15px;pointer-events:none;}
+.tbl-filter{width:100%;padding:9px 30px 9px 32px;border:1px solid var(--border);border-radius:var(--r-sm);
+  font-size:13px;font-family:inherit;background:#fbfcfd;transition:border-color .15s,box-shadow .15s;}
+.tbl-filter:focus{outline:none;border-color:var(--i);box-shadow:0 0 0 3px rgba(41,128,185,.14);background:#fff;}
+.tbl-filter::-webkit-search-cancel-button{display:none;}
+.clear-filter{position:absolute;right:8px;background:none;border:none;color:var(--muted);
+  font-size:18px;cursor:pointer;line-height:1;padding:2px 5px;border-radius:4px;}
+.clear-filter:hover{background:#eef1f5;color:var(--txt);}
+.row-count{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;}
+.toolbar-actions{display:flex;gap:var(--sp-2);margin-left:auto;}
+.btn-export{border:1px solid var(--border);background:#fff;color:var(--p);padding:8px 14px;
+  border-radius:var(--r-sm);font-size:12.5px;cursor:pointer;font-weight:600;font-family:inherit;
+  transition:background .15s,border-color .15s,transform .1s;white-space:nowrap;}
+.btn-export:hover{background:#f2f6fa;border-color:var(--p-300);}
+.btn-export:active{transform:translateY(1px);}
+.btn-export.primary{background:var(--p);color:#fff;border-color:var(--p);}
+.btn-export.primary:hover{background:var(--p-700);}
+
+/* ---------- TABLE ---------- */
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--border);border-radius:var(--r-sm);background:#fff;}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:12.8px;}
+thead th{text-align:left;background:#eef2f7;color:var(--p);padding:10px 11px;position:sticky;top:0;z-index:5;
+  cursor:pointer;user-select:none;white-space:nowrap;font-weight:650;font-size:12px;
+  border-bottom:2px solid #d8e0e9;transition:background .12s;}
+thead th:hover{background:#e3eaf2;}
+.th-inner{display:inline-flex;align-items:center;gap:5px;}
+.sort-ind{font-size:9px;color:var(--p-300);opacity:.4;}
+thead th[aria-sort="ascending"] .sort-ind::after{content:"▲";opacity:1;}
+thead th[aria-sort="descending"] .sort-ind::after{content:"▼";opacity:1;}
+thead th[aria-sort="none"] .sort-ind::after{content:"⇅";}
+thead th[aria-sort]:not([aria-sort="none"]){background:#e0e9f2;color:var(--p);}
+tbody td{padding:9px 11px;border-bottom:1px solid #eef1f5;vertical-align:middle;}
+tbody tr:nth-child(even) td{background:#fafbfd;}
+tbody tr:hover td{background:#eef5fb;}
+tbody tr:last-child td{border-bottom:none;}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+.cell-strong{font-weight:600;color:var(--p);}
+.cell-title{max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt);}
+.muted-cell{color:var(--muted);font-size:12px;}
+.mono{font-family:var(--fmono);font-size:12px;color:var(--muted);}
+
+/* ---------- CHIPS / BADGES ---------- */
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:650;
+  font-variant-numeric:tabular-nums;white-space:nowrap;}
+.chip.green{background:var(--ok-bg);color:var(--ok-fg);}
+.chip.amber{background:var(--warn-bg);color:var(--warn-fg);}
+.chip.red{background:var(--bad-bg);color:var(--bad-fg);}
+.chip.gray{background:#eceff3;color:var(--muted);}
+.badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid transparent;}
+.badge.ok{background:#eaf3fb;color:#1f5c8b;border-color:#d3e5f5;}
+.badge.trans{background:#fdeee2;color:#a34a06;border-color:#f8dcc4;}
+.badge.dup{background:#f3ecfa;color:#6c3d92;border-color:#e6daf3;}
+.badge.closed{background:#eef0f3;color:#5b6b7c;border-color:#e0e4e9;}
+.badge.gray{background:#eef0f3;color:var(--muted);}
+.state-pill{display:inline-block;padding:2px 9px;border-radius:5px;background:#eef2f7;
+  color:var(--p);font-size:11.5px;font-weight:600;white-space:nowrap;}
+
+/* ---------- EMPTY STATE ---------- */
+.empty-state{padding:var(--sp-7) var(--sp-5);text-align:center;color:var(--muted);}
+.empty-icon{font-size:34px;opacity:.3;margin-bottom:var(--sp-2);}
+.empty-state p{margin:2px 0;}
+.empty-state .muted{font-size:12.5px;}
+
+/* ---------- BAR CHARTS ---------- */
+.cbar-row{display:grid;grid-template-columns:minmax(120px,195px) 1fr 92px;align-items:center;gap:var(--sp-3);
+  margin:7px 0;font-size:12.5px;}
+.cbar-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt);}
+.cbar-track{background:#eef1f5;border-radius:5px;height:16px;overflow:hidden;}
+.cbar-fill{height:100%;border-radius:5px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.cbar-fill.z{background:linear-gradient(90deg,#9b59b6,var(--z));}
+.cbar-fill.a{background:linear-gradient(90deg,#f0873a,var(--a));}
+.cbar-fill.i{background:linear-gradient(90deg,#4a9fd4,var(--i));}
+.cbar-fill.p{background:linear-gradient(90deg,#3d6494,var(--p));}
+.cbar-fill.tr{background:linear-gradient(90deg,#e2763b,var(--tr));}
+.cbar-val{text-align:right;color:var(--txt);font-variant-numeric:tabular-nums;font-weight:600;font-size:12px;}
+.cbar-val em{font-style:normal;color:var(--muted);font-weight:400;}
+
+.vbars{display:flex;align-items:flex-end;gap:10px;height:200px;padding-top:var(--sp-3);}
+.vbar-col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;min-width:0;}
+.vbar-track{flex:1;width:100%;display:flex;align-items:flex-end;}
+.vbar{width:100%;border-radius:5px 5px 0 0;min-height:3px;transition:height .55s cubic-bezier(.4,0,.2,1);}
+.vbar.s{background:linear-gradient(180deg,#3fc47a,var(--s));}
+.vbar.i{background:linear-gradient(180deg,#4a9fd4,var(--i));}
+.vbar-col:hover .vbar{filter:brightness(1.08);}
+.vbar-val{font-size:11.5px;color:var(--txt);font-weight:650;margin-bottom:5px;font-variant-numeric:tabular-nums;}
+.vbar-label{font-size:10.5px;color:var(--muted);margin-top:7px;white-space:nowrap;}
+
+/* ---------- FINDINGS ---------- */
+.findings{list-style:none;padding:0;margin:0;counter-reset:f;}
+.findings li{position:relative;padding:var(--sp-3) var(--sp-4) var(--sp-3) 46px;margin-bottom:var(--sp-2);
+  background:#fafbfd;border:1px solid var(--border);border-radius:var(--r-sm);counter-increment:f;line-height:1.6;}
+.findings li::before{content:counter(f);position:absolute;left:14px;top:13px;width:22px;height:22px;
+  background:var(--p);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:11.5px;font-weight:700;}
+.findings.plain li{padding-left:var(--sp-4);}
+.findings.plain li::before{display:none;}
+.findings li.sev-a{border-left:4px solid #c0392b;}
+.findings li.sev-m{border-left:4px solid var(--a);}
+.findings li.sev-b{border-left:4px solid var(--s);}
+.sev-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 7px;
+  border-radius:4px;margin-right:7px;text-transform:uppercase;}
+.sev-tag.alta{background:var(--bad-bg);color:var(--bad-fg);}
+.sev-tag.media{background:var(--warn-bg);color:var(--warn-fg);}
+.sev-tag.baja{background:var(--ok-bg);color:var(--ok-fg);}
+.tag-hecho,.tag-reco{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;
+  font-weight:700;margin-right:7px;letter-spacing:.04em;}
+.tag-hecho{background:#e7eef7;color:var(--p);}
+.tag-reco{background:#fdf1de;color:var(--warn-fg);}
+
+/* ---------- CALLOUT ---------- */
+.callout{display:flex;gap:var(--sp-3);padding:var(--sp-4);border-radius:var(--r-sm);
+  background:#eaf3fb;border:1px solid #d3e5f5;font-size:13px;margin-bottom:var(--sp-4);}
+.callout.ok{background:var(--ok-bg);border-color:#c6ead4;}
+.callout.warn{background:var(--warn-bg);border-color:#f6ddb8;}
+.callout-icon{font-size:17px;line-height:1.3;flex-shrink:0;}
+.callout p{margin:0;}
+.callout strong{color:var(--p);}
+
+/* ---------- GLOSSARY ---------- */
+.glossary h4{font-size:13px;color:var(--p);text-transform:uppercase;letter-spacing:.06em;
+  margin:var(--sp-5) 0 var(--sp-3);padding-bottom:6px;border-bottom:1px solid var(--border);}
+.glossary h4:first-child{margin-top:0;}
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:var(--sp-3);}
+.gloss-item{background:#fafbfd;border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--sp-3) var(--sp-4);}
+.gloss-item dt{font-weight:650;color:var(--p);font-size:13px;margin-bottom:2px;}
+.gloss-item dd{margin:0;font-size:12.5px;color:var(--txt);line-height:1.55;}
+
+/* ---------- STEPS ---------- */
+.steps{list-style:none;padding:0;margin:0;counter-reset:s;}
+.steps li{position:relative;padding-left:38px;margin-bottom:var(--sp-3);counter-increment:s;}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:25px;height:25px;
+  background:#eef2f7;color:var(--p);border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:12px;font-weight:700;border:1px solid #d8e0e9;}
+
+footer{text-align:center;color:var(--muted);font-size:11.5px;padding:var(--sp-5) var(--sp-6) var(--sp-6);
+  border-top:1px solid var(--border);background:#fff;}
+.legend{display:flex;gap:var(--sp-4);flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:var(--sp-3);}
+.legend span{display:flex;align-items:center;gap:5px;}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+.dot.green{background:var(--s);} .dot.amber{background:var(--a);} .dot.red{background:#c0392b;}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:900px){
+  header{padding:var(--sp-5) var(--sp-4);}
+  main{padding:var(--sp-4) var(--sp-4) var(--sp-6);}
+  .nav-inner{padding:0 var(--sp-3);}
+  .card{padding:var(--sp-4);}
+  .cbar-row{grid-template-columns:minmax(90px,130px) 1fr 74px;font-size:11.5px;}
+  .cell-title{max-width:180px;}
+  .toolbar-actions{margin-left:0;width:100%;}
+  .btn-export{flex:1;}
+}
+@media (max-width:560px){
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
+  .kpi .n{font-size:24px;}
+  .vbars{height:160px;gap:6px;}
+}
+
+/* ---------- PRINT ---------- */
+@media print{
+  nav,.table-toolbar,.header-actions,.skip-link{display:none!important;}
+  body{background:#fff;font-size:11px;}
+  .tab{display:block!important;page-break-before:always;}
+  .tab:first-of-type{page-break-before:auto;}
+  .tablewrap{max-height:none;overflow:visible;border:1px solid #ccc;}
+  .card{box-shadow:none;border:1px solid #ddd;page-break-inside:avoid;}
+  header{background:var(--p)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .chip,.badge,.kpi::before{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
 
 </style>
 </head>
 <body>
-<div class="hdr">
-  <h1>🏥 Dashboard — Salud del Backlog Ágil</h1>
-  <div class="sub">Instituto Nacional de Seguros | Equipos en Transición a Servicio Digital</div>
-  <div class="meta">
-    <span>📅 Corte: <strong>11 julio 2026</strong></span>
-    <span>📋 Fuente: <strong>Azure DevOps API (grupoins)</strong></span>
-    <span>🧟 Umbral zombie: <strong>30 días</strong></span>
-    <span>🏢 Equipos: <strong>33</strong></span>
-  </div>
-</div>
-<div class="nav">
-  <button class="active" onclick="show('resumen',this)">📊 Resumen Ejecutivo</button>
-  <button onclick="show('equipos',this)">👥 Por Equipo</button>
-  <button onclick="show('zombies',this)">🧟 Zombies</button>
-  <button onclick="show('tipos',this)">🗂️ Por Tipo</button>
-  <button onclick="show('migracion',this)">🚚 Migración</button>
-  <button onclick="show('grooming',this)">💬 Grooming</button>
-  <button onclick="show('indicadores',this)">📈 Indicadores Generales</button>
-  <button onclick="show('glosario',this)">📖 Glosario</button>
-</div>
-<div class="main">
+<a href="#main" class="skip-link">Saltar al contenido</a>
 
-<div id="resumen" class="sec active">
-  <div class="kgrid">
-    <div class="kcard p"><div class="kv">4,557</div><div class="kl">Total ítems</div></div>
-    <div class="kcard i"><div class="kv">1,423</div><div class="kl">Ítems abiertos</div><div class="ks">31.2% del total</div></div>
-    <div class="kcard s"><div class="kv">2,781</div><div class="kl">Terminados</div><div class="ks">61.0% del total</div></div>
-    <div class="kcard w"><div class="kv">353</div><div class="kl">Removidos</div><div class="ks">7.7% del total</div></div>
-    <div class="kcard z"><div class="kv">523</div><div class="kl">🧟 Zombies</div><div class="ks">36.8% de abiertos</div></div>
-    <div class="kcard d"><div class="kv">93</div><div class="kl">Días inact. prom. zombie</div><div class="ks">Máx: 185 días</div></div>
-    <div class="kcard w"><div class="kv">3</div><div class="kl">⚠️ Riesgo migración</div><div class="ks">2 equipos en transición</div></div>
-    <div class="kcard i"><div class="kv">64</div><div class="kl">Días antigüedad prom.</div><div class="ks">ítems abiertos</div></div>
-  </div>
-  <div class="tc">
-    <div class="card"><div class="ch">🔍 Hallazgos Clave</div><div class="cb" id="hallazgos"></div></div>
-    <div class="card"><div class="ch">📋 Recomendaciones</div><div class="cb" id="recomendaciones"></div></div>
-  </div>
-  <div class="card"><div class="ch">📊 Top 10 Equipos por Zombies</div><div class="cb"><div class="cbars" id="ch-summary"></div></div></div>
-  <div class="card"><div class="ch">🔎 Control de Calidad</div><div class="cb" style="font-size:.87rem;line-height:2;">
-    <p>✅ OK <strong>Total conciliado:</strong> Abiertos (1,423) + Terminales (2,781) + Removidos (353) = <strong>4,557</strong></p>
-    <p>✅ <strong>Equipos sin clasificar:</strong> 0</p>
-    <p>✅ <strong>Fuente:</strong> Azure DevOps API REST — https://dev.azure.com/grupoins</p>
-    <p>✅ <strong>Generado:</strong> 2026-07-11 11:16</p>
-  </div></div>
-</div>
-
-<div id="equipos" class="sec">
-  <div class="card"><div class="ch">👥 Detalle por Equipo <span class="bdg" id="cnt-eq"></span></div>
-  <div class="cb">
-    <div class="sb">
-      <input type="text" id="srch" placeholder="🔍 Buscar equipo..." oninput="filterEq()">
-      <select id="fst" onchange="filterEq()">
-        <option value="">Todos los estados</option>
-        <option>Activo</option><option>En Transición</option><option>Cerrado</option><option>Duplicado</option>
-      </select>
+<header>
+  <div class="header-inner">
+    <div class="header-titles">
+      <p class="eyebrow">Instituto Nacional de Seguros · Diagnóstico de portafolio</p>
+      <h1>Salud del Backlog Ágil</h1>
+      <div class="meta-strip">
+        <span class="meta-pill">Corte <b>2026-07-21</b></span>
+        <span class="meta-pill">Fuente <b>WIJUL2_2026.xlsx</b></span>
+        <span class="meta-pill"><b>4,795</b> ítems</span>
+        <span class="meta-pill"><b>33</b> equipos</span>
+        <span class="meta-pill">Umbral zombie <b>30 d</b></span>
+      </div>
     </div>
-    <div class="tw"><table id="teq">
-      <thead><tr>
-        <th onclick="srt('teq',0)">Equipo ↕</th><th>Estado</th>
-        <th onclick="srt('teq',2)">Total ↕</th><th onclick="srt('teq',3)">Abiertos ↕</th>
-        <th onclick="srt('teq',4)">Terminales ↕</th><th onclick="srt('teq',5)">Removidos ↕</th>
-        <th onclick="srt('teq',6)">🧟 Zombies ↕</th><th onclick="srt('teq',7)">% Zombie ↕</th>
-        <th>Riesgo Mig.</th><th>Sucesor</th>
-      </tr></thead>
-      <tbody id="tbody-eq"></tbody>
-    </table></div>
-  </div></div>
-</div>
-
-<div id="zombies" class="sec">
-  <div class="kgrid" style="grid-template-columns:repeat(auto-fit,minmax(148px,1fr))">
-    <div class="kcard z"><div class="kv">523</div><div class="kl">Total zombies</div></div>
-    <div class="kcard d"><div class="kv">36.8%</div><div class="kl">% sobre abiertos</div></div>
-    <div class="kcard w"><div class="kv">93</div><div class="kl">Días inact. prom.</div></div>
-    <div class="kcard d"><div class="kv">185</div><div class="kl">Días inact. máx.</div></div>
+    <div class="header-actions">
+      <button class="hbtn" onclick="printDashboard()" title="Imprimir o guardar como PDF">🖨 Imprimir / PDF</button>
+    </div>
   </div>
-  <div class="tc">
-    <div class="card"><div class="ch">Top 10 Equipos por Zombies</div><div class="cb"><div class="cbars" id="ch-z-eq"></div></div></div>
-    <div class="card"><div class="ch">Zombies por Tipo</div><div class="cb"><div class="cbars" id="ch-z-tipo"></div></div></div>
-  </div>
-  <div class="card"><div class="ch">🧟 Top 20 Ítems Zombie por Inactividad</div><div class="cb"><div class="tw">
-    <table><thead><tr><th>ID</th><th>Equipo</th><th>Tipo</th><th>Estado</th><th>Título</th><th>Inactividad</th><th>Antigüedad</th></tr></thead>
-    <tbody id="tbody-z"></tbody></table>
-  </div></div></div>
-</div>
+</header>
 
-<div id="tipos" class="sec">
-  <div class="card"><div class="ch">🗂️ Distribución por Tipo</div><div class="cb"><div class="tw">
-    <table><thead><tr><th>Tipo</th><th>Abiertos</th><th>Terminales</th><th>Removidos</th><th>Total</th><th>🧟 Zombies</th><th>% Zombie</th></tr></thead>
-    <tbody id="tbody-t"></tbody></table>
-  </div></div></div>
-  <div class="card"><div class="ch">Top 15 Equipos — Épicas y Features Abiertas</div><div class="cb"><div class="cbars" id="ch-ef"></div></div></div>
-</div>
+<nav id="nav" role="tablist" aria-label="Secciones del dashboard">
+  <div class="nav-inner"><button role="tab" aria-selected="true" tabindex="0" aria-controls="resumen" onclick="show('resumen',this)"><span aria-hidden="true">📊</span> Resumen Ejecutivo</button><button role="tab" aria-selected="false" tabindex="-1" aria-controls="equipo" onclick="show('equipo',this)"><span aria-hidden="true">👥</span> Por Equipo</button><button role="tab" aria-selected="false" tabindex="-1" aria-controls="zombies" onclick="show('zombies',this)"><span aria-hidden="true">🧟</span> Zombies</button><button role="tab" aria-selected="false" tabindex="-1" aria-controls="tipo" onclick="show('tipo',this)"><span aria-hidden="true">🗂️</span> Por Tipo</button><button role="tab" aria-selected="false" tabindex="-1" aria-controls="migracion" onclick="show('migracion',this)"><span aria-hidden="true">🚚</span> Migración</button><button role="tab" aria-selected="false" tabindex="-1" aria-controls="grooming" onclick="show('grooming',this)"><span aria-hidden="true">💬</span> Grooming</button><button role="tab" aria-selected="false" tabindex="-1" aria-controls="indicadores" onclick="show('indicadores',this)"><span aria-hidden="true">📈</span> Indicadores</button><button role="tab" aria-selected="false" tabindex="-1" aria-controls="glosario" onclick="show('glosario',this)"><span aria-hidden="true">📖</span> Glosario</button></div>
+</nav>
 
-<div id="migracion" class="sec">
-  <div class="card"><div class="ch" style="background:var(--tr)">⚠️ Ítems en Riesgo de Migración</div><div class="cb">
-    <p style="font-size:.86rem;color:var(--tl);margin-bottom:14px;">Ítems abiertos en equipos "En Transición". Deben transferirse al equipo sucesor o cerrarse formalmente.</p>
-    <div class="tw"><table><thead><tr><th>ID</th><th>Equipo</th><th>Sucesor</th><th>Tipo</th><th>Estado</th><th>Inactividad</th><th>Título</th></tr></thead>
-    <tbody id="tbody-m"></tbody></table></div>
-  </div></div>
-</div>
+<main id="main">
 
-<div id="grooming" class="sec">
-  <div class="card"><div class="ch">💬 Preguntas de Grooming por Equipo <span class="bdg">Top 10</span></div><div class="cb">
-    <p style="font-size:.83rem;color:var(--tl);margin-bottom:16px;">Generadas automáticamente desde métricas reales. Usar en sesiones de refinamiento o retrospectivas.</p>
-    <div id="grooming-cards"></div>
-  </div></div>
-</div>
+<!-- ============ RESUMEN ============ -->
+<section id="resumen" class="tab active" role="tabpanel" aria-label="Resumen Ejecutivo">
+  <h2 class="page-title">Resumen ejecutivo</h2>
+  <p class="page-sub">Visión consolidada del backlog al 2026-07-21. Los datos describen patrones de equipo y portafolio; no evalúan personas.</p>
 
-
-<div id="indicadores" class="sec">
-  <div class="kgrid">
-    <div class="kcard s"><div class="kv">66.0<span class="u">%</span></div><div class="kl">Salud del Backlog (#2)</div><div class="ks">1009 refinados / 1529 abiertos</div></div>
-    <div class="kcard i"><div class="kv">25<span class="u"> d</span></div><div class="kl">Lead / Cycle Time (#3/#10)</div><div class="ks">mediana · prom 32.0d · n=2,277</div></div>
-    <div class="kcard p"><div class="kv">354</div><div class="kl">Throughput mensual (#9)</div><div class="ks">prom. últimos 6 meses</div></div>
-    <div class="kcard g"><div class="kv">59</div><div class="kl">Deployment Freq. (#14)</div><div class="ks">ítems/mes a producción</div></div>
-    <div class="kcard w"><div class="kv">782</div><div class="kl">WIP en curso</div><div class="ks">progreso / test / UAT</div></div>
-    <div class="kcard z2"><div class="kv">164</div><div class="kl">En Test (#18)</div><div class="ks">aging prom 40.6d · máx 158d</div></div>
+  <div class="kpis">
+    <div class="kpi"><div class="n">4,795</div><div class="l">Total ítems</div></div>
+    <div class="kpi accent-i"><div class="n">1,490</div><div class="l">Abiertos</div><div class="hint">Trabajo vivo</div></div>
+    <div class="kpi accent-s"><div class="n">2,938</div><div class="l">Terminales</div><div class="hint">Entregados</div></div>
+    <div class="kpi"><div class="n">367</div><div class="l">Removidos</div><div class="hint">Descartados</div></div>
+    <div class="kpi accent-z"><div class="n">575</div><div class="l">Zombies</div><div class="hint">≥30 d sin cambios</div></div>
+    <div class="kpi accent-bad"><div class="n">38.6<small>%</small></div><div class="l">Zombie sobre abiertos</div><div class="hint">Alerta &gt;30%</div></div>
+    <div class="kpi accent-tr"><div class="n">3</div><div class="l">En riesgo de migración</div><div class="hint">2 equipos En Transición</div></div>
+    <div class="kpi accent-a"><div class="n">65.7<small>%</small></div><div class="l">Salud del backlog</div><div class="hint">Meta ≥75%</div></div>
   </div>
 
-  <div class="card"><div class="ch">📈 Throughput (#9) — ítems completados por mes (2026)</div><div class="cb"><div class="vbars"><div class="vbar"><div class="bval">185</div><div class="bcol" style="height:66px;background:var(--i)"></div><div class="blbl">Ene</div></div><div class="vbar"><div class="bval">243</div><div class="bcol" style="height:86px;background:var(--i)"></div><div class="blbl">Feb</div></div><div class="vbar"><div class="bval">374</div><div class="bcol" style="height:132px;background:var(--i)"></div><div class="blbl">Mar</div></div><div class="vbar"><div class="bval">488</div><div class="bcol" style="height:172px;background:var(--i)"></div><div class="blbl">Abr</div></div><div class="vbar"><div class="bval">484</div><div class="bcol" style="height:170px;background:var(--i)"></div><div class="blbl">May</div></div><div class="vbar"><div class="bval">352</div><div class="bcol" style="height:124px;background:var(--i)"></div><div class="blbl">Jun</div></div><div class="vbar"><div class="bval">151</div><div class="bcol" style="height:54px;background:var(--i)"></div><div class="blbl">Jul</div></div></div>
-    <div class="ind-note">Rendimiento = promedio de ítems terminados (Done/Closed) por mes. Julio es mes parcial (corte día 11).</div></div></div>
-
-  <div class="card"><div class="ch">🚀 Deployment Frequency (#14) — ítems a "Listo para producción" por mes</div><div class="cb"><div class="vbars"><div class="vbar"><div class="bval">0</div><div class="bcol" style="height:2px;background:var(--s)"></div><div class="blbl">Ene</div></div><div class="vbar"><div class="bval">17</div><div class="bcol" style="height:23px;background:var(--s)"></div><div class="blbl">Feb</div></div><div class="vbar"><div class="bval">42</div><div class="bcol" style="height:54px;background:var(--s)"></div><div class="blbl">Mar</div></div><div class="vbar"><div class="bval">57</div><div class="bcol" style="height:73px;background:var(--s)"></div><div class="blbl">Abr</div></div><div class="vbar"><div class="bval">103</div><div class="bcol" style="height:130px;background:var(--s)"></div><div class="blbl">May</div></div><div class="vbar"><div class="bval">136</div><div class="bcol" style="height:172px;background:var(--s)"></div><div class="blbl">Jun</div></div><div class="vbar"><div class="bval">41</div><div class="bcol" style="height:53px;background:var(--s)"></div><div class="blbl">Jul</div></div></div>
-    <div class="ind-note">Frecuencia de implementaciones = ítems que alcanzaron el estado "Listo para producción" cada mes.</div></div></div>
-
-  <div class="tc">
-    <div class="card"><div class="ch">🗂️ Distribución por estado</div><div class="cb"><div class="cbars"><div class="crow"><div class="clbl" title="Done">Done</div><div class="cbar" style="background:var(--pl);width:300px">1174</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Closed">Closed</div><div class="cbar" style="background:var(--pl);width:279px">1094</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="New">New</div><div class="cbar" style="background:var(--pl);width:117px">458</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Listo para producción">Listo para producción</div><div class="cbar" style="background:var(--pl);width:101px">396</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Removed">Removed</div><div class="cbar" style="background:var(--pl);width:90px">353</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="To Do">To Do</div><div class="cbar" style="background:var(--pl);width:54px">214</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="User Acceptance">User Acceptance</div><div class="cbar" style="background:var(--pl);width:46px">183</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="In Progress">In Progress</div><div class="cbar" style="background:var(--pl);width:44px">176</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Test">Test</div><div class="cbar" style="background:var(--pl);width:41px">164</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Active">Active</div><div class="cbar" style="background:var(--pl);width:38px">151</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Resolved">Resolved</div><div class="cbar" style="background:var(--pl);width:27px">108</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Backlog">Backlog</div><div class="cbar" style="background:var(--pl);width:18px">24</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Crear">Crear</div><div class="cbar" style="background:var(--pl);width:18px">18</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Explorar">Explorar</div><div class="cbar" style="background:var(--pl);width:18px">16</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Validar">Validar</div><div class="cbar" style="background:var(--pl);width:18px">13</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Terminado">Terminado</div><div class="cbar" style="background:var(--pl);width:18px">9</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Definir">Definir</div><div class="cbar" style="background:var(--pl);width:18px">4</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Entregar">Entregar</div><div class="cbar" style="background:var(--pl);width:18px">2</div><div class="cnum"></div></div></div></div></div>
-    <div class="card"><div class="ch">📦 Distribución por tipo de work item</div><div class="cb"><div class="cbars"><div class="crow"><div class="clbl" title="User Story">User Story</div><div class="cbar" style="background:var(--z);width:300px">1705</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Product Backlog Item">Product Backlog Item</div><div class="cbar" style="background:var(--z);width:142px">811</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Servicio Digital">Servicio Digital</div><div class="cbar" style="background:var(--z);width:141px">807</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="PBI Técnico">PBI Técnico</div><div class="cbar" style="background:var(--z);width:123px">702</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Feature">Feature</div><div class="cbar" style="background:var(--z);width:61px">352</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="Epic">Epic</div><div class="cbar" style="background:var(--z);width:31px">179</div><div class="cnum"></div></div><div class="crow"><div class="clbl" title="PBI Obligatorio">PBI Obligatorio</div><div class="cbar" style="background:var(--z);width:18px">1</div><div class="cnum"></div></div></div></div></div>
+  <div class="callout">
+    <span class="callout-icon" aria-hidden="true">ℹ️</span>
+    <p><strong>Cómo leer este dashboard.</strong> Cada afirmación está etiquetada como <span class="tag-hecho">HECHO</span> (derivado del export) o <span class="tag-reco">RECOMENDACIÓN</span> (sugerencia de acción). Todas las tablas se pueden ordenar, filtrar y exportar.</p>
   </div>
 
-  <div class="card"><div class="ch">👥 Indicadores por equipo <span class="bdg">33 equipos</span></div><div class="cb">
-    <div class="tw"><table id="tind">
-      <thead><tr>
-        <th onclick="srt('tind',0)">Equipo ↕</th><th onclick="srt('tind',1)">Total ↕</th>
-        <th onclick="srt('tind',2)">Abiertos ↕</th><th onclick="srt('tind',3)">Salud ↕</th>
-        <th onclick="srt('tind',4)">WIP ↕</th><th onclick="srt('tind',5)">Test ↕</th>
-        <th onclick="srt('tind',6)">Throughput 6m ↕</th><th onclick="srt('tind',7)">Lead md (d) ↕</th>
-      </tr></thead><tbody id="tbody-ind"><tr><td><strong>Seguro Obligatorio Automotor</strong></td><td>491</td><td>194</td><td class="nd">53.1%</td><td>103</td><td class="">0</td><td class="ns">273</td><td>29</td></tr><tr><td><strong>Gastos Médicos -Laboratorio-</strong></td><td>454</td><td>154</td><td class="">64.3%</td><td>42</td><td class="nd">24</td><td class="ns">282</td><td>27</td></tr><tr><td><strong>APPClientes</strong></td><td>334</td><td>197</td><td class="nd">41.1%</td><td>81</td><td class="">0</td><td class="ns">110</td><td>44</td></tr><tr><td><strong>ESB-INS-Servicio Digital</strong></td><td>332</td><td>58</td><td class="ns">98.3%</td><td>51</td><td class="nd">44</td><td class="ns">265</td><td>0</td></tr><tr><td><strong>Gestión360</strong></td><td>302</td><td>91</td><td class="ns">92.3%</td><td>66</td><td class="">8</td><td class="ns">98</td><td>46</td></tr><tr><td><strong>Cobro Digital</strong></td><td>251</td><td>73</td><td class="nd">34.2%</td><td>25</td><td class="">0</td><td class="ns">173</td><td>13</td></tr><tr><td><strong>Analítica Servicio Digital</strong></td><td>210</td><td>57</td><td class="ns">87.7%</td><td>21</td><td class="">6</td><td class="ns">153</td><td>14</td></tr><tr><td><strong>ACD</strong></td><td>192</td><td>14</td><td class="ns">78.6%</td><td>11</td><td class="">0</td><td class="ns">120</td><td>19</td></tr><tr><td><strong>AsesorINS</strong></td><td>188</td><td>28</td><td class="nd">53.6%</td><td>15</td><td class="">0</td><td class="ns">127</td><td>40</td></tr><tr><td><strong>PCE</strong></td><td>164</td><td>56</td><td class="ns">85.7%</td><td>9</td><td class="">4</td><td class="ns">108</td><td>28</td></tr><tr><td><strong>COTINS Servicio Digital</strong></td><td>155</td><td>63</td><td class="ns">98.4%</td><td>58</td><td class="nd">38</td><td class="ns">83</td><td>27</td></tr><tr><td><strong>RT-Virtual</strong></td><td>142</td><td>23</td><td class="">73.9%</td><td>17</td><td class="">0</td><td class="ns">107</td><td>50</td></tr><tr><td><strong>SEC</strong></td><td>130</td><td>66</td><td class="nd">25.8%</td><td>17</td><td class="">0</td><td class="ns">63</td><td>28</td></tr><tr><td><strong>ASEGURATE</strong></td><td>129</td><td>37</td><td class="">70.3%</td><td>26</td><td class="">0</td><td class="ns">91</td><td>21</td></tr><tr><td><strong>Automóviles -Laboratorio-</strong></td><td>113</td><td>51</td><td class="nd">51.0%</td><td>13</td><td class="">0</td><td class="ns">62</td><td>23</td></tr><tr><td><strong>Fábrica de Productos Digital</strong></td><td>107</td><td>47</td><td class="ns">85.1%</td><td>31</td><td class="">7</td><td class="ns">52</td><td>69</td></tr><tr><td><strong>Ins en Línea</strong></td><td>103</td><td>43</td><td class="">67.4%</td><td>29</td><td class="">0</td><td class="ns">58</td><td>23</td></tr><tr><td><strong>MAC Servicio Digital</strong></td><td>99</td><td>34</td><td class="ns">79.4%</td><td>13</td><td class="">11</td><td class="ns">62</td><td>22</td></tr><tr><td><strong>Soluciones Tecnológicas Ejecutivas</strong></td><td>81</td><td>34</td><td class="">67.6%</td><td>23</td><td class="">0</td><td class="ns">47</td><td>33</td></tr><tr><td><strong>Ecosistema Digital</strong></td><td>80</td><td>39</td><td class="ns">87.2%</td><td>34</td><td class="">0</td><td class="ns">41</td><td>31</td></tr><tr><td><strong>OCC</strong></td><td>74</td><td>14</td><td class="nd">28.6%</td><td>4</td><td class="">0</td><td class="ns">56</td><td>28</td></tr><tr><td><strong>Segmentación de Clientes</strong></td><td>67</td><td>4</td><td class="ns">100.0%</td><td>3</td><td class="">1</td><td class="ns">60</td><td>22</td></tr><tr><td><strong>CRM Servicio Digital</strong></td><td>60</td><td>29</td><td class="ns">86.2%</td><td>13</td><td class="">5</td><td class="ns">27</td><td>41</td></tr><tr><td><strong>Point General Ágil</strong></td><td>60</td><td>37</td><td class="ns">86.5%</td><td>22</td><td class="">12</td><td class="ns">21</td><td>46</td></tr><tr><td><strong>SISEPO</strong></td><td>50</td><td>36</td><td class="ns">91.7%</td><td>33</td><td class="">0</td><td class="ns">12</td><td>6</td></tr><tr><td><strong>SIRERE Reaseg</strong></td><td>43</td><td>4</td><td class="ns">100.0%</td><td>4</td><td class="">0</td><td class="ns">39</td><td>29</td></tr><tr><td><strong>Seguro Riesgos del Trabajo</strong></td><td>36</td><td>5</td><td class="ns">100.0%</td><td>5</td><td class="">0</td><td class="ns">16</td><td>24</td></tr><tr><td><strong>Analítica de Datos en Nube</strong></td><td>36</td><td>17</td><td class="ns">88.2%</td><td>2</td><td class="">0</td><td class="ns">19</td><td>14</td></tr><tr><td><strong>Ágil SIFA</strong></td><td>26</td><td>14</td><td class="ns">92.9%</td><td>11</td><td class="">4</td><td class="ns">6</td><td>45</td></tr><tr><td><strong>Analítica de Datos CERRADO</strong></td><td>23</td><td>6</td><td class="nd">0.0%</td><td>0</td><td class="">0</td><td class="ns">17</td><td>10</td></tr><tr><td><strong>MAC</strong></td><td>18</td><td>2</td><td class="nd">0.0%</td><td>0</td><td class="">0</td><td class="ns">14</td><td>14</td></tr><tr><td><strong>Fábrica de Productos</strong></td><td>6</td><td>1</td><td class="nd">0.0%</td><td>0</td><td class="">0</td><td class="ns">2</td><td>2</td></tr><tr><td><strong>CAI CERRADO</strong></td><td>1</td><td>1</td><td class="nd">0.0%</td><td>0</td><td class="">0</td><td class="ns">0</td><td>—</td></tr></tbody>
-    </table></div>
-    <div class="ind-note">Salud = ítems refinados/estables sobre abiertos (verde ≥75% · ámbar 55–74% · rojo &lt;55%). Throughput 6m = ítems terminados desde 11-ene-2026. Lead md = mediana Created→Closed.</div>
-  </div></div>
+  <div class="card">
+    <h3>Hallazgos clave</h3>
+    <ol class="findings">
+      <li class="sev-a"><span class="sev-tag alta">Alta</span><span class="tag-hecho">HECHO</span>
+        <strong>575 ítems (38.6% de los abiertos)</strong> están inactivos ≥30 días. Inactividad promedio: 90.0 días; máximo 195 días.</li>
+      <li class="sev-a"><span class="sev-tag alta">Alta</span><span class="tag-hecho">HECHO</span>
+        <strong>168 de 255 Features (66%) y 119 de 154 Epics (77%)</strong> abiertos son zombie. La planificación de alto nivel está mayoritariamente paralizada.</li>
+      <li class="sev-m"><span class="sev-tag media">Media</span><span class="tag-hecho">HECHO</span>
+        <strong>Seguro Obligatorio Automotor</strong> concentra el mayor volumen de zombies (106), seguido de <strong>APPClientes</strong> (82) y <strong>COTINS Servicio Digital</strong> (49, con 73% de sus abiertos zombie).</li>
+      <li class="sev-m"><span class="sev-tag media">Media</span><span class="tag-hecho">HECHO</span>
+        <strong>172 ítems</strong> permanecen en estado Test, con aging promedio de 44.1 días. COTINS Servicio Digital y Point General Ágil superan 60 días promedio.</li>
+      <li class="sev-b"><span class="sev-tag baja">Baja</span><span class="tag-hecho">HECHO</span>
+        El equipo <strong>Analítica de Datos en Nube</strong> no aparece en la clasificación maestra; pendiente de validación.</li>
+    </ol>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Riesgos principales</h3>
+      <ol class="findings">
+        <li><span class="tag-hecho">HECHO</span> 3 ítems abiertos pertenecen a equipos En Transición (MAC: 2, Fábrica de Productos: 1). Volumen bajo, pero requiere definición antes del corte de migración para no dejar trabajo huérfano.</li>
+        <li><span class="tag-hecho">HECHO</span> Analítica de Datos CERRADO (6), Seguro Riesgos del Trabajo (5, Duplicado) y CAI CERRADO (1) mantienen ítems abiertos pese a su estado Cerrado/Duplicado.</li>
+        <li><span class="tag-hecho">HECHO</span> Salud global de 65.7%, pero SEC (15.4%) y ASEGURATE (38.5%) quedan muy por debajo del umbral verde de 75%.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Recomendaciones accionables</h3>
+      <ol class="findings">
+        <li><span class="tag-reco">RECO</span> Priorizar saneamiento de zombies en Seguro Obligatorio Automotor, APPClientes y COTINS Servicio Digital, empezando por Epics/Features paralizadas. <em>Responsable: PO de cada equipo.</em></li>
+        <li><span class="tag-reco">RECO</span> Definir destino de los 3 ítems abiertos en riesgo antes de migrar. <em>Responsable: Agile Coach + PO del equipo sucesor.</em></li>
+        <li><span class="tag-reco">RECO</span> Cerrar formalmente ítems abiertos en equipos Cerrados/Duplicados. <em>Responsable: Administración de backlog ADO.</em></li>
+        <li><span class="tag-reco">RECO</span> Grooming dirigido en SEC y ASEGURATE para elevar la salud del backlog. <em>Responsable: PO / Scrum Master.</em></li>
+        <li><span class="tag-reco">RECO</span> Investigar el aging en Test de COTINS Servicio Digital y Point General Ágil (~66 días). <em>Responsable: equipo de QA/Test.</em></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card"><div class="section-head"><div><h3>Top 10 ítems abiertos más antiguos</h3></div></div>
+<div class="table-toolbar" role="group" aria-label="Herramientas de tabla">
+  <div class="filter-wrap">
+    <span class="filter-icon" aria-hidden="true">⌕</span>
+    <input type="search" class="tbl-filter" id="f_tbl_antiguos" data-target="tbl_antiguos"
+           placeholder="Filtrar en todas las columnas…" aria-label="Filtrar tabla">
+    <button class="clear-filter" type="button" data-target="tbl_antiguos" aria-label="Limpiar filtro" hidden>×</button>
+  </div>
+  <span class="row-count" id="rc_tbl_antiguos" aria-live="polite">10 filas</span>
+  <div class="toolbar-actions">
+    <button class="btn-export" onclick="exportCSV('tbl_antiguos','top10_abiertos_antiguos_JUL2_2026')" title="Exportar filas visibles a CSV">
+      <span aria-hidden="true">⬇</span> CSV</button>
+    <button class="btn-export primary" onclick="exportExcel('tbl_antiguos','top10_abiertos_antiguos_JUL2_2026')" title="Exportar filas visibles a Excel">
+      <span aria-hidden="true">⬇</span> Excel</button>
+  </div>
 </div>
-
-<div id="glosario" class="sec">
-  <div class="card"><div class="ch">📖 Glosario — Cómo interpretar el dashboard</div><div class="cb glos">
-  <p style="font-size:.85rem;color:var(--tl);margin-bottom:6px;">Definiciones, fórmulas y criterios de lectura de todos los datos del dashboard. Fuente: Azure DevOps (grupoins). Corte: 11-jul-2026.</p>
-
-  <div class="glos-cat">🧱 Conceptos base de estado</div>
-  <table><tr><td>Ítem / Work Item</td><td>Cada registro del backlog en ADO: Epic, Feature, User Story, PBI, Servicio Digital, PBI Técnico.</td></tr><tr><td>Abierto</td><td>Estado que <b>no</b> es terminal ni removido (New, To Do, Active, In Progress, Test, User Acceptance, Resolved, Backlog…). Es trabajo vivo.</td></tr><tr><td>Terminal</td><td>Trabajo entregado: <code>Done</code>, <code>Closed</code>, <code>Terminado</code>, <code>Listo para producción</code>.</td></tr><tr><td>Removido</td><td>Estado <code>Removed</code>: descartado, no cuenta como entregado ni como pendiente.</td></tr><tr><td>WIP (Work in Progress)</td><td>Ítems que se están trabajando ahora: In Progress, Active, Test, User Acceptance, Resolved. WIP alto = mucho trabajo simultáneo sin cerrar.</td></tr></table>
-
-  <div class="glos-cat">🧟 Higiene del backlog</div>
-  <table><tr><td>Zombie</td><td>Ítem <b>abierto</b> sin cambios por ≥ <b>30 días</b> (umbral configurable). <code>Es_Zombie = Abierto Y (corte − Changed Date) ≥ 30</code>. Un terminal o removido nunca es zombie.</td></tr><tr><td>% Zombie</td><td>Zombies del equipo / ítems abiertos del equipo × 100. Mide qué tan dormido está el backlog. Alerta: &gt;60%.</td></tr><tr><td>Inactividad (días)</td><td><code>fecha_corte − Changed Date</code>. Cuánto lleva sin tocarse el ítem.</td></tr><tr><td>Antigüedad (días)</td><td><code>fecha_corte − Created Date</code>. Cuánto lleva existiendo el ítem.</td></tr><tr><td>Riesgo de migración</td><td>Ítem abierto en un equipo con <code>Estado_Equipo = En Transición</code>. Debe migrarse al equipo sucesor o cerrarse.</td></tr></table>
-
-  <div class="glos-cat">📊 Indicadores ágiles (calculados desde WIJUL1_2026)</div>
-  <table><tr><td>Salud del Backlog (#2)</td><td><code>ítems refinados o estables / total de ítems abiertos</code>. Refinado = To Do, Active, In Progress, Test, UAT, Resolved, Validar. Mide qué porción del backlog está lista para trabajarse. Verde ≥75%.</td></tr><tr><td>Lead / Cycle Time (#3/#10)</td><td>Tiempo <code>Created Date → Closed Date</code> de ítems cerrados (mediana en días). Aproxima el tiempo de entrega al cliente. Mediana &gt; media indica cola con outliers.</td></tr><tr><td>Throughput / Rendimiento (#9)</td><td>Promedio de ítems <b>terminados</b> (Done/Closed) por mes. Mide capacidad real de entrega. <i>Nota:</i> la Velocidad clásica (story points) no es calculable — el export no trae puntos.</td></tr><tr><td>Deployment Frequency (#14)</td><td>Ítems que alcanzan <code>Listo para producción</code> por mes (por State Change Date). Frecuencia de implementaciones.</td></tr><tr><td>En Test / Test Cycle (#18)</td><td>Ítems actualmente en estado <code>Test</code> y su aging (<code>corte − State Change Date</code>). Alto aging = inventario detenido antes de liberar (muda).</td></tr></table>
-
-  <div class="glos-cat">🏢 Dimensiones de equipo</div>
-  <table><tr><td>Team Project</td><td>Nombre del equipo/proyecto en ADO. Llave de cruce con la tabla de clasificación.</td></tr><tr><td>Estado del Equipo</td><td><span class='tag-si'>Activo</span> (opera normal) · <b>En Transición</b> (fusión/transformación, ítems abiertos = riesgo) · <b>Duplicado</b> (se consolidará) · <b>Cerrado</b> (disuelto, ítems huérfanos).</td></tr><tr><td>Equipo Sucesor</td><td>Equipo que hereda los ítems cuando el original está En Transición, Duplicado o Cerrado.</td></tr><tr><td>Categoría Base</td><td>Comercial/Producto · Transversal/Servicios · Administrativo · Cumplimiento Normativo.</td></tr><tr><td>Épicas y Features abiertas</td><td>Jerarquía alta (Epic → Feature → User Story → Task). Épicas/Features zombie = planificación estratégica paralizada.</td></tr></table>
-
-  <div class="glos-cat">✅ Criterios de lectura rápida</div>
-  <table><tr><td>Semáforo Salud</td><td>Verde ≥75% · Ámbar 55–74% · Rojo &lt;55%.</td></tr><tr><td>Semáforo % Zombie</td><td>Verde &lt;30% · Ámbar 30–60% · Rojo &gt;60%.</td></tr><tr><td>Hecho vs. Recomendación</td><td>El dashboard separa datos objetivos (hechos) de sugerencias de acción. Nunca evalúa desempeño individual de personas.</td></tr><tr><td>Control de integridad</td><td><code>Abiertos + Terminales + Removidos = Total</code>. Si no cuadra, se reporta.</td></tr></table>
-
-  <div class="glos-cat">⛔ Indicadores del catálogo NO calculables con este export</div>
-  <p style="font-size:.82rem;color:var(--tl);line-height:1.6;">De los 17 indicadores del catálogo <b>IndicadoresAgiles</b>, 6 se calculan (arriba). Los <b>11 restantes</b> requieren datos ausentes en el export de ADO:
-  <b>NPS/CSAT/CES</b> (encuestas), <b>ROI/TIR</b> (finanzas), <b>Ritmo sostenible</b> y <b>Disponibilidad de capacidad</b> (horas), <b>Distribución de habilidades</b> (matriz de skills), <b>Velocidad</b> (story points), <b>Flow Efficiency</b> (tiempo activo vs. espera por estado), <b>Scope Creep</b> y <b>Trabajo no planificado</b> (iteración/sprint + baseline), <b>Cobertura de pruebas automatizadas</b> (datos de QA), <b>Tasa de escape de defectos</b> (tipo Bug), <b>Disponibilidad de ambientes</b> (uptime).
-  Para habilitar Velocidad, Scope Creep y Defect Escape Rate basta agregar al export las columnas <code>Story Points</code>, <code>Iteration Path</code> y el tipo <code>Bug</code>.</p>
-  </div></div>
+<div class="tablewrap">
+<table id="tbl_antiguos" class="sortable">
+<thead><tr><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_antiguos',0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_antiguos',0);}"><span class="th-inner">ID<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_antiguos',1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_antiguos',1);}"><span class="th-inner">Tipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_antiguos',2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_antiguos',2);}"><span class="th-inner">Equipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_antiguos',3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_antiguos',3);}"><span class="th-inner">Título<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_antiguos',4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_antiguos',4);}"><span class="th-inner">Estado<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_antiguos',5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_antiguos',5);}"><span class="th-inner">Antigüedad (d)<span class="sort-ind" aria-hidden="true"></span></span></th></tr></thead>
+<tbody><tr><td class="mono">252683</td><td>Epic</td><td class="cell-strong">Ágil SIFA</td><td class="cell-title" title="RH - Anualidades">RH - Anualidades</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">252684</td><td>Feature</td><td class="cell-strong">Ágil SIFA</td><td class="cell-title" title="RH - Anualidades">RH - Anualidades</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">252685</td><td>Product Backlog Item</td><td class="cell-strong">Ágil SIFA</td><td class="cell-title" title="RH - Anualidades">RH - Anualidades</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">252742</td><td>Epic</td><td class="cell-strong">APPClientes</td><td class="cell-title" title="Tarjetas virtuales">Tarjetas virtuales</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">252758</td><td>Epic</td><td class="cell-strong">CRM Servicio Digital</td><td class="cell-title" title="Integración de Casos RT, PECSOA, Indemniza y PLife a CRM">Integración de Casos RT, PECSOA, Indemniza y PLife a CRM</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">252791</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="“Análisis y documentación de la arquitectura actual del proceso de consulta y pago marcham">“Análisis y documentación de la arquitectura actual del proceso de consulta y pago marcham</td>
+<td><span class="state-pill">Resolved</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">252805</td><td>Feature</td><td class="cell-strong">APPClientes</td><td class="cell-title" title="Inclusión de tarjeta virtual">Inclusión de tarjeta virtual</td>
+<td><span class="state-pill">Active</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">252801</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="Proceso de integración MDM - SICSOA *">Proceso de integración MDM - SICSOA *</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">196</span></td></tr><tr><td class="mono">253195</td><td>Epic</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: REPORTE DE TRANSACCIONES (Revisión)">SEC: REPORTE DE TRANSACCIONES (Revisión)</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">195</span></td></tr><tr><td class="mono">253256</td><td>Servicio Digital</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title=".NET Cambio en PDF de informe de cotización en COTINS">.NET Cambio en PDF de informe de cotización en COTINS</td>
+<td><span class="state-pill">Test</span></td><td><span class="chip red">195</span></td></tr></tbody>
+</table>
+<div class="empty-state" id="es_tbl_antiguos" hidden>
+  <div class="empty-icon" aria-hidden="true">⌕</div>
+  <p><strong>Sin resultados</strong></p>
+  <p class="muted">Ningún registro coincide con el filtro aplicado.</p>
 </div>
+</div></div>
 
+  <div class="grid2">
+    <div class="card">
+      <h3>Siguientes pasos</h3>
+      <ol class="steps">
+        <li>Compartir este dashboard con los POs de los equipos con mayor % zombie.</li>
+        <li>Agendar revisión de riesgo de migración con MAC y Fábrica de Productos antes del próximo corte.</li>
+        <li>Validar la clasificación pendiente de "Analítica de Datos en Nube".</li>
+        <li>Repetir el análisis en el próximo corte para medir tendencia.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Control de calidad del análisis</h3>
+      <div class="callout ok">
+        <span class="callout-icon" aria-hidden="true">✅</span>
+        <p><strong>Totales conciliados.</strong> Abiertos (1,490) + Terminales (2,938) + Removidos (367) = 4,795 = Total (4,795).</p>
+      </div>
+      <div class="callout ok">
+        <span class="callout-icon" aria-hidden="true">✅</span>
+        <p><strong>Integridad de datos.</strong> Sin IDs duplicados. Sin fechas nulas en Created Date, Changed Date ni State Change Date.</p>
+      </div>
+      <div class="callout warn">
+        <span class="callout-icon" aria-hidden="true">⚠️</span>
+        <p><strong>Pendiente de validación.</strong> Equipo sin clasificar: Analítica de Datos en Nube.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POR EQUIPO ============ -->
+<section id="equipo" class="tab" role="tabpanel" aria-label="Por Equipo">
+  <h2 class="page-title">Detalle por equipo</h2>
+  <p class="page-sub">Métricas de higiene e indicadores por Team Project, cruzados con la clasificación maestra de equipos.</p>
+  <div class="card"><div class="section-head"><div><h3>Detalle por equipo</h3><p class="section-sub">33 equipos · ordená por cualquier columna · exportá lo que estés viendo</p></div></div>
+<div class="table-toolbar" role="group" aria-label="Herramientas de tabla">
+  <div class="filter-wrap">
+    <span class="filter-icon" aria-hidden="true">⌕</span>
+    <input type="search" class="tbl-filter" id="f_tbl_equipo" data-target="tbl_equipo"
+           placeholder="Filtrar en todas las columnas…" aria-label="Filtrar tabla">
+    <button class="clear-filter" type="button" data-target="tbl_equipo" aria-label="Limpiar filtro" hidden>×</button>
+  </div>
+  <span class="row-count" id="rc_tbl_equipo" aria-live="polite">33 filas</span>
+  <div class="toolbar-actions">
+    <button class="btn-export" onclick="exportCSV('tbl_equipo','backlog_por_equipo_JUL2_2026')" title="Exportar filas visibles a CSV">
+      <span aria-hidden="true">⬇</span> CSV</button>
+    <button class="btn-export primary" onclick="exportExcel('tbl_equipo','backlog_por_equipo_JUL2_2026')" title="Exportar filas visibles a Excel">
+      <span aria-hidden="true">⬇</span> Excel</button>
+  </div>
 </div>
-<div class="ftr">Dashboard — Salud del Backlog Ágil | INS | Generado: 2026-07-11 11:16 | Fuente: Azure DevOps API (grupoins) | + Indicadores ágiles &amp; Glosario</div>
+<div class="tablewrap">
+<table id="tbl_equipo" class="sortable">
+<thead><tr><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',0);}"><span class="th-inner">Equipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',1);}"><span class="th-inner">Estado Equipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',2);}"><span class="th-inner">Categoría Base<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',3);}"><span class="th-inner">Total<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',4);}"><span class="th-inner">Abiertos<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',5);}"><span class="th-inner">Terminales<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',6);}"><span class="th-inner">Removidos<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',7);}"><span class="th-inner">Zombies<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',8)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',8);}"><span class="th-inner">% Zombie<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',9)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',9);}"><span class="th-inner">Salud<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',10)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',10);}"><span class="th-inner">WIP<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',11)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',11);}"><span class="th-inner">En Test<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',12)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',12);}"><span class="th-inner">Test aging<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',13)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',13);}"><span class="th-inner">Lead mediana<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_equipo',14)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_equipo',14);}"><span class="th-inner">Riesgo migr.<span class="sort-ind" aria-hidden="true"></span></span></th></tr></thead>
+<tbody><tr>
+<td class="cell-strong">Seguro Obligatorio Automotor</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>499</td><td>202</td><td>273</td><td>24</td>
+<td>106</td><td><span class="chip amber">52.5%</span></td>
+<td><span class="chip amber">60.4%</span></td>
+<td>122</td><td>0</td><td>—</td>
+<td>29.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Gastos Médicos -Laboratorio-</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>488</td><td>157</td><td>313</td><td>18</td>
+<td>35</td><td><span class="chip green">22.3%</span></td>
+<td><span class="chip amber">61.1%</span></td>
+<td>31</td><td>12</td><td>18.0</td>
+<td>27.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">ESB-INS-Servicio Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>358</td><td>76</td><td>277</td><td>5</td>
+<td>4</td><td><span class="chip green">5.3%</span></td>
+<td><span class="chip green">98.7%</span></td>
+<td>62</td><td>46</td><td>59.2</td>
+<td>0.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">APPClientes</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>349</td><td>211</td><td>110</td><td>28</td>
+<td>82</td><td><span class="chip amber">38.9%</span></td>
+<td><span class="chip red">48.8%</span></td>
+<td>103</td><td>0</td><td>—</td>
+<td>44.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Gestión360</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>312</td><td>54</td><td>145</td><td>113</td>
+<td>10</td><td><span class="chip green">18.5%</span></td>
+<td><span class="chip green">92.6%</span></td>
+<td>32</td><td>13</td><td>10.6</td>
+<td>70.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Cobro Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>269</td><td>91</td><td>173</td><td>5</td>
+<td>14</td><td><span class="chip green">15.4%</span></td>
+<td><span class="chip red">40.7%</span></td>
+<td>37</td><td>0</td><td>—</td>
+<td>13.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Analítica Servicio Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>230</td><td>55</td><td>175</td><td>0</td>
+<td>19</td><td><span class="chip amber">34.5%</span></td>
+<td><span class="chip green">85.5%</span></td>
+<td>22</td><td>6</td><td>15.2</td>
+<td>14.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">AsesorINS</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>214</td><td>41</td><td>136</td><td>37</td>
+<td>11</td><td><span class="chip green">26.8%</span></td>
+<td><span class="chip amber">56.1%</span></td>
+<td>23</td><td>0</td><td>—</td>
+<td>41.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">ACD</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>197</td><td>11</td><td>127</td><td>59</td>
+<td>2</td><td><span class="chip green">18.2%</span></td>
+<td><span class="chip amber">72.7%</span></td>
+<td>8</td><td>0</td><td>—</td>
+<td>18.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">PCE</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>169</td><td>46</td><td>123</td><td>0</td>
+<td>11</td><td><span class="chip green">23.9%</span></td>
+<td><span class="chip green">82.6%</span></td>
+<td>6</td><td>3</td><td>4.7</td>
+<td>37.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">COTINS Servicio Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>159</td><td>67</td><td>84</td><td>8</td>
+<td>49</td><td><span class="chip red">73.1%</span></td>
+<td><span class="chip green">98.5%</span></td>
+<td>62</td><td>40</td><td>66.4</td>
+<td>27.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">RT-Virtual</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>146</td><td>27</td><td>107</td><td>12</td>
+<td>12</td><td><span class="chip amber">44.4%</span></td>
+<td><span class="chip green">77.8%</span></td>
+<td>21</td><td>0</td><td>—</td>
+<td>50.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">ASEGURATE</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>133</td><td>13</td><td>120</td><td>0</td>
+<td>3</td><td><span class="chip green">23.1%</span></td>
+<td><span class="chip red">38.5%</span></td>
+<td>5</td><td>0</td><td>—</td>
+<td>22.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">SEC</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>132</td><td>52</td><td>79</td><td>1</td>
+<td>40</td><td><span class="chip red">76.9%</span></td>
+<td><span class="chip red">15.4%</span></td>
+<td>8</td><td>0</td><td>—</td>
+<td>28.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Automóviles -Laboratorio-</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>114</td><td>52</td><td>62</td><td>0</td>
+<td>40</td><td><span class="chip red">76.9%</span></td>
+<td><span class="chip red">51.9%</span></td>
+<td>14</td><td>1</td><td>0.0</td>
+<td>21.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Fábrica de Productos Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>109</td><td>48</td><td>53</td><td>8</td>
+<td>6</td><td><span class="chip green">12.5%</span></td>
+<td><span class="chip green">81.2%</span></td>
+<td>34</td><td>16</td><td>17.6</td>
+<td>61.5</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Ins en Línea</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>106</td><td>46</td><td>58</td><td>2</td>
+<td>24</td><td><span class="chip amber">52.2%</span></td>
+<td><span class="chip amber">67.4%</span></td>
+<td>31</td><td>0</td><td>—</td>
+<td>23.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">MAC Servicio Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>106</td><td>31</td><td>72</td><td>3</td>
+<td>2</td><td><span class="chip green">6.5%</span></td>
+<td><span class="chip green">90.3%</span></td>
+<td>12</td><td>10</td><td>15.4</td>
+<td>23.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Ecosistema Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>88</td><td>21</td><td>67</td><td>0</td>
+<td>9</td><td><span class="chip amber">42.9%</span></td>
+<td><span class="chip red">52.4%</span></td>
+<td>11</td><td>0</td><td>—</td>
+<td>31.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Soluciones Tecnológicas Ejecutivas</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>87</td><td>40</td><td>47</td><td>0</td>
+<td>18</td><td><span class="chip amber">45.0%</span></td>
+<td><span class="chip amber">72.5%</span></td>
+<td>29</td><td>0</td><td>—</td>
+<td>33.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">OCC</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Cumplimiento Normativo</td>
+<td>80</td><td>12</td><td>59</td><td>9</td>
+<td>5</td><td><span class="chip amber">41.7%</span></td>
+<td><span class="chip red">33.3%</span></td>
+<td>4</td><td>0</td><td>—</td>
+<td>28.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Segmentación de Clientes</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>73</td><td>7</td><td>64</td><td>2</td>
+<td>0</td><td><span class="chip green">0.0%</span></td>
+<td><span class="chip green">100.0%</span></td>
+<td>3</td><td>1</td><td>6.0</td>
+<td>22.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Point General Ágil</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>62</td><td>39</td><td>21</td><td>2</td>
+<td>22</td><td><span class="chip amber">56.4%</span></td>
+<td><span class="chip green">87.2%</span></td>
+<td>24</td><td>14</td><td>65.8</td>
+<td>46.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">CRM Servicio Digital</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>61</td><td>28</td><td>29</td><td>4</td>
+<td>14</td><td><span class="chip amber">50.0%</span></td>
+<td><span class="chip green">85.7%</span></td>
+<td>14</td><td>6</td><td>28.8</td>
+<td>48.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">SISEPO</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>59</td><td>13</td><td>43</td><td>3</td>
+<td>4</td><td><span class="chip amber">30.8%</span></td>
+<td><span class="chip green">76.9%</span></td>
+<td>10</td><td>0</td><td>—</td>
+<td>31.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">SIRERE Reaseg</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>45</td><td>4</td><td>41</td><td>0</td>
+<td>2</td><td><span class="chip amber">50.0%</span></td>
+<td><span class="chip green">75.0%</span></td>
+<td>3</td><td>0</td><td>—</td>
+<td>29.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Analítica de Datos en Nube</td><td><span class="badge gray">Sin clasificar</span></td><td class="muted-cell">Sin clasificar</td>
+<td>40</td><td>17</td><td>23</td><td>0</td>
+<td>10</td><td><span class="chip amber">58.8%</span></td>
+<td><span class="chip green">88.2%</span></td>
+<td>2</td><td>0</td><td>—</td>
+<td>14.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Seguro Riesgos del Trabajo</td><td><span class="badge dup">Duplicado</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>36</td><td>5</td><td>16</td><td>15</td>
+<td>5</td><td><span class="chip red">100.0%</span></td>
+<td><span class="chip green">100.0%</span></td>
+<td>5</td><td>0</td><td>—</td>
+<td>24.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Ágil SIFA</td><td><span class="badge ok">Activo</span></td><td class="muted-cell">Administrativo</td>
+<td>26</td><td>14</td><td>6</td><td>6</td>
+<td>6</td><td><span class="chip amber">42.9%</span></td>
+<td><span class="chip green">92.9%</span></td>
+<td>11</td><td>4</td><td>54.0</td>
+<td>35.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">Analítica de Datos CERRADO</td><td><span class="badge closed">Cerrado</span></td><td class="muted-cell">Transversal/Servicios</td>
+<td>23</td><td>6</td><td>17</td><td>0</td>
+<td>6</td><td><span class="chip red">100.0%</span></td>
+<td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>10.0</td>
+<td>0</td>
+</tr><tr>
+<td class="cell-strong">MAC</td><td><span class="badge trans">En Transición</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>18</td><td>2</td><td>14</td><td>2</td>
+<td>2</td><td><span class="chip red">100.0%</span></td>
+<td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>14.0</td>
+<td>2</td>
+</tr><tr>
+<td class="cell-strong">Fábrica de Productos</td><td><span class="badge trans">En Transición</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>6</td><td>1</td><td>4</td><td>1</td>
+<td>1</td><td><span class="chip red">100.0%</span></td>
+<td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>2.0</td>
+<td>1</td>
+</tr><tr>
+<td class="cell-strong">CAI CERRADO</td><td><span class="badge closed">Cerrado</span></td><td class="muted-cell">Comercial/Producto</td>
+<td>1</td><td>1</td><td>0</td><td>0</td>
+<td>1</td><td><span class="chip red">100.0%</span></td>
+<td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>—</td>
+<td>0</td>
+</tr></tbody>
+</table>
+<div class="empty-state" id="es_tbl_equipo" hidden>
+  <div class="empty-icon" aria-hidden="true">⌕</div>
+  <p><strong>Sin resultados</strong></p>
+  <p class="muted">Ningún registro coincide con el filtro aplicado.</p>
+</div>
+</div>
+    <div class="legend">
+      <span><i class="dot green"></i> Salud ≥75% · Zombie &lt;30%</span>
+      <span><i class="dot amber"></i> Salud 55–74% · Zombie 30–60%</span>
+      <span><i class="dot red"></i> Salud &lt;55% · Zombie &gt;60%</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZOMBIES ============ -->
+<section id="zombies" class="tab" role="tabpanel" aria-label="Zombies">
+  <h2 class="page-title">Ítems zombie</h2>
+  <p class="page-sub">Ítems abiertos sin cambios durante 30 días o más. Indican trabajo que quedó fuera del flujo de atención, no falta de esfuerzo del equipo.</p>
+  <div class="grid2">
+    <div class="card"><h3>Top equipos por volumen de zombies</h3><div class="cbar-row"><span class="cbar-label" title="Seguro Obligatorio Automotor">Seguro Obligatorio Automotor</span><div class="cbar-track"><div class="cbar-fill z" style="width:100.0%"></div></div><span class="cbar-val">106</span></div><div class="cbar-row"><span class="cbar-label" title="APPClientes">APPClientes</span><div class="cbar-track"><div class="cbar-fill z" style="width:77.4%"></div></div><span class="cbar-val">82</span></div><div class="cbar-row"><span class="cbar-label" title="COTINS Servicio Digital">COTINS Servicio Digital</span><div class="cbar-track"><div class="cbar-fill z" style="width:46.2%"></div></div><span class="cbar-val">49</span></div><div class="cbar-row"><span class="cbar-label" title="Automóviles -Laboratorio-">Automóviles -Laboratorio-</span><div class="cbar-track"><div class="cbar-fill z" style="width:37.7%"></div></div><span class="cbar-val">40</span></div><div class="cbar-row"><span class="cbar-label" title="SEC">SEC</span><div class="cbar-track"><div class="cbar-fill z" style="width:37.7%"></div></div><span class="cbar-val">40</span></div><div class="cbar-row"><span class="cbar-label" title="Gastos Médicos -Laboratorio-">Gastos Médicos -Laboratorio-</span><div class="cbar-track"><div class="cbar-fill z" style="width:33.0%"></div></div><span class="cbar-val">35</span></div><div class="cbar-row"><span class="cbar-label" title="Ins en Línea">Ins en Línea</span><div class="cbar-track"><div class="cbar-fill z" style="width:22.6%"></div></div><span class="cbar-val">24</span></div><div class="cbar-row"><span class="cbar-label" title="Point General Ágil">Point General Ágil</span><div class="cbar-track"><div class="cbar-fill z" style="width:20.8%"></div></div><span class="cbar-val">22</span></div><div class="cbar-row"><span class="cbar-label" title="Analítica Servicio Digital">Analítica Servicio Digital</span><div class="cbar-track"><div class="cbar-fill z" style="width:17.9%"></div></div><span class="cbar-val">19</span></div><div class="cbar-row"><span class="cbar-label" title="Soluciones Tecnológicas Ejecutivas">Soluciones Tecnológicas Ejecutivas</span><div class="cbar-track"><div class="cbar-fill z" style="width:17.0%"></div></div><span class="cbar-val">18</span></div></div>
+    <div class="card"><h3>Zombies por tipo de work item</h3><div class="cbar-row"><span class="cbar-label" title="Feature">Feature</span><div class="cbar-track"><div class="cbar-fill a" style="width:100.0%"></div></div><span class="cbar-val">168</span></div><div class="cbar-row"><span class="cbar-label" title="User Story">User Story</span><div class="cbar-track"><div class="cbar-fill a" style="width:96.4%"></div></div><span class="cbar-val">162</span></div><div class="cbar-row"><span class="cbar-label" title="Epic">Epic</span><div class="cbar-track"><div class="cbar-fill a" style="width:70.8%"></div></div><span class="cbar-val">119</span></div><div class="cbar-row"><span class="cbar-label" title="Servicio Digital">Servicio Digital</span><div class="cbar-track"><div class="cbar-fill a" style="width:32.7%"></div></div><span class="cbar-val">55</span></div><div class="cbar-row"><span class="cbar-label" title="PBI Técnico">PBI Técnico</span><div class="cbar-track"><div class="cbar-fill a" style="width:30.4%"></div></div><span class="cbar-val">51</span></div><div class="cbar-row"><span class="cbar-label" title="Product Backlog Item">Product Backlog Item</span><div class="cbar-track"><div class="cbar-fill a" style="width:11.9%"></div></div><span class="cbar-val">20</span></div></div>
+  </div>
+  <div class="card"><div class="section-head"><div><h3>Detalle de zombies</h3><p class="section-sub">Top 80 por inactividad, de 575 totales</p></div></div>
+<div class="table-toolbar" role="group" aria-label="Herramientas de tabla">
+  <div class="filter-wrap">
+    <span class="filter-icon" aria-hidden="true">⌕</span>
+    <input type="search" class="tbl-filter" id="f_tbl_zombies" data-target="tbl_zombies"
+           placeholder="Filtrar en todas las columnas…" aria-label="Filtrar tabla">
+    <button class="clear-filter" type="button" data-target="tbl_zombies" aria-label="Limpiar filtro" hidden>×</button>
+  </div>
+  <span class="row-count" id="rc_tbl_zombies" aria-live="polite">80 filas</span>
+  <div class="toolbar-actions">
+    <button class="btn-export" onclick="exportCSV('tbl_zombies','zombies_detalle_JUL2_2026')" title="Exportar filas visibles a CSV">
+      <span aria-hidden="true">⬇</span> CSV</button>
+    <button class="btn-export primary" onclick="exportExcel('tbl_zombies','zombies_detalle_JUL2_2026')" title="Exportar filas visibles a Excel">
+      <span aria-hidden="true">⬇</span> Excel</button>
+  </div>
+</div>
+<div class="tablewrap">
+<table id="tbl_zombies" class="sortable">
+<thead><tr><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',0);}"><span class="th-inner">ID<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',1);}"><span class="th-inner">Tipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',2);}"><span class="th-inner">Equipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',3);}"><span class="th-inner">Título<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',4);}"><span class="th-inner">Estado<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',5);}"><span class="th-inner">Inactividad (d)<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',6);}"><span class="th-inner">Antigüedad (d)<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_zombies',7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_zombies',7);}"><span class="th-inner">Estado Equipo<span class="sort-ind" aria-hidden="true"></span></span></th></tr></thead>
+<tbody><tr><td class="mono">253262</td><td>Product Backlog Item</td><td class="cell-strong">Gastos Médicos -Laboratorio-</td><td class="cell-title" title="Historia - VCCT - Corregir el valor de la tarifa ponderada según frecuencia de pago que pr">Historia - VCCT - Corregir el valor de la tarifa ponderada según frecuencia de pago que pr</td>
+<td><span class="state-pill">To Do</span></td><td><span class="chip red">195</span></td><td>195</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">253184</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: PROCESO NOTIFICACIÓN PÓLIZAS EN MORA (Filtro forma de pago)">SEC: PROCESO NOTIFICACIÓN PÓLIZAS EN MORA (Filtro forma de pago)</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">195</span></td><td>195</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">253195</td><td>Epic</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: REPORTE DE TRANSACCIONES (Revisión)">SEC: REPORTE DE TRANSACCIONES (Revisión)</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">195</span></td><td>195</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">253245</td><td>Epic</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title=".NET Cambio en PDF de informe de cotización en COTINS">.NET Cambio en PDF de informe de cotización en COTINS</td>
+<td><span class="state-pill">To Do</span></td><td><span class="chip red">195</span></td><td>195</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">253196</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: REPORTE DE TRANSACCIONES (Revisión)">SEC: REPORTE DE TRANSACCIONES (Revisión)</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">195</span></td><td>195</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">253958</td><td>Epic</td><td class="cell-strong">Gestión360</td><td class="cell-title" title="Incidencias del sistema III Trimestre 2026">Incidencias del sistema III Trimestre 2026</td>
+<td><span class="state-pill">To Do</span></td><td><span class="chip red">194</span></td><td>194</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">254286</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: Certificación de Exoneración RT para app INS Móvil">SEC: Certificación de Exoneración RT para app INS Móvil</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">193</span></td><td>193</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">254284</td><td>Epic</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: INS MOVIL (APP)">SEC: INS MOVIL (APP)</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">193</span></td><td>193</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">255349</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS">SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">188</span></td><td>188</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">255348</td><td>Epic</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS">SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">188</span></td><td>188</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256320</td><td>Feature</td><td class="cell-strong">Ins en Línea</td><td class="cell-title" title="Habilitar Cargo Recurrente Automatizado para Pagos de Seguros en INS en Línea">Habilitar Cargo Recurrente Automatizado para Pagos de Seguros en INS en Línea</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256284</td><td>Epic</td><td class="cell-strong">Ins en Línea</td><td class="cell-title" title="Pagos con Débito en Tiempo Real (DTR) mediante cuentas IBAN domiciliadas">Pagos con Débito en Tiempo Real (DTR) mediante cuentas IBAN domiciliadas</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256336</td><td>Epic</td><td class="cell-strong">Ins en Línea</td><td class="cell-title" title="Solicitud de Reembolsos Digital en INS en Línea">Solicitud de Reembolsos Digital en INS en Línea</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256225</td><td>Epic</td><td class="cell-strong">AsesorINS</td><td class="cell-title" title="Formularios Namirial INS">Formularios Namirial INS</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256081</td><td>PBI Técnico</td><td class="cell-strong">ASEGURATE</td><td class="cell-title" title="Ajustes sitio BN">Ajustes sitio BN</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256323</td><td>Epic</td><td class="cell-strong">Ins en Línea</td><td class="cell-title" title="Reporte y Solicitud de Atención Médica en INS en Línea">Reporte y Solicitud de Atención Médica en INS en Línea</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256316</td><td>Epic</td><td class="cell-strong">Ins en Línea</td><td class="cell-title" title="Cargo Recurrente Automatizado en INS en Línea">Cargo Recurrente Automatizado en INS en Línea</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256325</td><td>Feature</td><td class="cell-strong">Ins en Línea</td><td class="cell-title" title="Reporte y Solicitud de Atención Médica en INS en Línea">Reporte y Solicitud de Atención Médica en INS en Línea</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">186</span></td><td>186</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256497</td><td>Feature</td><td class="cell-strong">PCE</td><td class="cell-title" title="Mejoras Integrales al Sistema PCE - I Trimestre 2026.">Mejoras Integrales al Sistema PCE - I Trimestre 2026.</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">185</span></td><td>185</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">258263</td><td>Epic</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: PLENISALUD 078-78B">SEC: PLENISALUD 078-78B</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">180</span></td><td>180</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">258265</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: PLENISALUD 078-78B: Implementaciones de planes y leyendas a condiciones particulares">SEC: PLENISALUD 078-78B: Implementaciones de planes y leyendas a condiciones particulares</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">180</span></td><td>180</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">258534</td><td>Feature</td><td class="cell-strong">OCC</td><td class="cell-title" title="Mejoras en la funcionalidad del Sistema Conozca a su funcionario">Mejoras en la funcionalidad del Sistema Conozca a su funcionario</td>
+<td><span class="state-pill">Active</span></td><td><span class="chip red">179</span></td><td>179</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">258533</td><td>Epic</td><td class="cell-strong">OCC</td><td class="cell-title" title="Optimización del Sistema Conozca a su funcionario para la Gestión Integral del Usuario">Optimización del Sistema Conozca a su funcionario para la Gestión Integral del Usuario</td>
+<td><span class="state-pill">Active</span></td><td><span class="chip red">179</span></td><td>179</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260960</td><td>Feature</td><td class="cell-strong">Analítica de Datos CERRADO</td><td class="cell-title" title="ID: 650, sobre: Creación o Modificación de dashboard asociado a un proceso">ID: 650, sobre: Creación o Modificación de dashboard asociado a un proceso</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">172</span></td><td>172</td><td class="muted-cell">Cerrado</td></tr><tr><td class="mono">260904</td><td>Feature</td><td class="cell-strong">Gestión360</td><td class="cell-title" title="2026-02-01 00:00:00">2026-02-01 00:00:00</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">172</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260838</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Seguimiento y medición del impacto de las campañas de sensibilización del Marchamo Digita">-Seguimiento y medición del impacto de las campañas de sensibilización del Marchamo Digita</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260738</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Acceso guiado e informativo al asistente de instalación del Marchamo Digital">-Acceso guiado e informativo al asistente de instalación del Marchamo Digital</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260731</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Consistencia y gobernanza del contenido informativo del Marchamo Digital">-Consistencia y gobernanza del contenido informativo del Marchamo Digital</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260727</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Envío digital de la guía del Marchamo Digital desde canales de atención del INS">-Envío digital de la guía del Marchamo Digital desde canales de atención del INS</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260737</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Habilitación del módulo de asistencia del Marchamo Digital en el APP del INS">-Habilitación del módulo de asistencia del Marchamo Digital en el APP del INS</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260725</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Disponibilidad de la guía del Marchamo Digital desde la aplicación oficial del INS (Danie">-Disponibilidad de la guía del Marchamo Digital desde la aplicación oficial del INS (Danie</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260756</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Registro de la validación declarativa del pegado del Marchamo Digital para fines de contr">-Registro de la validación declarativa del pegado del Marchamo Digital para fines de contr</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260755</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Confirmación declarativa del pegado efectivo del Marchamo Digital por parte del usuario">-Confirmación declarativa del pegado efectivo del Marchamo Digital por parte del usuario</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260749</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Uso de la cámara del dispositivo para visualización asistida del parabrisas">-Uso de la cámara del dispositivo para visualización asistida del parabrisas</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260745</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Creación del componente “Asistente de Instalación del Marchamo Digital” en el APP del INS">-Creación del componente “Asistente de Instalación del Marchamo Digital” en el APP del INS</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260744</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="Creación del componente “Asistente de Instalación del Marchamo Digital” en el APP del INS">Creación del componente “Asistente de Instalación del Marchamo Digital” en el APP del INS</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260741</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Selección y validación del tipo de vehículo para el proceso asistido de instalación">-Selección y validación del tipo de vehículo para el proceso asistido de instalación</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260777</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Capacitación a DEKRA / Inspección Técnica Vehicular para la operación del Marchamo 2027">-Capacitación a DEKRA / Inspección Técnica Vehicular para la operación del Marchamo 2027</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260775</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Capacitación a cuerpos policiales para la verificación y control del Marchamo 2027">-Capacitación a cuerpos policiales para la verificación y control del Marchamo 2027</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260772</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Formación de formadores internos del Marchamo 2027">-Formación de formadores internos del Marchamo 2027</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260774</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Capacitación a recaudadores para la operación del Marchamo 2027">-Capacitación a recaudadores para la operación del Marchamo 2027</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260757</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Presentación de advertencias y recomendaciones durante el proceso asistido de instalación">-Presentación de advertencias y recomendaciones durante el proceso asistido de instalación</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">252801</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="Proceso de integración MDM - SICSOA *">Proceso de integración MDM - SICSOA *</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>196</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">261058</td><td>User Story</td><td class="cell-strong">MAC</td><td class="cell-title" title=".NET Optimización del monitor de facturación">.NET Optimización del monitor de facturación</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">En Transición</td></tr><tr><td class="mono">261059</td><td>User Story</td><td class="cell-strong">MAC</td><td class="cell-title" title=".NET Preparación para el pase de Develop a Master">.NET Preparación para el pase de Develop a Master</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">En Transición</td></tr><tr><td class="mono">260769</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Diseño y formalización del Plan Integral de Capacitación del Marchamo 2027">-Diseño y formalización del Plan Integral de Capacitación del Marchamo 2027</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260759</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Mensaje de cierre del proceso de asistencia y validación del pegado del Marchamo Digital">-Mensaje de cierre del proceso de asistencia y validación del pegado del Marchamo Digital</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">261474</td><td>Feature</td><td class="cell-strong">Gestión360</td><td class="cell-title" title="Periodo de carencia por producto y tipo - Copy">Periodo de carencia por producto y tipo - Copy</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>171</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260862</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Aplicación de puntos al monto del SOA y recálculo del total a pagar">-Aplicación de puntos al monto del SOA y recálculo del total a pagar</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260839</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="– Informe final de ejecución y resultados de las campañas de sensibilización del Marchamo ">– Informe final de ejecución y resultados de las campañas de sensibilización del Marchamo </td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260856</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Habilitar selección de pago del SOA con puntos de lealtad">-Habilitar selección de pago del SOA con puntos de lealtad</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260860</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Validación de elegibilidad y disponibilidad de puntos exclusivos para el SOA">-Validación de elegibilidad y disponibilidad de puntos exclusivos para el SOA</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">261477</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="0.6 Definición de la Estrategia de Evolución Tecnológica">0.6 Definición de la Estrategia de Evolución Tecnológica</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>171</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260836</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Ejecución de las campañas de sensibilización ciudadana del Marchamo Digital 2027">-Ejecución de las campañas de sensibilización ciudadana del Marchamo Digital 2027</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260837</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Atención y gestión de consultas ciudadanas derivadas de las campañas de sensibilización d">-Atención y gestión de consultas ciudadanas derivadas de las campañas de sensibilización d</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">261237</td><td>Feature</td><td class="cell-strong">Analítica de Datos CERRADO</td><td class="cell-title" title="ID: 640, sobre: Automatización Reporte de RC y VC Notarios (Hugo Quesada QUEOS)">ID: 640, sobre: Automatización Reporte de RC y VC Notarios (Hugo Quesada QUEOS)</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>171</td><td class="muted-cell">Cerrado</td></tr><tr><td class="mono">261269</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="Automatización del proceso manual de pagos pendientes de completar">Automatización del proceso manual de pagos pendientes de completar</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>171</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260778</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Capacitación a canales de consulta y atención al cliente para el Marchamo 2027">-Capacitación a canales de consulta y atención al cliente para el Marchamo 2027</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260758</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Acceso complementario a guías y video oficial del Marchamo Digital desde el asistente">-Acceso complementario a guías y video oficial del Marchamo Digital desde el asistente</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">171</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">261920</td><td>Feature</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title="SOLICITUDES GENÉRICAS I TRIMESTRE 2026">SOLICITUDES GENÉRICAS I TRIMESTRE 2026</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">168</span></td><td>168</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">262233</td><td>Epic</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title="Kaizen 2026">Kaizen 2026</td>
+<td><span class="state-pill">To Do</span></td><td><span class="chip red">168</span></td><td>168</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">261914</td><td>Epic</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title="Solicitudes Genéricas Productos I Trimestre 2026">Solicitudes Genéricas Productos I Trimestre 2026</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">168</span></td><td>168</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">257708</td><td>Epic</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title="Nueva Línea Gráfica COTINS I Trimestre 2026">Nueva Línea Gráfica COTINS I Trimestre 2026</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">167</span></td><td>181</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">257787</td><td>Epic</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title="Plan de Mantenimiento y Mejoras en COTINS- INTRANET I Trimestre 2026">Plan de Mantenimiento y Mejoras en COTINS- INTRANET I Trimestre 2026</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">167</span></td><td>181</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">257789</td><td>Feature</td><td class="cell-strong">COTINS Servicio Digital</td><td class="cell-title" title="Plan de Mantenimiento y Mejoras COTINS-INTRANET I Trimestre 2026">Plan de Mantenimiento y Mejoras COTINS-INTRANET I Trimestre 2026</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">167</span></td><td>181</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260754</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-*Asistencia visual para sugerir la zona recomendada de pegado del Marchamo Digital">-*Asistencia visual para sugerir la zona recomendada de pegado del Marchamo Digital</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">167</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">262993</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: CREACIÓN DE VISTA ENVÍO PERFECCIONAMIENTO DE CONTRATO">SEC: CREACIÓN DE VISTA ENVÍO PERFECCIONAMIENTO DE CONTRATO</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">166</span></td><td>166</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">262987</td><td>Epic</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: MÓDULO MANTENIMIENTO PERFECCIONAMIENTO DE CONTRATO">SEC: MÓDULO MANTENIMIENTO PERFECCIONAMIENTO DE CONTRATO</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">166</span></td><td>166</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">262989</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: CREACIÓN MÓDULO MANTENIMIENTO PERFECCIONAMIENTO DE CONTRATO">SEC: CREACIÓN MÓDULO MANTENIMIENTO PERFECCIONAMIENTO DE CONTRATO</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">166</span></td><td>166</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">262939</td><td>Feature</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: HIPERVÍNCULO CORREO NOTIFICACIÓN SEC">SEC: HIPERVÍNCULO CORREO NOTIFICACIÓN SEC</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">166</span></td><td>166</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">262937</td><td>Epic</td><td class="cell-strong">SEC</td><td class="cell-title" title="SEC: HIPERVÍNCULO CORREO NOTIFICACIÓN SEC">SEC: HIPERVÍNCULO CORREO NOTIFICACIÓN SEC</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">166</span></td><td>166</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">263611</td><td>Servicio Digital</td><td class="cell-strong">Point General Ágil</td><td class="cell-title" title="Ajuste para el Registro y Pago de Comisiones de Seguros Autoexpedibles (SICSOA → PG)">Ajuste para el Registro y Pago de Comisiones de Seguros Autoexpedibles (SICSOA → PG)</td>
+<td><span class="state-pill">To Do</span></td><td><span class="chip red">165</span></td><td>165</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">263653</td><td>User Story</td><td class="cell-strong">Analítica de Datos CERRADO</td><td class="cell-title" title="Duplicado - Sprint 2 - Req. 405_Análisis de Siniestros">Duplicado - Sprint 2 - Req. 405_Análisis de Siniestros</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">165</span></td><td>165</td><td class="muted-cell">Cerrado</td></tr><tr><td class="mono">263707</td><td>PBI Técnico</td><td class="cell-strong">ASEGURATE</td><td class="cell-title" title="Migrar aplicaciones a .NET Framework 4.8 o .NET Core 9">Migrar aplicaciones a .NET Framework 4.8 o .NET Core 9</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">165</span></td><td>165</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">263503</td><td>Feature</td><td class="cell-strong">Gestión360</td><td class="cell-title" title="Consulta deuda de póliza">Consulta deuda de póliza</td>
+<td><span class="state-pill">In Progress</span></td><td><span class="chip red">165</span></td><td>165</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">263706</td><td>PBI Técnico</td><td class="cell-strong">CAI CERRADO</td><td class="cell-title" title="Migrar aplicaciones a .NET Framework 4.8 o .NET Core 9">Migrar aplicaciones a .NET Framework 4.8 o .NET Core 9</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">165</span></td><td>165</td><td class="muted-cell">Cerrado</td></tr><tr><td class="mono">260835</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="– Logística y coordinación de las campañas de sensibilización ciudadana del Marchamo Digit">– Logística y coordinación de las campañas de sensibilización ciudadana del Marchamo Digit</td>
+<td><span class="state-pill">Active</span></td><td><span class="chip red">164</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">260834</td><td>User Story</td><td class="cell-strong">Seguro Obligatorio Automotor</td><td class="cell-title" title="-Definición y validación de mensajes oficiales del Marchamo Digital 2027">-Definición y validación de mensajes oficiales del Marchamo Digital 2027</td>
+<td><span class="state-pill">Active</span></td><td><span class="chip red">164</span></td><td>172</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">263839</td><td>User Story</td><td class="cell-strong">SEC</td><td class="cell-title" title="Módulo Mantenimiento de Perfeccionamiento de Contrato - Bitácora de modificaciones">Módulo Mantenimiento de Perfeccionamiento de Contrato - Bitácora de modificaciones</td>
+<td><span class="state-pill">New</span></td><td><span class="chip red">164</span></td><td>164</td><td class="muted-cell">Activo</td></tr><tr><td class="mono">256335</td><td>Feature</td><td class="cell-strong">Ins en Línea</td><td class="cell-title" title="Habilitar Solicitud Digital de Reembolsos en INS en Línea">Habilitar Solicitud Digital de Reembolsos en INS en Línea</td>
+<td><span class="state-pill">Active</span></td><td><span class="chip red">159</span></td><td>186</td><td class="muted-cell">Activo</td></tr></tbody>
+</table>
+<div class="empty-state" id="es_tbl_zombies" hidden>
+  <div class="empty-icon" aria-hidden="true">⌕</div>
+  <p><strong>Sin resultados</strong></p>
+  <p class="muted">Ningún registro coincide con el filtro aplicado.</p>
+</div>
+</div></div>
+</section>
+
+<!-- ============ POR TIPO ============ -->
+<section id="tipo" class="tab" role="tabpanel" aria-label="Por Tipo">
+  <h2 class="page-title">Distribución por tipo de work item</h2>
+  <p class="page-sub">Los niveles altos de la jerarquía (Epic, Feature) con alta proporción de zombies señalan planificación estratégica detenida.</p>
+  <div class="card"><h3>Volumen total por tipo</h3><div class="cbar-row"><span class="cbar-label" title="User Story">User Story</span><div class="cbar-track"><div class="cbar-fill i" style="width:100.0%"></div></div><span class="cbar-val">1777</span></div><div class="cbar-row"><span class="cbar-label" title="Servicio Digital">Servicio Digital</span><div class="cbar-track"><div class="cbar-fill i" style="width:48.6%"></div></div><span class="cbar-val">864</span></div><div class="cbar-row"><span class="cbar-label" title="Product Backlog Item">Product Backlog Item</span><div class="cbar-track"><div class="cbar-fill i" style="width:48.3%"></div></div><span class="cbar-val">859</span></div><div class="cbar-row"><span class="cbar-label" title="PBI Técnico">PBI Técnico</span><div class="cbar-track"><div class="cbar-fill i" style="width:41.8%"></div></div><span class="cbar-val">742</span></div><div class="cbar-row"><span class="cbar-label" title="Feature">Feature</span><div class="cbar-track"><div class="cbar-fill i" style="width:20.7%"></div></div><span class="cbar-val">367</span></div><div class="cbar-row"><span class="cbar-label" title="Epic">Epic</span><div class="cbar-track"><div class="cbar-fill i" style="width:10.4%"></div></div><span class="cbar-val">185</span></div><div class="cbar-row"><span class="cbar-label" title="PBI Obligatorio">PBI Obligatorio</span><div class="cbar-track"><div class="cbar-fill i" style="width:0.1%"></div></div><span class="cbar-val">1</span></div></div>
+  <div class="card"><div class="section-head"><div><h3>Resumen por tipo de work item</h3></div></div>
+<div class="table-toolbar" role="group" aria-label="Herramientas de tabla">
+  <div class="filter-wrap">
+    <span class="filter-icon" aria-hidden="true">⌕</span>
+    <input type="search" class="tbl-filter" id="f_tbl_tipo" data-target="tbl_tipo"
+           placeholder="Filtrar en todas las columnas…" aria-label="Filtrar tabla">
+    <button class="clear-filter" type="button" data-target="tbl_tipo" aria-label="Limpiar filtro" hidden>×</button>
+  </div>
+  <span class="row-count" id="rc_tbl_tipo" aria-live="polite">7 filas</span>
+  <div class="toolbar-actions">
+    <button class="btn-export" onclick="exportCSV('tbl_tipo','backlog_por_tipo_JUL2_2026')" title="Exportar filas visibles a CSV">
+      <span aria-hidden="true">⬇</span> CSV</button>
+    <button class="btn-export primary" onclick="exportExcel('tbl_tipo','backlog_por_tipo_JUL2_2026')" title="Exportar filas visibles a Excel">
+      <span aria-hidden="true">⬇</span> Excel</button>
+  </div>
+</div>
+<div class="tablewrap">
+<table id="tbl_tipo" class="sortable">
+<thead><tr><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_tipo',0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_tipo',0);}"><span class="th-inner">Tipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_tipo',1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_tipo',1);}"><span class="th-inner">Total<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_tipo',2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_tipo',2);}"><span class="th-inner">Abiertos<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_tipo',3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_tipo',3);}"><span class="th-inner">Zombies<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_tipo',4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_tipo',4);}"><span class="th-inner">% Zombie de abiertos<span class="sort-ind" aria-hidden="true"></span></span></th></tr></thead>
+<tbody><tr><td class="cell-strong">User Story</td><td>1777</td><td>433</td><td>162</td>
+<td><span class="chip amber">37.4%</span></td></tr><tr><td class="cell-strong">Servicio Digital</td><td>864</td><td>246</td><td>55</td>
+<td><span class="chip green">22.4%</span></td></tr><tr><td class="cell-strong">Product Backlog Item</td><td>859</td><td>167</td><td>20</td>
+<td><span class="chip green">12.0%</span></td></tr><tr><td class="cell-strong">PBI Técnico</td><td>742</td><td>234</td><td>51</td>
+<td><span class="chip green">21.8%</span></td></tr><tr><td class="cell-strong">Feature</td><td>367</td><td>255</td><td>168</td>
+<td><span class="chip red">65.9%</span></td></tr><tr><td class="cell-strong">Epic</td><td>185</td><td>154</td><td>119</td>
+<td><span class="chip red">77.3%</span></td></tr><tr><td class="cell-strong">PBI Obligatorio</td><td>1</td><td>1</td><td>0</td>
+<td><span class="chip green">0.0%</span></td></tr></tbody>
+</table>
+<div class="empty-state" id="es_tbl_tipo" hidden>
+  <div class="empty-icon" aria-hidden="true">⌕</div>
+  <p><strong>Sin resultados</strong></p>
+  <p class="muted">Ningún registro coincide con el filtro aplicado.</p>
+</div>
+</div></div>
+</section>
+
+<!-- ============ MIGRACIÓN ============ -->
+<section id="migracion" class="tab" role="tabpanel" aria-label="Migración">
+  <h2 class="page-title">Riesgo de migración</h2>
+  <p class="page-sub">Ítems abiertos en equipos En Transición hacia Servicio Digital.</p>
+  <div class="callout">
+    <span class="callout-icon" aria-hidden="true">🚚</span>
+    <p><strong>Oportunidad de saneamiento antes de migrar.</strong> Estos ítems necesitan una decisión explícita — trasladar al equipo sucesor o cerrar — para que no queden huérfanos tras la migración.</p>
+  </div>
+  <div class="card"><div class="section-head"><div><h3>Ítems abiertos en equipos En Transición (3)</h3></div></div>
+<div class="table-toolbar" role="group" aria-label="Herramientas de tabla">
+  <div class="filter-wrap">
+    <span class="filter-icon" aria-hidden="true">⌕</span>
+    <input type="search" class="tbl-filter" id="f_tbl_mig" data-target="tbl_mig"
+           placeholder="Filtrar en todas las columnas…" aria-label="Filtrar tabla">
+    <button class="clear-filter" type="button" data-target="tbl_mig" aria-label="Limpiar filtro" hidden>×</button>
+  </div>
+  <span class="row-count" id="rc_tbl_mig" aria-live="polite">3 filas</span>
+  <div class="toolbar-actions">
+    <button class="btn-export" onclick="exportCSV('tbl_mig','riesgo_migracion_JUL2_2026')" title="Exportar filas visibles a CSV">
+      <span aria-hidden="true">⬇</span> CSV</button>
+    <button class="btn-export primary" onclick="exportExcel('tbl_mig','riesgo_migracion_JUL2_2026')" title="Exportar filas visibles a Excel">
+      <span aria-hidden="true">⬇</span> Excel</button>
+  </div>
+</div>
+<div class="tablewrap">
+<table id="tbl_mig" class="sortable">
+<thead><tr><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_mig',0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_mig',0);}"><span class="th-inner">ID<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_mig',1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_mig',1);}"><span class="th-inner">Tipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_mig',2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_mig',2);}"><span class="th-inner">Equipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_mig',3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_mig',3);}"><span class="th-inner">Título<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_mig',4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_mig',4);}"><span class="th-inner">Estado<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_mig',5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_mig',5);}"><span class="th-inner">Antigüedad (d)<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_mig',6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_mig',6);}"><span class="th-inner">Equipo Sucesor<span class="sort-ind" aria-hidden="true"></span></span></th></tr></thead>
+<tbody><tr><td class="mono">257508</td><td>Epic</td><td class="cell-strong">Fábrica de Productos</td><td class="cell-title" title="Expomovil 2026">Expomovil 2026</td>
+<td><span class="state-pill">New</span></td><td>181</td><td><span class="badge ok">Fábrica de Productos Digital</span></td></tr><tr><td class="mono">261058</td><td>User Story</td><td class="cell-strong">MAC</td><td class="cell-title" title=".NET Optimización del monitor de facturación">.NET Optimización del monitor de facturación</td>
+<td><span class="state-pill">New</span></td><td>172</td><td><span class="badge ok">MAC Servicio Digital</span></td></tr><tr><td class="mono">261059</td><td>User Story</td><td class="cell-strong">MAC</td><td class="cell-title" title=".NET Preparación para el pase de Develop a Master">.NET Preparación para el pase de Develop a Master</td>
+<td><span class="state-pill">New</span></td><td>172</td><td><span class="badge ok">MAC Servicio Digital</span></td></tr></tbody>
+</table>
+<div class="empty-state" id="es_tbl_mig" hidden>
+  <div class="empty-icon" aria-hidden="true">⌕</div>
+  <p><strong>Sin resultados</strong></p>
+  <p class="muted">Ningún registro coincide con el filtro aplicado.</p>
+</div>
+</div></div>
+</section>
+
+<!-- ============ GROOMING ============ -->
+<section id="grooming" class="tab" role="tabpanel" aria-label="Grooming">
+  <h2 class="page-title">Preguntas para grooming</h2>
+  <p class="page-sub">Disparadores de conversación para ceremonias de refinamiento. Buscan abrir diálogo sobre el backlog, no evaluar al equipo.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Equipos con mayor volumen de zombies</h3>
+      <ul class="findings plain">
+        <li><strong>Seguro Obligatorio Automotor</strong> — ¿Los 106 ítems zombie siguen siendo prioridad de negocio? ¿Cuáles pueden cerrarse o consolidarse?</li>
+        <li><strong>APPClientes</strong> — Con 82 zombies y salud de 48.8%, ¿el backlog abierto refleja el roadmap actual del equipo?</li>
+        <li><strong>COTINS Servicio Digital</strong> — 73% de zombie y 66 días de aging en Test: ¿qué bloquea el paso a producción?</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Equipos con baja salud de backlog y en transición</h3>
+      <ul class="findings plain">
+        <li><strong>SEC</strong> — Salud de 15.4%: ¿qué porcentaje del backlog abierto está realmente refinado y listo para trabajar?</li>
+        <li><strong>ASEGURATE</strong> — Salud de 38.5%: ¿el refinamiento va al ritmo de la entrada de nuevos ítems?</li>
+        <li><strong>MAC / Fábrica de Productos</strong> (En Transición) — ¿Los ítems abiertos se trasladan al equipo sucesor o se cierran antes de migrar?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INDICADORES ============ -->
+<section id="indicadores" class="tab" role="tabpanel" aria-label="Indicadores Generales">
+  <h2 class="page-title">Indicadores ágiles</h2>
+  <p class="page-sub">Seis indicadores calculables a partir del export de Azure DevOps. Los once restantes del catálogo requieren datos adicionales; se listan al final con su razón.</p>
+
+  <div class="kpis">
+    <div class="kpi accent-a"><div class="n">65.7<small>%</small></div><div class="l">Salud del Backlog</div><div class="hint">Refinados ÷ abiertos</div></div>
+    <div class="kpi accent-i"><div class="n">26<small> d</small></div><div class="l">Lead Time (mediana)</div><div class="hint">Prom. 34.0 d</div></div>
+    <div class="kpi accent-s"><div class="n">362</div><div class="l">Throughput mensual</div><div class="hint">Ítems terminados/mes</div></div>
+    <div class="kpi"><div class="n">749</div><div class="l">WIP total</div><div class="hint">Ítems en curso</div></div>
+    <div class="kpi accent-z"><div class="n">172</div><div class="l">En Test</div><div class="hint">Inventario sin entregar</div></div>
+    <div class="kpi accent-tr"><div class="n">44.1<small> d</small></div><div class="l">Aging promedio en Test</div><div class="hint">Corte − State Change Date</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h3>Throughput mensual · ítems Done / Closed</h3><div class="vbars"><div class="vbar-col" title="2026-01: 185"><div class="vbar-val">185</div><div class="vbar-track"><div class="vbar s" style="height:37.9%"></div></div><div class="vbar-label">01/26</div></div><div class="vbar-col" title="2026-02: 243"><div class="vbar-val">243</div><div class="vbar-track"><div class="vbar s" style="height:49.8%"></div></div><div class="vbar-label">02/26</div></div><div class="vbar-col" title="2026-03: 374"><div class="vbar-val">374</div><div class="vbar-track"><div class="vbar s" style="height:76.6%"></div></div><div class="vbar-label">03/26</div></div><div class="vbar-col" title="2026-04: 488"><div class="vbar-val">488</div><div class="vbar-track"><div class="vbar s" style="height:100.0%"></div></div><div class="vbar-label">04/26</div></div><div class="vbar-col" title="2026-05: 476"><div class="vbar-val">476</div><div class="vbar-track"><div class="vbar s" style="height:97.5%"></div></div><div class="vbar-label">05/26</div></div><div class="vbar-col" title="2026-06: 351"><div class="vbar-val">351</div><div class="vbar-track"><div class="vbar s" style="height:71.9%"></div></div><div class="vbar-label">06/26</div></div><div class="vbar-col" title="2026-07: 415"><div class="vbar-val">415</div><div class="vbar-track"><div class="vbar s" style="height:85.0%"></div></div><div class="vbar-label">07/26</div></div></div></div>
+    <div class="card"><h3>Deployment Frequency · ítems a "Listo para producción"</h3><div class="vbars"><div class="vbar-col" title="2026-02: 17"><div class="vbar-val">17</div><div class="vbar-track"><div class="vbar i" style="height:16.7%"></div></div><div class="vbar-label">02/26</div></div><div class="vbar-col" title="2026-03: 41"><div class="vbar-val">41</div><div class="vbar-track"><div class="vbar i" style="height:40.2%"></div></div><div class="vbar-label">03/26</div></div><div class="vbar-col" title="2026-04: 55"><div class="vbar-val">55</div><div class="vbar-track"><div class="vbar i" style="height:53.9%"></div></div><div class="vbar-label">04/26</div></div><div class="vbar-col" title="2026-05: 81"><div class="vbar-val">81</div><div class="vbar-track"><div class="vbar i" style="height:79.4%"></div></div><div class="vbar-label">05/26</div></div><div class="vbar-col" title="2026-06: 99"><div class="vbar-val">99</div><div class="vbar-track"><div class="vbar i" style="height:97.1%"></div></div><div class="vbar-label">06/26</div></div><div class="vbar-col" title="2026-07: 102"><div class="vbar-val">102</div><div class="vbar-track"><div class="vbar i" style="height:100.0%"></div></div><div class="vbar-label">07/26</div></div></div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h3>Distribución por Categoría Base</h3><div class="cbar-row"><span class="cbar-label" title="Comercial/Producto">Comercial/Producto</span><div class="cbar-track"><div class="cbar-fill p" style="width:100.0%"></div></div><span class="cbar-val">3667 <em>(76.5%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="Transversal/Servicios">Transversal/Servicios</span><div class="cbar-track"><div class="cbar-fill p" style="width:26.8%"></div></div><span class="cbar-val">982 <em>(20.5%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="Cumplimiento Normativo">Cumplimiento Normativo</span><div class="cbar-track"><div class="cbar-fill p" style="width:2.2%"></div></div><span class="cbar-val">80 <em>(1.7%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="Sin clasificar">Sin clasificar</span><div class="cbar-track"><div class="cbar-fill p" style="width:1.1%"></div></div><span class="cbar-val">40 <em>(0.8%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="Administrativo">Administrativo</span><div class="cbar-track"><div class="cbar-fill p" style="width:0.7%"></div></div><span class="cbar-val">26 <em>(0.5%)</em></span></div></div>
+    <div class="card"><h3>Distribución por Estado del Equipo</h3><div class="cbar-row"><span class="cbar-label" title="Activo">Activo</span><div class="cbar-track"><div class="cbar-fill tr" style="width:100.0%"></div></div><span class="cbar-val">4671 <em>(97.4%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="Sin clasificar">Sin clasificar</span><div class="cbar-track"><div class="cbar-fill tr" style="width:0.9%"></div></div><span class="cbar-val">40 <em>(0.8%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="Duplicado">Duplicado</span><div class="cbar-track"><div class="cbar-fill tr" style="width:0.8%"></div></div><span class="cbar-val">36 <em>(0.8%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="Cerrado">Cerrado</span><div class="cbar-track"><div class="cbar-fill tr" style="width:0.5%"></div></div><span class="cbar-val">24 <em>(0.5%)</em></span></div><div class="cbar-row"><span class="cbar-label" title="En Transición">En Transición</span><div class="cbar-track"><div class="cbar-fill tr" style="width:0.5%"></div></div><span class="cbar-val">24 <em>(0.5%)</em></span></div></div>
+  </div>
+
+  <div class="card"><div class="section-head"><div><h3>Indicadores por equipo</h3></div></div>
+<div class="table-toolbar" role="group" aria-label="Herramientas de tabla">
+  <div class="filter-wrap">
+    <span class="filter-icon" aria-hidden="true">⌕</span>
+    <input type="search" class="tbl-filter" id="f_tbl_ind" data-target="tbl_ind"
+           placeholder="Filtrar en todas las columnas…" aria-label="Filtrar tabla">
+    <button class="clear-filter" type="button" data-target="tbl_ind" aria-label="Limpiar filtro" hidden>×</button>
+  </div>
+  <span class="row-count" id="rc_tbl_ind" aria-live="polite">33 filas</span>
+  <div class="toolbar-actions">
+    <button class="btn-export" onclick="exportCSV('tbl_ind','indicadores_por_equipo_JUL2_2026')" title="Exportar filas visibles a CSV">
+      <span aria-hidden="true">⬇</span> CSV</button>
+    <button class="btn-export primary" onclick="exportExcel('tbl_ind','indicadores_por_equipo_JUL2_2026')" title="Exportar filas visibles a Excel">
+      <span aria-hidden="true">⬇</span> Excel</button>
+  </div>
+</div>
+<div class="tablewrap">
+<table id="tbl_ind" class="sortable">
+<thead><tr><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_ind',0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_ind',0);}"><span class="th-inner">Equipo<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_ind',1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_ind',1);}"><span class="th-inner">Salud<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_ind',2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_ind',2);}"><span class="th-inner">WIP<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_ind',3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_ind',3);}"><span class="th-inner">En Test<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_ind',4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_ind',4);}"><span class="th-inner">Test aging (d)<span class="sort-ind" aria-hidden="true"></span></span></th><th tabindex="0" role="columnheader" aria-sort="none" onclick="sortTable('tbl_ind',5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sortTable('tbl_ind',5);}"><span class="th-inner">Lead mediana (d)<span class="sort-ind" aria-hidden="true"></span></span></th></tr></thead>
+<tbody><tr><td class="cell-strong">Seguro Obligatorio Automotor</td><td><span class="chip amber">60.4%</span></td>
+<td>122</td><td>0</td><td>—</td>
+<td>29.0</td></tr><tr><td class="cell-strong">Gastos Médicos -Laboratorio-</td><td><span class="chip amber">61.1%</span></td>
+<td>31</td><td>12</td><td>18.0</td>
+<td>27.0</td></tr><tr><td class="cell-strong">ESB-INS-Servicio Digital</td><td><span class="chip green">98.7%</span></td>
+<td>62</td><td>46</td><td>59.2</td>
+<td>0.0</td></tr><tr><td class="cell-strong">APPClientes</td><td><span class="chip red">48.8%</span></td>
+<td>103</td><td>0</td><td>—</td>
+<td>44.0</td></tr><tr><td class="cell-strong">Gestión360</td><td><span class="chip green">92.6%</span></td>
+<td>32</td><td>13</td><td>10.6</td>
+<td>70.0</td></tr><tr><td class="cell-strong">Cobro Digital</td><td><span class="chip red">40.7%</span></td>
+<td>37</td><td>0</td><td>—</td>
+<td>13.0</td></tr><tr><td class="cell-strong">Analítica Servicio Digital</td><td><span class="chip green">85.5%</span></td>
+<td>22</td><td>6</td><td>15.2</td>
+<td>14.0</td></tr><tr><td class="cell-strong">AsesorINS</td><td><span class="chip amber">56.1%</span></td>
+<td>23</td><td>0</td><td>—</td>
+<td>41.0</td></tr><tr><td class="cell-strong">ACD</td><td><span class="chip amber">72.7%</span></td>
+<td>8</td><td>0</td><td>—</td>
+<td>18.0</td></tr><tr><td class="cell-strong">PCE</td><td><span class="chip green">82.6%</span></td>
+<td>6</td><td>3</td><td>4.7</td>
+<td>37.0</td></tr><tr><td class="cell-strong">COTINS Servicio Digital</td><td><span class="chip green">98.5%</span></td>
+<td>62</td><td>40</td><td>66.4</td>
+<td>27.0</td></tr><tr><td class="cell-strong">RT-Virtual</td><td><span class="chip green">77.8%</span></td>
+<td>21</td><td>0</td><td>—</td>
+<td>50.0</td></tr><tr><td class="cell-strong">ASEGURATE</td><td><span class="chip red">38.5%</span></td>
+<td>5</td><td>0</td><td>—</td>
+<td>22.0</td></tr><tr><td class="cell-strong">SEC</td><td><span class="chip red">15.4%</span></td>
+<td>8</td><td>0</td><td>—</td>
+<td>28.0</td></tr><tr><td class="cell-strong">Automóviles -Laboratorio-</td><td><span class="chip red">51.9%</span></td>
+<td>14</td><td>1</td><td>0.0</td>
+<td>21.0</td></tr><tr><td class="cell-strong">Fábrica de Productos Digital</td><td><span class="chip green">81.2%</span></td>
+<td>34</td><td>16</td><td>17.6</td>
+<td>61.5</td></tr><tr><td class="cell-strong">Ins en Línea</td><td><span class="chip amber">67.4%</span></td>
+<td>31</td><td>0</td><td>—</td>
+<td>23.0</td></tr><tr><td class="cell-strong">MAC Servicio Digital</td><td><span class="chip green">90.3%</span></td>
+<td>12</td><td>10</td><td>15.4</td>
+<td>23.0</td></tr><tr><td class="cell-strong">Ecosistema Digital</td><td><span class="chip red">52.4%</span></td>
+<td>11</td><td>0</td><td>—</td>
+<td>31.0</td></tr><tr><td class="cell-strong">Soluciones Tecnológicas Ejecutivas</td><td><span class="chip amber">72.5%</span></td>
+<td>29</td><td>0</td><td>—</td>
+<td>33.0</td></tr><tr><td class="cell-strong">OCC</td><td><span class="chip red">33.3%</span></td>
+<td>4</td><td>0</td><td>—</td>
+<td>28.0</td></tr><tr><td class="cell-strong">Segmentación de Clientes</td><td><span class="chip green">100.0%</span></td>
+<td>3</td><td>1</td><td>6.0</td>
+<td>22.0</td></tr><tr><td class="cell-strong">Point General Ágil</td><td><span class="chip green">87.2%</span></td>
+<td>24</td><td>14</td><td>65.8</td>
+<td>46.0</td></tr><tr><td class="cell-strong">CRM Servicio Digital</td><td><span class="chip green">85.7%</span></td>
+<td>14</td><td>6</td><td>28.8</td>
+<td>48.0</td></tr><tr><td class="cell-strong">SISEPO</td><td><span class="chip green">76.9%</span></td>
+<td>10</td><td>0</td><td>—</td>
+<td>31.0</td></tr><tr><td class="cell-strong">SIRERE Reaseg</td><td><span class="chip green">75.0%</span></td>
+<td>3</td><td>0</td><td>—</td>
+<td>29.0</td></tr><tr><td class="cell-strong">Analítica de Datos en Nube</td><td><span class="chip green">88.2%</span></td>
+<td>2</td><td>0</td><td>—</td>
+<td>14.0</td></tr><tr><td class="cell-strong">Seguro Riesgos del Trabajo</td><td><span class="chip green">100.0%</span></td>
+<td>5</td><td>0</td><td>—</td>
+<td>24.0</td></tr><tr><td class="cell-strong">Ágil SIFA</td><td><span class="chip green">92.9%</span></td>
+<td>11</td><td>4</td><td>54.0</td>
+<td>35.0</td></tr><tr><td class="cell-strong">Analítica de Datos CERRADO</td><td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>10.0</td></tr><tr><td class="cell-strong">MAC</td><td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>14.0</td></tr><tr><td class="cell-strong">Fábrica de Productos</td><td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>2.0</td></tr><tr><td class="cell-strong">CAI CERRADO</td><td><span class="chip red">0.0%</span></td>
+<td>0</td><td>0</td><td>—</td>
+<td>—</td></tr></tbody>
+</table>
+<div class="empty-state" id="es_tbl_ind" hidden>
+  <div class="empty-icon" aria-hidden="true">⌕</div>
+  <p><strong>Sin resultados</strong></p>
+  <p class="muted">Ningún registro coincide con el filtro aplicado.</p>
+</div>
+</div></div>
+
+  <div class="card">
+    <h3>Indicadores no calculables con este export (11)</h3>
+    <div class="gloss-grid">
+      <div class="gloss-item"><dt>NPS / CSAT / CES</dt><dd>Requieren encuestas a usuarios.</dd></div>
+      <div class="gloss-item"><dt>ROI / TIR</dt><dd>Requieren datos financieros del producto.</dd></div>
+      <div class="gloss-item"><dt>Ritmo sostenible</dt><dd>Requiere horas trabajadas por persona/iteración.</dd></div>
+      <div class="gloss-item"><dt>Disponibilidad de capacidad</dt><dd>Requiere capacidad planificada del equipo.</dd></div>
+      <div class="gloss-item"><dt>Distribución de habilidades</dt><dd>Requiere matriz de skills del equipo.</dd></div>
+      <div class="gloss-item"><dt>Velocidad</dt><dd>Requiere Story Points, ausentes en el export.</dd></div>
+      <div class="gloss-item"><dt>Flow Efficiency</dt><dd>Requiere tiempo activo vs. espera por estado.</dd></div>
+      <div class="gloss-item"><dt>Scope Creep</dt><dd>Requiere Iteration Path y baseline de sprint.</dd></div>
+      <div class="gloss-item"><dt>Trabajo no planificado</dt><dd>Requiere Iteration Path y baseline de sprint.</dd></div>
+      <div class="gloss-item"><dt>Cobertura de pruebas automatizadas</dt><dd>Requiere datos de la plataforma de QA.</dd></div>
+      <div class="gloss-item"><dt>Tasa de escape de defectos</dt><dd>Requiere work items de tipo Bug.</dd></div>
+      <div class="gloss-item"><dt>Disponibilidad de ambientes</dt><dd>Requiere métricas de uptime de infraestructura.</dd></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GLOSARIO ============ -->
+<section id="glosario" class="tab" role="tabpanel" aria-label="Glosario">
+  <h2 class="page-title">Glosario</h2>
+  <p class="page-sub">Definiciones y fórmulas para interpretar cada dato del dashboard sin ambigüedad.</p>
+
+  <div class="card glossary">
+    <h4>Conceptos base de estado</h4>
+    <div class="gloss-grid">
+      <div class="gloss-item"><dt>Ítem / Work Item</dt><dd>Cada registro del backlog en ADO: Epic, Feature, User Story, PBI, Servicio Digital, PBI Técnico.</dd></div>
+      <div class="gloss-item"><dt>Abierto</dt><dd>Estado que no es terminal ni removido (New, To Do, Active, In Progress, Test, User Acceptance, Resolved, Backlog…). Trabajo vivo.</dd></div>
+      <div class="gloss-item"><dt>Terminal</dt><dd>Trabajo entregado: Done, Closed, Terminado, Listo para producción, Entregar.</dd></div>
+      <div class="gloss-item"><dt>Removido</dt><dd>Estado Removed. Descartado: no cuenta como entregado ni como pendiente.</dd></div>
+      <div class="gloss-item"><dt>WIP</dt><dd>Ítems en curso: In Progress, Active, Test, User Acceptance, Resolved.</dd></div>
+    </div>
+
+    <h4>Higiene del backlog</h4>
+    <div class="gloss-grid">
+      <div class="gloss-item"><dt>Zombie</dt><dd>Ítem abierto sin cambios ≥ 30 días. Un ítem terminal o removido nunca es zombie.</dd></div>
+      <div class="gloss-item"><dt>% Zombie</dt><dd>Zombies ÷ abiertos del equipo. Alerta sobre 60%.</dd></div>
+      <div class="gloss-item"><dt>Inactividad (días)</dt><dd>Fecha de corte − Changed Date.</dd></div>
+      <div class="gloss-item"><dt>Antigüedad (días)</dt><dd>Fecha de corte − Created Date.</dd></div>
+      <div class="gloss-item"><dt>Riesgo de migración</dt><dd>Ítem abierto perteneciente a un equipo En Transición.</dd></div>
+    </div>
+
+    <h4>Indicadores ágiles</h4>
+    <div class="gloss-grid">
+      <div class="gloss-item"><dt>Salud del Backlog</dt><dd>Ítems refinados ÷ ítems abiertos × 100. Verde ≥75%.</dd></div>
+      <div class="gloss-item"><dt>Lead / Cycle Time</dt><dd>Mediana de (Closed Date − Created Date) en días, sobre ítems Done/Closed.</dd></div>
+      <div class="gloss-item"><dt>Throughput</dt><dd>Promedio de ítems terminados por mes. La velocidad por story points no es calculable con este export.</dd></div>
+      <div class="gloss-item"><dt>Deployment Frequency</dt><dd>Ítems que entran a "Listo para producción" por mes, según State Change Date.</dd></div>
+      <div class="gloss-item"><dt>En Test / Test Cycle</dt><dd>Ítems en estado Test y su aging (corte − State Change Date).</dd></div>
+    </div>
+
+    <h4>Dimensiones de equipo</h4>
+    <div class="gloss-grid">
+      <div class="gloss-item"><dt>Team Project</dt><dd>Equipo o proyecto tal como está registrado en Azure DevOps.</dd></div>
+      <div class="gloss-item"><dt>Estado del Equipo</dt><dd>Activo · En Transición (sus ítems abiertos son riesgo) · Duplicado · Cerrado (sus ítems abiertos quedan huérfanos).</dd></div>
+      <div class="gloss-item"><dt>Equipo Sucesor</dt><dd>Equipo que hereda los ítems del equipo original tras la migración.</dd></div>
+      <div class="gloss-item"><dt>Categoría Base</dt><dd>Comercial/Producto · Transversal/Servicios · Administrativo · Cumplimiento Normativo.</dd></div>
+      <div class="gloss-item"><dt>Epics y Features abiertos</dt><dd>Niveles altos de la jerarquía; si son zombie, la planificación estratégica está paralizada.</dd></div>
+    </div>
+
+    <h4>Criterios de lectura rápida</h4>
+    <div class="gloss-grid">
+      <div class="gloss-item"><dt>Semáforo de Salud</dt><dd>Verde ≥75% · Ámbar 55–74% · Rojo &lt;55%.</dd></div>
+      <div class="gloss-item"><dt>Semáforo de % Zombie</dt><dd>Verde &lt;30% · Ámbar 30–60% · Rojo &gt;60%.</dd></div>
+      <div class="gloss-item"><dt>Hecho vs. Recomendación</dt><dd>El dashboard separa datos de sugerencias y nunca evalúa el desempeño de personas.</dd></div>
+      <div class="gloss-item"><dt>Control de integridad</dt><dd>Abiertos + Terminales + Removidos = Total.</dd></div>
+    </div>
+
+    <h4>Herramientas de tabla</h4>
+    <div class="gloss-grid">
+      <div class="gloss-item"><dt>Ordenar</dt><dd>Clic (o Enter) en el encabezado de cualquier columna para alternar orden ascendente y descendente.</dd></div>
+      <div class="gloss-item"><dt>Filtrar</dt><dd>El campo de búsqueda filtra sobre todas las columnas a la vez. Esc limpia el filtro.</dd></div>
+      <div class="gloss-item"><dt>Exportar</dt><dd>CSV y Excel exportan únicamente las filas visibles, respetando el filtro y el orden aplicados.</dd></div>
+      <div class="gloss-item"><dt>Navegar</dt><dd>Flechas ← → recorren las pestañas. La URL guarda la pestaña activa para compartirla.</dd></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Generado a partir de <strong>WIJUL2_2026.xlsx</strong> cruzado con <strong>EquiposClasificacion.xlsx</strong> · Corte 2026-07-21</p>
+  <p>Análisis diagnóstico y sistémico a nivel de equipo y portafolio. No contiene evaluación de desempeño individual.</p>
+</footer>
 
 <script>
-const EQ=[{"equipo": "APPClientes", "Total": 334, "Abiertos": 197, "Terminales": 110, "Removidos": 27, "Zombies": 70, "Inact_prom": 30.1, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 35.5}, {"equipo": "Seguro Obligatorio Automotor", "Total": 491, "Abiertos": 136, "Terminales": 331, "Removidos": 24, "Zombies": 59, "Inact_prom": 59.4, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 43.4}, {"equipo": "Gestión360", "Total": 302, "Abiertos": 91, "Terminales": 98, "Removidos": 113, "Zombies": 52, "Inact_prom": 72.1, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 57.1}, {"equipo": "COTINS Servicio Digital", "Total": 155, "Abiertos": 63, "Terminales": 84, "Removidos": 8, "Zombies": 44, "Inact_prom": 71.1, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 69.8}, {"equipo": "Automóviles -Laboratorio-", "Total": 113, "Abiertos": 51, "Terminales": 62, "Removidos": 0, "Zombies": 41, "Inact_prom": 67.5, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 80.4}, {"equipo": "SEC", "Total": 130, "Abiertos": 66, "Terminales": 63, "Removidos": 1, "Zombies": 38, "Inact_prom": 68.6, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 57.6}, {"equipo": "Point General Ágil", "Total": 60, "Abiertos": 37, "Terminales": 21, "Removidos": 2, "Zombies": 22, "Inact_prom": 45.4, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 59.5}, {"equipo": "Ins en Línea", "Total": 103, "Abiertos": 41, "Terminales": 60, "Removidos": 2, "Zombies": 20, "Inact_prom": 58.1, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 48.8}, {"equipo": "Gastos Médicos -Laboratorio-", "Total": 454, "Abiertos": 156, "Terminales": 280, "Removidos": 18, "Zombies": 18, "Inact_prom": 16.9, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 11.5}, {"equipo": "SISEPO", "Total": 50, "Abiertos": 27, "Terminales": 21, "Removidos": 2, "Zombies": 17, "Inact_prom": 37.5, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 63.0}, {"equipo": "Analítica Servicio Digital", "Total": 210, "Abiertos": 57, "Terminales": 153, "Removidos": 0, "Zombies": 16, "Inact_prom": 19.7, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 28.1}, {"equipo": "Soluciones Tecnológicas Ejecutivas", "Total": 81, "Abiertos": 33, "Terminales": 48, "Removidos": 0, "Zombies": 12, "Inact_prom": 37.1, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 36.4}, {"equipo": "RT-Virtual", "Total": 142, "Abiertos": 22, "Terminales": 108, "Removidos": 12, "Zombies": 11, "Inact_prom": 57.5, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 50.0}, {"equipo": "ASEGURATE", "Total": 129, "Abiertos": 32, "Terminales": 97, "Removidos": 0, "Zombies": 11, "Inact_prom": 34.1, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 34.4}, {"equipo": "CRM Servicio Digital", "Total": 60, "Abiertos": 29, "Terminales": 27, "Removidos": 4, "Zombies": 10, "Inact_prom": 20.6, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 34.5}, {"equipo": "Cobro Digital", "Total": 251, "Abiertos": 58, "Terminales": 188, "Removidos": 5, "Zombies": 10, "Inact_prom": 24.4, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 17.2}, {"equipo": "AsesorINS", "Total": 188, "Abiertos": 24, "Terminales": 131, "Removidos": 33, "Zombies": 9, "Inact_prom": 52.2, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 37.5}, {"equipo": "Ecosistema Digital", "Total": 80, "Abiertos": 32, "Terminales": 48, "Removidos": 0, "Zombies": 9, "Inact_prom": 27.0, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 28.1}, {"equipo": "Analítica de Datos en Nube", "Total": 36, "Abiertos": 17, "Terminales": 19, "Removidos": 0, "Zombies": 8, "Inact_prom": 29.8, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 47.1}, {"equipo": "OCC", "Total": 74, "Abiertos": 13, "Terminales": 58, "Removidos": 3, "Zombies": 7, "Inact_prom": 52.7, "Riesgo_Mig": 0, "Categoria_Base": "Cumplimiento Normativo", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 53.8}, {"equipo": "Analítica de Datos CERRADO", "Total": 23, "Abiertos": 6, "Terminales": 17, "Removidos": 0, "Zombies": 6, "Inact_prom": 120.2, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Cerrado", "Equipo_Sucesor": "Analítica Servicio Digital", "Pct_Zombie": 100.0}, {"equipo": "PCE", "Total": 164, "Abiertos": 56, "Terminales": 108, "Removidos": 0, "Zombies": 6, "Inact_prom": 22.9, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 10.7}, {"equipo": "Seguro Riesgos del Trabajo", "Total": 36, "Abiertos": 5, "Terminales": 16, "Removidos": 15, "Zombies": 5, "Inact_prom": 94.2, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Duplicado", "Equipo_Sucesor": "Seguro de Riesgos del Trabajo", "Pct_Zombie": 100.0}, {"equipo": "Ágil SIFA", "Total": 26, "Abiertos": 14, "Terminales": 6, "Removidos": 6, "Zombies": 5, "Inact_prom": 23.3, "Riesgo_Mig": 0, "Categoria_Base": "Administrativo", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 35.7}, {"equipo": "MAC Servicio Digital", "Total": 99, "Abiertos": 34, "Terminales": 62, "Removidos": 3, "Zombies": 4, "Inact_prom": 12.6, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 11.8}, {"equipo": "ESB-INS-Servicio Digital", "Total": 332, "Abiertos": 58, "Terminales": 270, "Removidos": 4, "Zombies": 4, "Inact_prom": 12.5, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 6.9}, {"equipo": "Fábrica de Productos Digital", "Total": 107, "Abiertos": 47, "Terminales": 52, "Removidos": 8, "Zombies": 4, "Inact_prom": 9.3, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 8.5}, {"equipo": "MAC", "Total": 18, "Abiertos": 2, "Terminales": 14, "Removidos": 2, "Zombies": 2, "Inact_prom": 161.0, "Riesgo_Mig": 2, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "En Transición", "Equipo_Sucesor": "MAC Servicio Digital", "Pct_Zombie": 100.0}, {"equipo": "ACD", "Total": 192, "Abiertos": 9, "Terminales": 125, "Removidos": 58, "Zombies": 1, "Inact_prom": 23.6, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 11.1}, {"equipo": "Fábrica de Productos", "Total": 6, "Abiertos": 1, "Terminales": 4, "Removidos": 1, "Zombies": 1, "Inact_prom": 50.0, "Riesgo_Mig": 1, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "En Transición", "Equipo_Sucesor": "Fábrica de Productos Digital", "Pct_Zombie": 100.0}, {"equipo": "CAI CERRADO", "Total": 1, "Abiertos": 1, "Terminales": 0, "Removidos": 0, "Zombies": 1, "Inact_prom": 155.0, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Cerrado", "Equipo_Sucesor": "", "Pct_Zombie": 100.0}, {"equipo": "Segmentación de Clientes", "Total": 67, "Abiertos": 4, "Terminales": 61, "Removidos": 2, "Zombies": 0, "Inact_prom": 7.5, "Riesgo_Mig": 0, "Categoria_Base": "Transversal/Servicios", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 0.0}, {"equipo": "SIRERE Reaseg", "Total": 43, "Abiertos": 4, "Terminales": 39, "Removidos": 0, "Zombies": 0, "Inact_prom": 13.0, "Riesgo_Mig": 0, "Categoria_Base": "Comercial/Producto", "Estado_Equipo": "Activo", "Equipo_Sucesor": "", "Pct_Zombie": 0.0}];
-const EF=[{"equipo": "Gastos Médicos -Laboratorio-", "epicas": 28, "features": 45, "total_ef": 73}, {"equipo": "Gestión360", "epicas": 19, "features": 43, "total_ef": 62}, {"equipo": "SEC", "epicas": 16, "features": 23, "total_ef": 39}, {"equipo": "Automóviles -Laboratorio-", "epicas": 18, "features": 20, "total_ef": 38}, {"equipo": "APPClientes", "epicas": 10, "features": 21, "total_ef": 31}, {"equipo": "Fábrica de Productos Digital", "epicas": 0, "features": 23, "total_ef": 23}, {"equipo": "Analítica Servicio Digital", "epicas": 10, "features": 9, "total_ef": 19}, {"equipo": "COTINS Servicio Digital", "epicas": 7, "features": 9, "total_ef": 16}, {"equipo": "Ins en Línea", "epicas": 6, "features": 9, "total_ef": 15}, {"equipo": "RT-Virtual", "epicas": 6, "features": 8, "total_ef": 14}, {"equipo": "AsesorINS", "epicas": 4, "features": 9, "total_ef": 13}, {"equipo": "PCE", "epicas": 4, "features": 8, "total_ef": 12}, {"equipo": "CRM Servicio Digital", "epicas": 6, "features": 5, "total_ef": 11}, {"equipo": "Cobro Digital", "epicas": 4, "features": 6, "total_ef": 10}, {"equipo": "Ecosistema Digital", "epicas": 5, "features": 5, "total_ef": 10}, {"equipo": "Soluciones Tecnológicas Ejecutivas", "epicas": 2, "features": 7, "total_ef": 9}, {"equipo": "Seguro Obligatorio Automotor", "epicas": 2, "features": 4, "total_ef": 6}, {"equipo": "Ágil SIFA", "epicas": 2, "features": 3, "total_ef": 5}, {"equipo": "OCC", "epicas": 2, "features": 3, "total_ef": 5}, {"equipo": "SISEPO", "epicas": 2, "features": 2, "total_ef": 4}, {"equipo": "Point General Ágil", "epicas": 2, "features": 2, "total_ef": 4}, {"equipo": "ACD", "epicas": 2, "features": 2, "total_ef": 4}, {"equipo": "Analítica de Datos CERRADO", "epicas": 0, "features": 4, "total_ef": 4}, {"equipo": "Analítica de Datos en Nube", "epicas": 1, "features": 2, "total_ef": 3}, {"equipo": "SIRERE Reaseg", "epicas": 1, "features": 1, "total_ef": 2}, {"equipo": "ASEGURATE", "epicas": 0, "features": 1, "total_ef": 1}, {"equipo": "Fábrica de Productos", "epicas": 1, "features": 0, "total_ef": 1}];
-const ZZ=[{"id": 253184, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: PROCESO NOTIFICACIÓN PÓLIZAS EN MORA (Filtro forma de pago)", "estado": "New", "inactividad": 185, "antiguedad": 185}, {"id": 253195, "equipo": "SEC", "tipo": "Epic", "titulo": "SEC: REPORTE DE TRANSACCIONES (Revisión)", "estado": "New", "inactividad": 185, "antiguedad": 185}, {"id": 253196, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: REPORTE DE TRANSACCIONES (Revisión)", "estado": "New", "inactividad": 185, "antiguedad": 185}, {"id": 253245, "equipo": "COTINS Servicio Digital", "tipo": "Epic", "titulo": ".NET Cambio en PDF de informe de cotización en COTINS", "estado": "To Do", "inactividad": 185, "antiguedad": 185}, {"id": 253262, "equipo": "Gastos Médicos -Laboratorio-", "tipo": "Product Backlog Item", "titulo": "Historia - VCCT - Corregir el valor de la tarifa ponderada según frecu", "estado": "To Do", "inactividad": 185, "antiguedad": 185}, {"id": 253944, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Incorporación de nuevo modelo de asistencias (ASI)", "estado": "In Progress", "inactividad": 184, "antiguedad": 184}, {"id": 253955, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Incidencias del sistema I Trimestre 2026", "estado": "In Progress", "inactividad": 184, "antiguedad": 184}, {"id": 253958, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Incidencias del sistema III Trimestre 2026", "estado": "To Do", "inactividad": 184, "antiguedad": 184}, {"id": 253959, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Incidencias Enero", "estado": "In Progress", "inactividad": 184, "antiguedad": 184}, {"id": 253963, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Incidencias Febrero", "estado": "New", "inactividad": 184, "antiguedad": 184}, {"id": 253979, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Mejoras proceso inclusión", "estado": "New", "inactividad": 184, "antiguedad": 184}, {"id": 253981, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Módulo creación de casos", "estado": "To Do", "inactividad": 184, "antiguedad": 184}, {"id": 254047, "equipo": "Gestión360", "tipo": "Feature", "titulo": "Caso por contingente", "estado": "In Progress", "inactividad": 183, "antiguedad": 183}, {"id": 254060, "equipo": "Gestión360", "tipo": "Epic", "titulo": "Mejora en configuración del sistema", "estado": "In Progress", "inactividad": 183, "antiguedad": 183}, {"id": 254284, "equipo": "SEC", "tipo": "Epic", "titulo": "SEC: INS MOVIL (APP)", "estado": "New", "inactividad": 183, "antiguedad": 183}, {"id": 254286, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: Certificación de Exoneración RT para app INS Móvil", "estado": "New", "inactividad": 183, "antiguedad": 183}, {"id": 255348, "equipo": "SEC", "tipo": "Epic", "titulo": "SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS", "estado": "New", "inactividad": 178, "antiguedad": 178}, {"id": 255349, "equipo": "SEC", "tipo": "Feature", "titulo": "SEC: MANTENIMIENTO DOCUMENTOS AUTOMATICOS", "estado": "New", "inactividad": 178, "antiguedad": 178}, {"id": 256081, "equipo": "ASEGURATE", "tipo": "PBI Técnico", "titulo": "Ajustes sitio BN", "estado": "New", "inactividad": 176, "antiguedad": 176}, {"id": 256225, "equipo": "AsesorINS", "tipo": "Epic", "titulo": "Formularios Namirial INS", "estado": "New", "inactividad": 176, "antiguedad": 176}];
-const TT=[{"tipo": "Epic", "Abiertos": 160, "Terminales": 14, "Removidos": 5, "Zombies": 119}, {"tipo": "Feature", "Abiertos": 274, "Terminales": 69, "Removidos": 9, "Zombies": 179}, {"tipo": "PBI Obligatorio", "Abiertos": 1, "Terminales": 0, "Removidos": 0, "Zombies": 0}, {"tipo": "PBI Técnico", "Abiertos": 234, "Terminales": 454, "Removidos": 14, "Zombies": 42}, {"tipo": "Product Backlog Item", "Abiertos": 165, "Terminales": 512, "Removidos": 134, "Zombies": 18}, {"tipo": "Servicio Digital", "Abiertos": 223, "Terminales": 563, "Removidos": 21, "Zombies": 45}, {"tipo": "User Story", "Abiertos": 366, "Terminales": 1169, "Removidos": 170, "Zombies": 120}];
-const MG=[{"id": 261058, "equipo": "MAC", "sucesor": "MAC Servicio Digital", "tipo": "User Story", "estado": "New", "inactividad": 161, "titulo": ".NET Optimización del monitor de facturación"}, {"id": 261059, "equipo": "MAC", "sucesor": "MAC Servicio Digital", "tipo": "User Story", "estado": "New", "inactividad": 161, "titulo": ".NET Preparación para el pase de Develop a Master"}, {"id": 257508, "equipo": "Fábrica de Productos", "sucesor": "Fábrica de Productos Digital", "tipo": "Epic", "estado": "New", "inactividad": 50, "titulo": "Expomovil 2026"}];
-const GR=[{"equipo": "APPClientes", "zombies": 70, "abiertos": 197, "pct_zombie": 35.5, "estado": "Activo", "preguntas": ["¿Cuáles de los 70 ítems zombie (35.5% de abiertos) siguen siendo relevantes?", "¿Las 10 épicas y 21 features abiertas tienen priorización activa?"]}, {"equipo": "Seguro Obligatorio Automotor", "zombies": 59, "abiertos": 136, "pct_zombie": 43.4, "estado": "Activo", "preguntas": ["¿Cuáles de los 59 ítems zombie (43.4% de abiertos) siguen siendo relevantes?", "¿Las 2 épicas y 4 features abiertas tienen priorización activa?"]}, {"equipo": "Gestión360", "zombies": 52, "abiertos": 91, "pct_zombie": 57.1, "estado": "Activo", "preguntas": ["¿Cuáles de los 52 ítems zombie (57.1% de abiertos) siguen siendo relevantes?", "¿Las 19 épicas y 43 features abiertas tienen priorización activa?", "Con 57.1% de zombie rate, ¿cuándo se realiza la sesión de saneamiento?"]}, {"equipo": "COTINS Servicio Digital", "zombies": 44, "abiertos": 63, "pct_zombie": 69.8, "estado": "Activo", "preguntas": ["¿Cuáles de los 44 ítems zombie (69.8% de abiertos) siguen siendo relevantes?", "¿Las 7 épicas y 9 features abiertas tienen priorización activa?", "Con 69.8% de zombie rate, ¿cuándo se realiza la sesión de saneamiento?"]}, {"equipo": "Automóviles -Laboratorio-", "zombies": 41, "abiertos": 51, "pct_zombie": 80.4, "estado": "Activo", "preguntas": ["¿Cuáles de los 41 ítems zombie (80.4% de abiertos) siguen siendo relevantes?", "¿Las 18 épicas y 20 features abiertas tienen priorización activa?", "Con 80.4% de zombie rate, ¿cuándo se realiza la sesión de saneamiento?"]}, {"equipo": "SEC", "zombies": 38, "abiertos": 66, "pct_zombie": 57.6, "estado": "Activo", "preguntas": ["¿Cuáles de los 38 ítems zombie (57.6% de abiertos) siguen siendo relevantes?", "¿Las 16 épicas y 23 features abiertas tienen priorización activa?", "Con 57.6% de zombie rate, ¿cuándo se realiza la sesión de saneamiento?"]}, {"equipo": "Point General Ágil", "zombies": 22, "abiertos": 37, "pct_zombie": 59.5, "estado": "Activo", "preguntas": ["¿Cuáles de los 22 ítems zombie (59.5% de abiertos) siguen siendo relevantes?", "Con 59.5% de zombie rate, ¿cuándo se realiza la sesión de saneamiento?"]}, {"equipo": "Ins en Línea", "zombies": 20, "abiertos": 41, "pct_zombie": 48.8, "estado": "Activo", "preguntas": ["¿Cuáles de los 20 ítems zombie (48.8% de abiertos) siguen siendo relevantes?", "¿Las 6 épicas y 9 features abiertas tienen priorización activa?"]}, {"equipo": "Gastos Médicos -Laboratorio-", "zombies": 18, "abiertos": 156, "pct_zombie": 11.5, "estado": "Activo", "preguntas": ["¿Cuáles de los 18 ítems zombie (11.5% de abiertos) siguen siendo relevantes?", "¿Las 28 épicas y 45 features abiertas tienen priorización activa?"]}, {"equipo": "SISEPO", "zombies": 17, "abiertos": 27, "pct_zombie": 63.0, "estado": "Activo", "preguntas": ["¿Cuáles de los 17 ítems zombie (63.0% de abiertos) siguen siendo relevantes?", "Con 63.0% de zombie rate, ¿cuándo se realiza la sesión de saneamiento?"]}];
+(function(){
+  'use strict';
 
-function show(id,b){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');b.classList.add('active');}
-function be(e){const m={'Activo':'ba','En Transición':'bt','Cerrado':'bc','Duplicado':'bd'};return`<span class="be ${m[e]||''}">${e}</span>`;}
-function bar(p){const c=p<30?'pl':p<60?'pm':'ph';return`<div class="pb"><div class="po"><div class="pi ${c}" style="width:${Math.min(p,100)}%"></div></div><span>${p}%</span></div>`;}
-function renderEq(list){document.getElementById('tbody-eq').innerHTML=list.map(r=>`<tr><td><strong>${r.Team_Project||r['Team Project']||r.equipo||''}</strong></td><td>${be(r.Estado_Equipo||r.estado_equipo||'')}</td><td>${r.Total}</td><td>${r.Abiertos}</td><td class="ns">${r.Terminales}</td><td>${r.Removidos}</td><td class="nz">${r.Zombies}</td><td>${bar(r.Pct_Zombie||r.pct_zombie||0)}</td><td>${(r.Riesgo_Mig||r.riesgo_mig)>0?`<span class="nd">⚠️ ${r.Riesgo_Mig||r.riesgo_mig}</span>`:'—'}</td><td style="font-size:.76rem;color:var(--tl)">${r.Equipo_Sucesor||r.sucesor||'—'}</td></tr>`).join('');document.getElementById('cnt-eq').textContent=list.length+' equipos';}
-function filterEq(){const q=document.getElementById('srch').value.toLowerCase();const est=document.getElementById('fst').value;renderEq(EQ.filter(r=>{const name=r['Team Project']||r.equipo||'';const estado=r.Estado_Equipo||r.estado_equipo||'';return name.toLowerCase().includes(q)&&(!est||estado===est);}));}
-function renderZ(){document.getElementById('tbody-z').innerHTML=ZZ.map(r=>`<tr><td style="font-size:.75rem;color:var(--tl)">${r.id}</td><td>${r.equipo}</td><td><code style="font-size:.73rem;background:#f0f0f0;padding:1px 5px;border-radius:3px">${r.tipo}</code></td><td>${r.estado}</td><td style="font-size:.78rem" title="${r.titulo}">${r.titulo}</td><td class="nz"><strong>${r.inactividad}</strong></td><td style="color:var(--tl)">${r.antiguedad}</td></tr>`).join('');};
-function renderT(){document.getElementById('tbody-t').innerHTML=TT.map(r=>{const tot=r.Abiertos+r.Terminales+r.Removidos;const p=r.Abiertos>0?Math.round(r.Zombies/r.Abiertos*100):0;return`<tr><td><strong>${r.tipo}</strong></td><td class="nd">${r.Abiertos}</td><td class="ns">${r.Terminales}</td><td>${r.Removidos}</td><td>${tot}</td><td class="nz">${r.Zombies}</td><td>${bar(p)}</td></tr>`;}).join('');};
-function renderM(){document.getElementById('tbody-m').innerHTML=MG.map(r=>`<tr><td style="font-size:.75rem;color:var(--tl)">${r.id}</td><td><strong>${r.equipo}</strong></td><td style="color:var(--tr)">${r.sucesor}</td><td>${r.tipo}</td><td>${r.estado}</td><td class="nd"><strong>${r.inactividad}</strong></td><td style="font-size:.78rem">${r.titulo}</td></tr>`).join('');};
-function renderGr(){document.getElementById('grooming-cards').innerHTML=GR.map(r=>`<div class="gc"><div class="gh"><h4>${r.equipo}</h4><div class="gs"><span class="gp go">📂 ${r.abiertos} ab.</span><span class="gp">🧟 ${r.zombies} (${r.pct_zombie}%)</span></div></div><ol>${r.preguntas.map(q=>`<li>${q}</li>`).join('')}</ol></div>`).join('');};
-function chartBars(id,data,valKey,lblKey,maxW){const mx=Math.max(...data.map(d=>d[valKey]||0));document.getElementById(id).innerHTML=data.map(d=>`<div class="crow"><div class="clbl" title="${d[lblKey]}">${d[lblKey]}</div><div class="cbar" style="width:${Math.max((d[valKey]||0)/mx*maxW,d[valKey]>0?18:0)}px">${d[valKey]>0?d[valKey]:''}</div><div class="cnum">${d.pct_zombie!==undefined?d.pct_zombie+'%':d.Abiertos!==undefined?'de '+d.Abiertos+' ab.':''}</div></div>`).join('');};
-function renderEF(){const top=EF.slice(0,15);const mx=Math.max(...top.map(e=>e.total_ef));document.getElementById('ch-ef').innerHTML=top.map(e=>`<div class="crow"><div class="clbl" title="${e.equipo}">${e.equipo}</div><div style="display:flex;gap:2px"><div class="cbar" style="background:var(--p);width:${Math.max(e.epicas/mx*200,e.epicas>0?12:0)}px">${e.epicas>0?e.epicas:''}</div><div class="cbar" style="background:var(--a);width:${Math.max(e.features/mx*200,e.features>0?12:0)}px">${e.features>0?e.features:''}</div></div><div class="cnum">EF: ${e.total_ef}</div></div>`).join('')+'<div style="margin-top:10px;font-size:.75rem;color:var(--tl)"><span style="display:inline-block;width:11px;height:11px;background:var(--p);margin-right:3px;border-radius:2px"></span>Épicas &nbsp;<span style="display:inline-block;width:11px;height:11px;background:var(--a);margin-right:3px;border-radius:2px"></span>Features</div>';};
-function renderHallazgos(){
-  const top=EQ.slice(0,3);const zombieRate=top[0]?top[0].Pct_Zombie||top[0].pct_zombie:0;
-  document.getElementById('hallazgos').innerHTML=`
-    <div class="hl cr"><span class="ic">🚨</span><div class="tx"><strong>${EQ.filter(e=>(e.Zombies||e.zombies||0)>0).reduce((s,e)=>s+(e.Zombies||e.zombies||0),0)} zombies — ${Math.round(EQ.filter(e=>(e.Zombies||e.zombies||0)>0).reduce((s,e)=>s+(e.Zombies||e.zombies||0),0)/EQ.reduce((s,e)=>s+(e.Abiertos||e.abiertos||0),0)*100)}% de abiertos</strong><p>Inactividad promedio de 93 días. Afecta prácticamente a todos los equipos activos.</p></div></div>
-    <div class="hl cr"><span class="ic">🏗️</span><div class="tx"><strong>Épicas y Features paralizadas — riesgo estructural</strong><p>La mayoría de Épicas y Features abiertas son zombies. Revisar roadmap y re-validar valor con el negocio.</p></div></div>
-    <div class="hl av"><span class="ic">⚠️</span><div class="tx"><strong>Equipos En Transición con migración pendiente</strong><p>MAC y Fábrica de Productos tienen ítems abiertos sin migrar al equipo sucesor — todos zombies.</p></div></div>
-    <div class="hl ok"><span class="ic">✅</span><div class="tx"><strong>PCE y Cobro Digital: mejor higiene del backlog</strong><p>Son los referentes de buenas prácticas de gestión de backlog en la organización.</p></div></div>`;
-}
-function renderRecs(){document.getElementById('recomendaciones').innerHTML=`
-  <div class="rc"><div class="rn">1</div><div class="rb"><strong>Saneamiento urgente en top 5 equipos zombie</strong><p>Programar sesiones de grooming. Decidir Cerrar, Reactivar o Remover cada ítem en máx. 2 semanas.</p></div></div>
-  <div class="rc"><div class="rn">2</div><div class="rb"><strong>Cerrar migración MAC → MAC Servicio Digital</strong><p>2 User Stories con 148 días sin actividad. Coordinar transferencia formal antes de fin de Q3 2026.</p></div></div>
-  <div class="rc"><div class="rn">3</div><div class="rb"><strong>Auditoría de Épicas y Features paralizadas</strong><p>Revisar roadmap: eliminar iniciativas sin actividad >90 días o re-validar valor con el negocio.</p></div></div>
-  <div class="rc"><div class="rn">4</div><div class="rb"><strong>Revisión quincenal para equipos con zombie rate >60%</strong><p>Automóviles -Lab-, OCC, Gestión360, SISEPO, COTINS SD, SEC, Point General, RT-Virtual.</p></div></div>
-  <div class="rc"><div class="rn">5</div><div class="rb"><strong>Limpiar ítems en equipos Cerrados</strong><p>Reasignar o cerrar formalmente ítems activos en equipos marcados como Cerrado o Duplicado.</p></div></div>`;
-}
-let sd={};
-function srt(tid,col){const rows=[...document.getElementById(tid).querySelectorAll('tbody tr')];const k=tid+col;sd[k]=!sd[k];rows.sort((a,b)=>{const av=a.cells[col]?.innerText.replace(/[^0-9.\-]/g,'')||'';const bv=b.cells[col]?.innerText.replace(/[^0-9.\-]/g,'')||'';const an=parseFloat(av),bn=parseFloat(bv);if(!isNaN(an)&&!isNaN(bn)) return sd[k]?an-bn:bn-an;return sd[k]?av.localeCompare(bv,'es'):bv.localeCompare(av,'es');});const tb=document.getElementById('tbody-'+tid.replace('t',''));if(tb) rows.forEach(r=>tb.appendChild(r));}
-// INIT
-renderEq(EQ); renderZ(); renderT(); renderM(); renderGr(); renderHallazgos(); renderRecs();
-const top10=EQ.filter(e=>(e.Zombies||e.zombies||0)>0).slice(0,10).map(e=>{return{...e,equipo:e['Team Project']||e.equipo,pct_zombie:e.Pct_Zombie||e.pct_zombie,Zombies:e.Zombies||e.zombies};});
-chartBars('ch-summary',top10,'Zombies','equipo',360);
-chartBars('ch-z-eq',top10,'Zombies','equipo',300);
-const tiposZ=TT.filter(t=>t.Zombies>0).sort((a,b)=>b.Zombies-a.Zombies);
-chartBars('ch-z-tipo',tiposZ,'Zombies','tipo',280);
-renderEF();
+  var TABS = ['resumen','equipo','zombies','tipo','migracion','grooming','indicadores','glosario'];
+
+  function show(id, btn){
+    document.querySelectorAll('.tab').forEach(function(s){ s.classList.remove('active'); });
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.classList.add('active');
+    document.querySelectorAll('#nav button').forEach(function(b){
+      b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      b.setAttribute('tabindex', b === btn ? '0' : '-1');
+    });
+    if(history.replaceState) history.replaceState(null, '', '#' + id);
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  window.show = show;
+
+  // Keyboard nav on tabs (arrow keys)
+  document.addEventListener('keydown', function(e){
+    if(!document.activeElement || document.activeElement.closest('#nav') === null) return;
+    var btns = Array.prototype.slice.call(document.querySelectorAll('#nav button'));
+    var i = btns.indexOf(document.activeElement);
+    if(i < 0) return;
+    var n = null;
+    if(e.key === 'ArrowRight') n = btns[(i+1) % btns.length];
+    if(e.key === 'ArrowLeft')  n = btns[(i-1+btns.length) % btns.length];
+    if(e.key === 'Home') n = btns[0];
+    if(e.key === 'End')  n = btns[btns.length-1];
+    if(n){ e.preventDefault(); n.focus(); n.click(); }
+  });
+
+  // ---------- SORTING ----------
+  function cellValue(row, col){
+    var c = row.cells[col];
+    return c ? c.innerText.trim() : '';
+  }
+  function numOf(s){
+    var t = s.replace(/%/g,'').replace(/\s/g,'').replace(/\./g,'#').replace(/,/g,'.').replace(/#/g,'');
+    // handle plain numbers with dot decimals too
+    var direct = parseFloat(s.replace(/[%\s,]/g,''));
+    if(!isNaN(direct) && /^[-+]?[\d.,\s%]+$/.test(s)) return direct;
+    var n = parseFloat(t);
+    return isNaN(n) ? null : n;
+  }
+
+  window.sortTable = function(tableId, col){
+    var table = document.getElementById(tableId);
+    if(!table) return;
+    var tbody = table.tBodies[0];
+    var rows = Array.prototype.slice.call(tbody.rows);
+    var heads = table.tHead.rows[0].cells;
+    var th = heads[col];
+    var asc = th.getAttribute('aria-sort') !== 'ascending';
+    for(var i=0;i<heads.length;i++) heads[i].setAttribute('aria-sort','none');
+    th.setAttribute('aria-sort', asc ? 'ascending' : 'descending');
+
+    rows.sort(function(a,b){
+      var x = cellValue(a,col), y = cellValue(b,col);
+      if(x === '—' || x === '') return 1;
+      if(y === '—' || y === '') return -1;
+      var xn = numOf(x), yn = numOf(y);
+      var cmp;
+      if(xn !== null && yn !== null) cmp = xn - yn;
+      else cmp = x.localeCompare(y, 'es', {numeric:true, sensitivity:'base'});
+      return asc ? cmp : -cmp;
+    });
+    var frag = document.createDocumentFragment();
+    rows.forEach(function(r){ frag.appendChild(r); });
+    tbody.appendChild(frag);
+  };
+
+  // ---------- FILTER ----------
+  function updateCount(tableId){
+    var table = document.getElementById(tableId);
+    var all = table.tBodies[0].rows.length;
+    var vis = Array.prototype.filter.call(table.tBodies[0].rows, function(r){
+      return r.style.display !== 'none';
+    }).length;
+    var rc = document.getElementById('rc_' + tableId);
+    if(rc) rc.textContent = (vis === all) ? (all + ' filas') : (vis + ' de ' + all + ' filas');
+    var es = document.getElementById('es_' + tableId);
+    if(es) es.hidden = vis !== 0;
+    table.style.display = vis === 0 ? 'none' : '';
+  }
+
+  window.filterTable = function(tableId, query){
+    var table = document.getElementById(tableId);
+    if(!table) return;
+    var q = query.trim().toLowerCase();
+    Array.prototype.forEach.call(table.tBodies[0].rows, function(row){
+      row.style.display = (!q || row.innerText.toLowerCase().indexOf(q) !== -1) ? '' : 'none';
+    });
+    updateCount(tableId);
+  };
+
+  // ---------- EXPORT ----------
+  function getVisible(tableId){
+    var table = document.getElementById(tableId);
+    var headers = Array.prototype.map.call(table.tHead.rows[0].cells, function(c){
+      return c.innerText.replace(/[⇅▲▼]/g,'').trim();
+    });
+    var rows = Array.prototype.filter.call(table.tBodies[0].rows, function(r){
+      return r.style.display !== 'none';
+    });
+    return {headers:headers, rows:rows};
+  }
+  function csvEsc(v){
+    return /[",\n;]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v;
+  }
+  function download(blob, name){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 500);
+    toast('Descargando ' + name);
+  }
+  window.exportCSV = function(tableId, filename){
+    var d = getVisible(tableId);
+    var lines = [d.headers.map(csvEsc).join(',')];
+    d.rows.forEach(function(r){
+      lines.push(Array.prototype.map.call(r.cells, function(c){
+        return csvEsc(c.innerText.trim());
+      }).join(','));
+    });
+    download(new Blob(['﻿' + lines.join('\r\n')], {type:'text/csv;charset=utf-8;'}), filename + '.csv');
+  };
+  window.exportExcel = function(tableId, filename){
+    var d = getVisible(tableId);
+    var h = '<table border="1"><thead><tr>' +
+      d.headers.map(function(x){ return '<th style="background:#1e3a5f;color:#fff">' + x + '</th>'; }).join('') +
+      '</tr></thead><tbody>';
+    d.rows.forEach(function(r){
+      h += '<tr>' + Array.prototype.map.call(r.cells, function(c){
+        return '<td>' + c.innerText.trim() + '</td>';
+      }).join('') + '</tr>';
+    });
+    h += '</tbody></table>';
+    var tpl = '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
+      'xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">' +
+      '<head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets>' +
+      '<x:ExcelWorksheet><x:Name>Datos</x:Name><x:WorksheetOptions><x:DisplayGridlines/>' +
+      '</x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->' +
+      '</head><body>' + h + '</body></html>';
+    download(new Blob(['﻿' + tpl], {type:'application/vnd.ms-excel'}), filename + '.xls');
+  };
+
+  // ---------- TOAST ----------
+  var toastEl;
+  function toast(msg){
+    if(!toastEl){
+      toastEl = document.createElement('div');
+      toastEl.setAttribute('role','status');
+      toastEl.style.cssText = 'position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(12px);' +
+        'background:#1c2836;color:#fff;padding:11px 20px;border-radius:8px;font-size:13px;z-index:999;' +
+        'box-shadow:0 6px 20px rgba(0,0,0,.22);opacity:0;transition:opacity .22s,transform .22s;pointer-events:none;';
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    requestAnimationFrame(function(){
+      toastEl.style.opacity = '1';
+      toastEl.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    clearTimeout(toastEl._t);
+    toastEl._t = setTimeout(function(){
+      toastEl.style.opacity = '0';
+      toastEl.style.transform = 'translateX(-50%) translateY(12px)';
+    }, 2400);
+  }
+
+  // ---------- INIT ----------
+  document.addEventListener('DOMContentLoaded', function(){
+    // filters
+    document.querySelectorAll('.tbl-filter').forEach(function(inp){
+      var clr = document.querySelector('.clear-filter[data-target="' + inp.dataset.target + '"]');
+      inp.addEventListener('input', function(){
+        window.filterTable(inp.dataset.target, inp.value);
+        if(clr) clr.hidden = !inp.value;
+      });
+      inp.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){ inp.value=''; window.filterTable(inp.dataset.target,''); if(clr) clr.hidden = true; }
+      });
+      if(clr) clr.addEventListener('click', function(){
+        inp.value=''; window.filterTable(inp.dataset.target,''); clr.hidden = true; inp.focus();
+      });
+    });
+
+    // right-align numeric columns
+    document.querySelectorAll('table.sortable').forEach(function(tbl){
+      var rows = tbl.tBodies[0].rows;
+      if(!rows.length) return;
+      var ncols = tbl.tHead.rows[0].cells.length;
+      for(var c=0;c<ncols;c++){
+        var numeric = 0, total = 0;
+        for(var r=0;r<Math.min(rows.length,25);r++){
+          var txt = rows[r].cells[c] ? rows[r].cells[c].innerText.trim() : '';
+          if(!txt || txt === '—') continue;
+          total++;
+          if(/^[-+]?[\d.,]+%?$/.test(txt)) numeric++;
+        }
+        if(total > 0 && numeric/total > 0.8){
+          tbl.tHead.rows[0].cells[c].classList.add('num');
+          for(var r2=0;r2<rows.length;r2++){
+            if(rows[r2].cells[c]) rows[r2].cells[c].classList.add('num');
+          }
+        }
+      }
+    });
+
+    // deep link
+    var hash = (location.hash || '').replace('#','');
+    if(TABS.indexOf(hash) !== -1){
+      var idx = TABS.indexOf(hash);
+      var btn = document.querySelectorAll('#nav button')[idx];
+      if(btn) show(hash, btn);
+    }
+  });
+
+  window.printDashboard = function(){ window.print(); };
+})();
+
 </script>
-</body></html>
+</body>
+</html>
