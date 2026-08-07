@@ -39,11 +39,9 @@
     font-family: 'Open Sans', Arial, sans-serif;
     font-size: 1rem;
     line-height: 1.5;
-    height: 100dvh;
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -110,7 +108,7 @@
     display: flex;
     align-items: center;
     min-height: 0;
-    overflow: hidden;
+    padding: 28px 0;
   }
 
   .hero{
@@ -250,6 +248,31 @@
     overflow: hidden;
   }
 
+  /* Variante ancha: para el elemento impar al final de la grilla,
+     ocupa las dos columnas y pasa a un layout horizontal */
+  .access-btn--wide{
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(14px, 2vw, 22px);
+  }
+  .access-btn--wide .access-icon{
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .access-btn--wide .access-body{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .access-btn--wide .access-title{ padding-right: 0; }
+  .access-btn--wide .access-desc{ -webkit-line-clamp: 1; }
+  .access-btn--wide .access-arrow{
+    position: static;
+    flex-shrink: 0;
+  }
+
   /* Footer — franja mínima, no compite por altura */
   footer{
     flex-shrink:0;
@@ -296,6 +319,9 @@
     h1{ max-width:none; font-size:1.65rem; }
     .hero-sub{ max-width:none; }
     .access-title{ font-size:1rem; }
+    .access-btn--wide{ flex-direction:column; align-items:flex-start; }
+    .access-btn--wide .access-arrow{ position:absolute; top:16px; right:16px; }
+    .access-btn--wide .access-title{ padding-right:30px; }
     footer .wrap{ flex-direction:column; align-items:flex-start; padding-bottom:max(10px, env(safe-area-inset-bottom)); }
   }
 
@@ -420,8 +446,27 @@
           </span>
           <span class="access-body">
             <span class="access-tag" aria-hidden="true">Backlog · Test</span>
-            <span class="access-title">Elementos en estado</span>
-            <span class="access-desc">Aging, esfuerzo invertido y riesgo de los ítems detenidos en Test.</span>
+            <span class="access-title">Elementos en estado Test</span>
+            <span class="access-desc">Aging, esfuerzo invertido y riesgo de los ítems detenidos.</span>
+          </span>
+          <span class="access-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="access-btn access-btn--wide" style="--accent: var(--mint);" href="https://calm-moss-00494040f.7.azurestaticapps.net/SitioModeloAgilidad/index.html" target="_blank" rel="noopener noreferrer" aria-label="Abrir Modelo Operativo de Agilidad INS (se abre en una pestaña nueva)">
+          <span class="access-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+              <circle cx="13" cy="5.5" r="2.6" stroke="#064350" stroke-width="2"/>
+              <circle cx="5.5" cy="20" r="2.6" stroke="#064350" stroke-width="2"/>
+              <circle cx="20.5" cy="20" r="2.6" stroke="#064350" stroke-width="2"/>
+              <path d="M13 8.1V13M13 13L6.6 17.6M13 13L19.4 17.6" stroke="#064350" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="access-body">
+            <span class="access-tag" aria-hidden="true">Modelo</span>
+            <span class="access-title">Modelo Operativo de Agilidad INS</span>
+            <span class="access-desc">Roles, ceremonias y cadencias del modelo operativo ágil de INS.</span>
           </span>
           <span class="access-arrow" aria-hidden="true">
             <svg viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
