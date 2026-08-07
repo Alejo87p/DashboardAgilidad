@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equipos de Servicio Digital — Modelo Operativo de Agilidad · INS</title>
+<meta name="description" content="Modelo basado en Kanban para gestionar la demanda operacional: flujo continuo, límites de WIP, acuerdos de servicio y mejora continua.">
+<meta name="theme-color" content="#0B4E4E">
+<link rel="icon" href="assets/img/icono-ins-color.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="marca" href="index.html" aria-label="Inicio · Modelo Operativo de Agilidad del INS">
+      <img src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+      <span class="marca-sep" aria-hidden="true"></span>
+      <span class="marca-txt">Modelo Operativo de Agilidad</span>
+    </a>
+    <button class="btn-menu" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú de navegación">
+      <i></i><i></i><i></i>
+    </button>
+    <nav class="menu" id="menu-principal" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="principios.html">Principios</a>
+      <a href="gobierno.html">Gobierno</a>
+      <a href="cadencias.html">Cadencias</a>
+      <a href="topologias.html">Topologías</a>
+      <a href="roles.html">Roles</a>
+      <a href="metricas.html">Métricas</a>
+      <a href="practicas.html">Prácticas</a>
+      <a href="glosario.html">Glosario</a>
+      <button class="btn-buscar" type="button" aria-label="Buscar en el sitio">
+        <span aria-hidden="true">🔍</span><span>Buscar</span><kbd aria-hidden="true">Ctrl&nbsp;K</kbd>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <nav class="migas" aria-label="Ruta de navegación"><ol><li><a href="index.html">Inicio</a></li><li><a href="topologias.html">Topologías</a></li><li aria-current="page">Equipos de Servicio Digital</li></ol></nav>
+    <p class="eyebrow" style="color:#F0B77A;margin-top:16px">Capítulo 4 · Topología 2</p>
+    <h1>Equipos de Servicio Digital</h1>
+    <p>Modelo basado en Kanban para gestionar la demanda operacional: flujo continuo, límites de WIP, acuerdos de servicio y mejora continua.</p>
+    <div class="hero-chips"><span>Kanban</span><span>Límites de WIP</span><span>SLA / SLO</span><span>Dueño de Servicio</span><span>Líder Técnico</span></div>
+  </div>
+</div>
+
+<main id="contenido">
+
+<section class="bloque">
+  <div class="wrap con-indice">
+    <nav class="indice" aria-label="Índice de la página"><b>En esta página</b><div class="indice-links"><a href="#objetivo">Objetivo del modelo</a><a href="#principios">Principios clave</a><a href="#criterios">Criterios para ser equipo de servicio</a><a href="#comparativo">Servicio vs Scrum</a><a href="#flujo">Flujo de trabajo</a><a href="#wip">Gestión del WIP</a><a href="#roles">Roles</a><a href="#interaccion">Interacción con otros equipos</a><a href="#reuniones">Reuniones clave</a><a href="#criterios-prio">Criterios de priorización</a><a href="#wsjf">Fórmula WSJF</a><a href="#herramientas">Herramientas complementarias</a><a href="#evaluacion">Evaluación por clientes internos</a></div></nav>
+    <div>
+
+      <p class="entradilla">Los Equipos de Servicio Digital operan bajo un modelo basado en <b>Kanban</b>, integrando flujo continuo, límites de trabajo en curso (WIP), los roles de <b>Dueño de Servicio</b> (ciclo del Qué) y <b>Líder Técnico</b> (ciclo del Cómo) y estrategias de visibilidad y optimización del trabajo.</p>
+
+      <section id="objetivo">
+        <span class="eyebrow">Para qué existe</span>
+        <h2>Objetivo del modelo</h2>
+        <div class="cita">Diseñar un sistema que permita gestionar eficientemente la demanda operacional, optimizar tiempos de respuesta, reducir sobrecarga y aumentar la previsibilidad del flujo de trabajo.</div>
+      </section>
+
+      <section id="principios" style="margin-top:48px">
+        <span class="eyebrow">Operación diaria</span>
+        <h2>Principios clave</h2>
+        <p>La operación diaria de un Equipo de Servicio se rige por los siguientes principios, que orientan la forma de gestionar la demanda, el flujo y la mejora del sistema de trabajo. Son de <b>aplicación permanente</b>: sostienen la estabilidad del servicio en el tiempo y son la base sobre la cual el equipo inspecciona y adapta su forma de trabajar.</p>
+        <div class="grid g2">
+          <div class="card verde"><h4 class="mt0">Visualizar el flujo completo</h4><p class="chico">Todo el trabajo se hace visible en el tablero, incluido el no planificado. <b>Lo que no se ve, no se gestiona.</b></p></div>
+          <div class="card verde"><h4 class="mt0">Limitar el trabajo en curso</h4><p class="chico">El equipo respeta límites de WIP explícitos por columna. <b>Iniciar menos para terminar más.</b></p></div>
+          <div class="card verde"><h4 class="mt0">Gestionar el flujo, no a las personas</h4><p class="chico">La conversación diaria se centra en los ítems bloqueados o estancados, no en el estado individual de cada persona.</p></div>
+          <div class="card verde"><h4 class="mt0">Hacer explícitas las políticas</h4><p class="chico">Los criterios de entrada, de salida y de clasificación de la demanda están escritos y son conocidos por todo el equipo.</p></div>
+          <div class="card verde"><h4 class="mt0">Tirar la demanda, no empujarla</h4><p class="chico">El trabajo se hala cuando hay capacidad disponible; no se asigna por adelantado.</p></div>
+          <div class="card verde"><h4 class="mt0">Diferenciar clases de servicio</h4><p class="chico">La demanda urgente, la estándar y la de mejora tienen tratamiento y expectativas distintas, acordadas con las partes interesadas.</p></div>
+          <div class="card verde"><h4 class="mt0">Reservar capacidad para la mejora</h4><p class="chico">Una porción del flujo se protege para estabilidad, deuda técnica y automatización, y no se sacrifica ante la presión operativa.</p></div>
+          <div class="card verde"><h4 class="mt0">Decidir con evidencia</h4><p class="chico">Los ajustes al proceso se basan en las métricas de flujo del equipo, no en percepciones.</p></div>
+        </div>
+      </section>
+
+      <section id="criterios" style="margin-top:48px">
+        <span class="eyebrow">Requisitos</span>
+        <h2>Criterios para operar como equipo de servicio</h2>
+        <p>Antes de constituir formalmente un equipo como Equipo de Servicio se debe verificar que cumpla los siguientes criterios estructurales, operativos y culturales. Funcionan como una <b>lista de comprobación de entrada</b>: si alguno no se cumple, el equipo requiere acompañamiento previo a su formalización. Cumplirlos permite habilitar mecanismos Lean como la gestión del WIP, los flujos tirados por demanda y una visión basada en valor para servicios digitales sostenibles.</p>
+        <div class="grid g2">
+          <div class="card verde"><h4 class="mt0">Estructurales</h4><ul class="chico" style="margin-bottom:0"><li>Demanda recurrente y flujo estable</li><li>Backlog vivo y flujo visualizado en tablero Kanban</li><li>Roles clave activos: Dueño de Servicio y Líder Técnico</li><li>Alineación e integración con uno o varios flujos de valor</li></ul></div>
+          <div class="card verde"><h4 class="mt0">Operativos y culturales</h4><ul class="chico" style="margin-bottom:0"><li>Acuerdos de servicio (SLA / SLO) definidos y medidos</li><li>Ciclo de vida del trabajo con <i>listo</i> y <i>hecho</i> explícitos</li><li>Autonomía operativa sin aprobaciones externas por entrega</li><li>Mecanismos establecidos de mejora continua</li></ul></div>
+        </div>
+        <div class="nota aviso">
+          <p>Si un equipo no cumple estos criterios, probablemente su naturaleza corresponde a otra topología. Use el <a href="topologias.html#selector">selector de topología</a> para verificarlo.</p>
+        </div>
+      </section>
+
+      <section id="comparativo" style="margin-top:48px">
+        <span class="eyebrow">Diferenciación</span>
+        <h2>Equipo de Servicio vs Equipo Scrum</h2>
+        <p>Para tomar decisiones adecuadas de diseño organizacional es necesario diferenciar claramente ambos tipos de equipo.</p>
+        <div class="vs">
+          <div class="vs-lado" style="border-top:4px solid var(--ins-600)">
+            <span class="tag">Equipo Scrum (Laboratorio)</span>
+            <h3>Construye valor nuevo</h3>
+            <ul>
+              <li>Se enfoca en la creación de valor nuevo mediante productos o funcionalidades.</li>
+              <li>Trabaja con ciclos iterativos y entregas incrementales alineadas al usuario final.</li>
+              <li>Su backlog contiene ítems de valor futuro (features, historias) priorizados con base en hipótesis, datos e impacto.</li>
+              <li>Alta interacción directa con clientes y partes interesadas para validar entregables en cada sprint.</li>
+            </ul>
+          </div>
+          <div class="vs-mid">vs</div>
+          <div class="vs-lado" style="border-top:4px solid var(--verde)">
+            <span class="tag verde">Equipo de Servicio Digital</span>
+            <h3>Habilita el sistema</h3>
+            <ul>
+              <li>Opera de forma continua y reactiva frente a necesidades operativas, soporte o mejoras técnicas.</li>
+              <li>Su objetivo es mejorar la eficiencia del flujo de valor gestionando eficazmente las demandas entrantes.</li>
+              <li>Su backlog se nutre de tickets, solicitudes, bugs, riesgos o mejoras.</li>
+              <li>Aunque no entrega valor directo al cliente final, habilita a los equipos de producto a hacerlo mejor y más rápido.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="nota clave">
+          <p>Un equipo de servicio es un <b>habilitador del sistema</b>; el equipo Scrum es responsable directo de construir productos. Ambos modelos son complementarios y deben articularse dentro del marco de flujos de valor.</p>
+        </div>
+      </section>
+
+      <section id="flujo" style="margin-top:48px">
+        <span class="eyebrow">Cómo fluye el trabajo</span>
+        <h2>Flujo de trabajo</h2>
+        <p>El trabajo se organiza en dos grandes categorías. Las <b>épicas</b> representan iniciativas estratégicas de alto impacto con retorno esperado; los <b>servicios</b> responden a solicitudes o necesidades operativas de otros equipos o usuarios.</p>
+
+        <h3>Flujo de trabajo para épicas</h3>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th>Estado</th><th>Descripción</th><th>Listo</th><th>Hecho</th><th>Responsable</th></tr></thead>
+            <tbody>
+              <tr><td><b>Backlog</b></td><td>Registro inicial de iniciativas potenciales con valor estratégico.</td><td>Iniciativa documentada con propósito preliminar.</td><td>Priorizada para ser explorada.</td><td>Dueño de Servicio</td></tr>
+              <tr><td><b>Ideación</b></td><td>Espacio para generar ideas, soluciones iniciales y enfoques innovadores.</td><td>Iniciativa priorizada, contexto definido.</td><td>Opciones viables discutidas con partes interesadas.</td><td>Dueño de Servicio</td></tr>
+              <tr><td><b>Definición</b></td><td>Se detallan objetivos, alcance, métricas de éxito y viabilidad técnica.</td><td>Validación estratégica y técnica previa, objetivos claros.</td><td>Servicios digitales definidos, backlog inicial creado.</td><td>Dueño de Servicio</td></tr>
+              <tr><td><b>Construcción</b></td><td>Desarrollo iterativo de funcionalidades relacionadas con la épica.</td><td>Features listas con criterios de aceptación y diseño técnico claro.</td><td>Funcionalidades completas y revisadas.</td><td>Equipos de Servicio</td></tr>
+              <tr><td><b>Entrega</b></td><td>Liberación de la solución hacia entornos reales de uso.</td><td>Tests superados, aprobaciones obtenidas.</td><td>Despliegue realizado sin errores críticos.</td><td>Equipos de Servicio</td></tr>
+              <tr><td><b>Validación</b></td><td>Se mide el valor generado con usuarios o indicadores clave.</td><td>Solución en uso, canales de retroalimentación activos.</td><td>Lecciones aprendidas documentadas, métricas revisadas.</td><td>Dueño de Servicio, Partes interesadas</td></tr>
+              <tr><td><b>Cierre</b></td><td>Formalización del cierre de la épica con aprendizajes y ajustes al portafolio.</td><td>Resultados y aprendizajes consolidados.</td><td>Lecciones integradas al sistema y seguimiento desactivado.</td><td>Dueño de Servicio</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Flujo de trabajo para servicios</h3>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th>Estado</th><th>Descripción</th><th>Listo</th><th>Hecho</th><th>Responsable</th></tr></thead>
+            <tbody>
+              <tr><td><b>Backlog</b></td><td>Registro de solicitudes de servicio, incidentes o mejoras técnicas.</td><td>Solicitud documentada y entendida.</td><td>Priorizada por Dueño de Servicio.</td><td>Dueño de Servicio</td></tr>
+              <tr><td><b>Refinamiento</b></td><td>Análisis técnico y funcional para aclarar alcance, esfuerzo y dependencias.</td><td>Información suficiente para analizar el trabajo.</td><td>Tarea estimada, sin bloqueos para ejecución.</td><td>Líder Técnico</td></tr>
+              <tr><td><b>En Proceso</b></td><td>Trabajo activo en la solicitud por parte del equipo.</td><td>Tarea clara, sin impedimentos, en cola activa.</td><td>Trabajo completado técnicamente y listo para revisión.</td><td>Equipo de Servicio</td></tr>
+              <tr><td><b>En Revisión</b></td><td>Validación funcional, técnica o del cliente interno.</td><td>Trabajo finalizado y entregado para evaluación.</td><td>Validado y conforme con criterios de aceptación.</td><td>Líder Técnico / Stakeholder</td></tr>
+              <tr><td><b>Validación</b></td><td>Confirmación de resultados en ambiente real o post implementación.</td><td>Validación de servicio o entrega técnica completada.</td><td>Cliente interno satisfecho o métrica de éxito cumplida.</td><td>Dueño de Servicio / Cliente interno</td></tr>
+              <tr><td><b>Hecho</b></td><td>Cierre del ítem con documentación y métricas registradas.</td><td>Todo el ciclo cerrado, aprendizajes documentados.</td><td>Métricas registradas y entregable operativo.</td><td>Dueño de Servicio</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Tipos de trabajo y reglas adaptativas</h3>
+        <p>Cada tipo de trabajo (solicitudes, incidentes, mejoras técnicas) puede tener:</p>
+        <ul>
+          <li><b>Estados adicionales</b> — por ejemplo <i>Diagnóstico</i> para incidentes, <i>Pruebas extendidas</i> para mejoras técnicas o <i>Validación externa</i> para integraciones complejas.</li>
+          <li><b>Políticas específicas de WIP</b> — límites explícitos por tipo de trabajo y etapa del flujo, para gestionar capacidad y evitar sobrecarga.</li>
+          <li><b>Criterios de escalamiento o tiempos máximos</b> — activan alertas cuando una solicitud excede un umbral de espera o urgencia.</li>
+        </ul>
+        <p>Los tipos de trabajo se identifican en el análisis inicial del servicio. Mediante ejercicios como el <b>Value Stream Mapping</b> se detectan puntos críticos y se definen los estados adicionales necesarios para reflejar el flujo real.</p>
+        <div class="nota">
+          <p>Las políticas se definen a partir de las <b>entradas (Definición de Listo)</b> —criterios mínimos para procesar un ítem en una etapa— y las <b>salidas (Definición de Hecho)</b> —condiciones para considerar finalizada una tarea. Criterios claros por estado evitan ambigüedades, alinean expectativas y aseguran trazabilidad.</p>
+        </div>
+      </section>
+
+      <section id="wip" style="margin-top:48px">
+        <span class="eyebrow">Disciplina operativa</span>
+        <h2>Gestión del WIP</h2>
+        <p>Limitar el trabajo en curso es esencial para evitar sobrecarga y reducir tiempos de espera. El equipo establece <b>límites explícitos por columna y tipo de ítem</b>, y los revisa periódicamente en retrospectivas para encontrar el equilibrio ideal entre capacidad y flujo.</p>
+
+        <h3>Cómo entregan valor los equipos de servicio</h3>
+        <div class="grid g2">
+          <div class="card verde"><h4 class="mt0">Mantenimiento de la capacidad operativa</h4><p class="chico">Resolviendo incidentes y garantizando que los sistemas y servicios clave permanezcan disponibles.</p></div>
+          <div class="card verde"><h4 class="mt0">Reducción de fricción en el flujo de valor</h4><p class="chico">Mediante soporte técnico, gestión de problemas y eliminación de deuda técnica que bloquea a otros equipos.</p></div>
+          <div class="card verde"><h4 class="mt0">Respuesta rápida a solicitudes</h4><p class="chico">Mejorando la experiencia del usuario y reduciendo el tiempo de espera en servicios críticos.</p></div>
+          <div class="card verde"><h4 class="mt0">Sostenibilidad técnica del sistema</h4><p class="chico">Previniendo el deterioro por acumulación de errores o falta de mantenimiento.</p></div>
+        </div>
+      </section>
+
+      <section id="roles" style="margin-top:48px">
+        <span class="eyebrow">Quién hace qué</span>
+        <h2>Roles del equipo de servicio</h2>
+        <div class="grid g2">
+          <a class="card card-link verde" href="roles.html#ds">
+            <h3 class="mt0">Dueño de Servicio</h3>
+            <p class="chico" style="margin-bottom:8px">Conduce el ciclo del Qué</p>
+            <p>Responsable de la entrega continua de valor del servicio. Administra prioridades, establece acuerdos de servicio y asegura que el backlog represente las necesidades reales del cliente.</p>
+            <span class="mas">Ver ficha completa →</span>
+          </a>
+          <a class="card card-link verde" href="roles.html#lt-serv">
+            <h3 class="mt0">Líder Técnico</h3>
+            <p class="chico" style="margin-bottom:8px">Conduce el ciclo del Cómo</p>
+            <p>Responsable de la eficiencia operativa del sistema de flujo. Monitorea métricas, facilita mejoras y ayuda a balancear la carga de trabajo.</p>
+            <span class="mas">Ver ficha completa →</span>
+          </a>
+        </div>
+        <p class="chico">Ambos roles no solo ejecutan funciones operativas: también <b>facilitan y estructuran las reuniones clave</b>, garantizando la sostenibilidad del sistema Kanban.</p>
+
+        <div class="nota aviso">
+          <b class="tit">Situaciones especiales</b>
+          <p>En equipos reducidos o con carga baja o intermitente, <b>una misma persona puede asumir ambos roles</b>, siempre que haya claridad sobre las responsabilidades de cada uno y se mantenga la disciplina en la gestión del flujo.</p>
+          <p>Cuando la prioridad del servicio es alta y la demanda es sostenida o creciente, se recomienda <b>separar las funciones</b>: el Dueño de Servicio se enfoca en la priorización estratégica y la relación con clientes; el Líder Técnico optimiza el rendimiento operativo del sistema.</p>
+        </div>
+      </section>
+
+      <section id="interaccion" style="margin-top:48px">
+        <span class="eyebrow">No trabajan aislados</span>
+        <h2>Interacción con los diferentes equipos</h2>
+        <p>Los equipos de servicio deben estar integrados o coordinados estrechamente con los equipos de producto, los equipos de flujo de valor y otros equipos de soporte, manteniendo una visión sistémica de la entrega de valor.</p>
+
+        <h3>Formas de interacción con flujos de valor</h3>
+        <ul>
+          <li><b>Participación en eventos de coordinación</b> — revisiones de flujo, sesiones de planificación cruzada o Scrum de Scrums, especialmente cuando el trabajo impacta o depende de otros equipos.</li>
+          <li><b>Sincronización de prioridades</b> — alineación periódica con Dueños de Producto y Dueño de Servicios para que requerimientos, soporte e incidentes estén visibles en los tableros. Participación en refinamientos según se requiera.</li>
+          <li><b>Uso compartido de tableros visuales</b> — incluyendo el trabajo del equipo de servicio dentro de tableros integrados o vinculados a los de producto.</li>
+          <li><b>Políticas de servicio interoperables</b> — acuerdos de colaboración entre servicios, niveles de escalamiento, tiempos máximos de respuesta por tipo de solicitud, ventanas de atención compartidas, resolución conjunta de dependencias y gobernanza colaborativa sobre flujo cruzado.</li>
+          <li><b>Métricas compartidas de valor y operación</b> — el cumplimiento de SLA y la eficiencia técnica se visualizan junto con indicadores de negocio o producto.</li>
+        </ul>
+
+        <h3>Integración entre equipos de servicio</h3>
+        <ul class="check">
+          <li><b>Canales de coordinación directa</b> — espacios compartidos y tableros comunes para temas transversales: infraestructura, seguridad, soporte, datos.</li>
+          <li><b>Protocolos de colaboración</b> — niveles de atención, criterios de escalamiento y asignación cruzada de casos.</li>
+          <li><b>Revisiones conjuntas de operaciones</b> — reuniones mensuales o quincenales para casos interdependientes y acuerdos mutuos.</li>
+          <li><b>Mapeo de dependencias técnicas recurrentes</b> — identificar patrones de espera o bloqueo para rediseñar flujos más fluidos.</li>
+          <li><b>Equipos virtuales por flujo de valor</b> — incorporar miembros de distintos servicios como equipo extendido de soporte continuo.</li>
+          <li><b>Retroalimentación estructurada entre servicios</b> — revisión cruzada de la calidad del soporte entre equipos.</li>
+        </ul>
+      </section>
+
+      <section id="reuniones" style="margin-top:48px">
+        <span class="eyebrow">Cadencias del servicio</span>
+        <h2>Reuniones clave y sus dinámicas</h2>
+        <p>Un sistema de reuniones que refuerza inspección, adaptación y mejora continua.</p>
+
+        <details class="acc" open><summary>Preparación del equipo al iniciar con Servicio Digital <span class="tag gris" style="margin-left:auto">Al iniciar</span></summary><div class="acc-cuerpo">
+          <p><b>Objetivo:</b> establecer las condiciones iniciales para la operación efectiva: clarificar propósito y roles, definir tableros, flujos y métricas clave, y asegurar comprensión compartida del contexto y del portafolio del servicio.</p>
+          <p><b>Actividades:</b></p>
+          <ul>
+            <li>Presentación de objetivos y propósito del equipo de servicio.</li>
+            <li>Definición y configuración del tablero Kanban.</li>
+            <li>Políticas explícitas y acuerdos de listo/hecho por estado, según la línea base.</li>
+            <li>Alineación de roles: Dueño de Servicio, Líder Técnico, developers.</li>
+            <li>Acordar indicadores clave: SLA, lead time, throughput.</li>
+            <li>Asignación de frecuencias de reuniones y responsabilidades.</li>
+            <li>Identificación y mapeo de partes interesadas relevantes.</li>
+            <li>Definición del portafolio de servicios y de los tipos de servicio.</li>
+            <li>Identificación de entradas y salidas del flujo.</li>
+            <li>Análisis inicial del flujo de valor (Value Stream Analysis) para visualizar cuellos de botella.</li>
+            <li>Refinamiento de las solicitudes actuales o futuras según el tipo de servicio.</li>
+          </ul>
+          <p><b>Participantes:</b> Dueño de Servicio, Líder Técnico, miembros del equipo, partes interesadas clave.<br>
+          <b>Salidas:</b> backlog inicial, tablero Kanban, acuerdos de trabajo, definición de roles y WIP.</p>
+        </div></details>
+
+        <details class="acc"><summary>Revisión de Servicios Prestados (Service Review) <span class="tag gris" style="margin-left:auto">Quincenal</span></summary><div class="acc-cuerpo">
+          <p><b>Objetivo:</b> evaluar el desempeño del servicio entregado en el periodo anterior, identificar oportunidades de mejora y alinear expectativas con los partes interesadas.</p>
+          <p><b>Actividades:</b> presentación del servicio entregado en el sprint · revisión de métricas de flujo y cumplimiento de SLA · análisis de causas raíz de incidentes o bloqueos recurrentes · retroalimentación del cliente o usuarios internos · revisión de acciones de mejora implementadas.</p>
+          <p><b>Participantes:</b> Dueño de Servicio, Líder Técnico, partes interesadas del servicio.<br>
+          <b>Entradas:</b> métricas del servicio (SLA, tiempos de entrega, incidencias) y retroalimentación de clientes.<br>
+          <b>Salidas:</b> compromisos de mejora, ajustes en políticas, acuerdos de nivel de servicio.</p>
+          <p class="chico"><b>Mejores prácticas:</b> usar visualizaciones claras, incluir métricas de experiencia del cliente y documentar decisiones tomadas.</p>
+        </div></details>
+
+        <details class="acc"><summary>Reunión Diaria del Equipo (Daily Kanban) <span class="tag gris" style="margin-left:auto">Diaria</span></summary><div class="acc-cuerpo">
+          <p><b>Objetivo:</b> monitorear el flujo de trabajo en curso, detectar bloqueos e impedimentos y coordinar tareas entre los miembros del equipo.</p>
+          <p><b>Actividades:</b> revisión rápida del tablero · identificación de tareas bloqueadas o críticas (etiquetadas como "bloqueado" o "impactado" en los entregables de valor) · ajuste de prioridades diarias · promoción del trabajo colaborativo (swarming si es necesario).</p>
+          <p><b>Salidas:</b> priorización del día, acuerdos para desbloquear ítems, visibilidad del flujo.</p>
+          <p class="chico"><b>Mejores prácticas:</b> duración corta (menos de 15 minutos), foco en el trabajo en curso, fomentar la autoorganización.</p>
+        </div></details>
+
+        <details class="acc"><summary>Planificación de Entrega (Delivery Planning) <span class="tag gris" style="margin-left:auto">Quincenal</span></summary><div class="acc-cuerpo">
+          <p><b>Objetivo:</b> establecer un plan de trabajo para el próximo ciclo de entrega considerando capacidad, prioridades y dependencias.</p>
+          <p><b>Actividades:</b> selección de ítems desde el backlog operativo · estimación de capacidad del equipo · asignación de responsables y fechas objetivo · identificación de riesgos y dependencias técnicas, indicando predecesor y sucesor del servicio digital.</p>
+          <p><b>Participantes:</b> Dueño de Servicio, Líder Técnico y developers.<br>
+          <b>Entradas:</b> backlog priorizado que cumpla el acuerdo de Ready, capacidad disponible, estado actual del flujo y tiempos estimados actualizados.<br>
+          <b>Salidas:</b> selección de ítems a abordar y distribución de capacidad por tipo de servicio.</p>
+          <p class="chico"><b>Mejores prácticas:</b> considerar el tipo de demanda (urgente, estándar) —en Azure DevOps puede representarse como carriles del board—, visibilizar el WIP y usar métricas históricas para estimar capacidad.</p>
+        </div></details>
+
+        <details class="acc"><summary>Revisión de Estrategia del Servicio <span class="tag gris" style="margin-left:auto">Trimestral</span></summary><div class="acc-cuerpo">
+          <p><b>Objetivo:</b> revisar la alineación del servicio con la estrategia organizacional y tecnológica, y proponer ajustes de enfoque o metas.</p>
+          <p><b>Actividades:</b> revisión de impacto estratégico del servicio · evaluación de nuevas demandas emergentes · ajuste de métricas o metas de entrega · priorización de iniciativas de evolución del servicio.</p>
+          <p><b>Participantes:</b> Dueño de Servicio, Líder Técnico. Opcionales: líderes de flujo de valor, arquitectura.<br>
+          <b>Salidas:</b> plan alineado de los cambios de equipo para mejorar los servicios prestados.</p>
+          <p class="chico"><b>Mejores prácticas:</b> enlazar esta revisión con el roadmap del flujo de valor y la estrategia organizacional.</p>
+        </div></details>
+
+        <details class="acc"><summary>Revisión de Operaciones y Riesgos del Servicio <span class="tag gris" style="margin-left:auto">Mensual</span></summary><div class="acc-cuerpo">
+          <p><b>Objetivo:</b> identificar vulnerabilidades operativas, gestionar riesgos técnicos y operativos y coordinar acciones preventivas o correctivas.</p>
+          <p><b>Actividades:</b> evaluación de incidentes críticos o repetitivos · revisión de cumplimiento de controles operativos · identificación de deuda técnica · acciones de mitigación y planes de contingencia.</p>
+          <p><b>Participantes:</b> Dueño de Servicio, Líder Técnico. Opcionales: partes interesadas de negocio y representantes técnicos.<br>
+          <b>Salidas:</b> planes de mitigación, redefinición de prioridades, alertas tempranas.</p>
+          <p class="chico"><b>Mejores prácticas:</b> mantener enfoque preventivo y correlacionar datos técnicos con impacto al negocio.</p>
+        </div></details>
+      </section>
+
+      <section id="criterios-prio" style="margin-top:48px">
+        <span class="eyebrow">Cómo se decide qué va primero</span>
+        <h2>Criterios de priorización</h2>
+        <p>El principio fundamental es priorizar los ítems que, con un esfuerzo relativamente bajo o razonable, generan <b>impacto alto</b> sobre la continuidad operativa de productos clave, la experiencia del cliente, y la velocidad o estabilidad del flujo de valor organizacional.</p>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th style="width:22%">Criterio</th><th>Definición</th><th style="width:32%">Ejemplo de aplicación</th></tr></thead>
+            <tbody>
+              <tr><td><b>Valor al Cliente</b></td><td>Todo trabajo debe contribuir directa o indirectamente a generar valor para el cliente final.</td><td>Priorizar una automatización que reduzca el tiempo de respuesta a solicitudes frecuentes.</td></tr>
+              <tr><td><b>Impacto en el Flujo de Valor</b></td><td>Se favorecen las tareas que desbloquean otras actividades o flujos dependientes.</td><td>Resolver un problema de base de datos que afecta a múltiples equipos simultáneamente.</td></tr>
+              <tr><td><b>Esfuerzo vs Beneficio</b></td><td>Se evalúa el retorno esperado en función del esfuerzo estimado.</td><td>Implementar una mejora menor que reduce el ciclo de atención de tickets en 30% con bajo esfuerzo.</td></tr>
+              <tr><td><b>Urgencia del Negocio</b></td><td>Prioridad a situaciones críticas o de alto riesgo que requieren atención inmediata.</td><td>Restablecer el servicio ante una caída que afecta canales digitales.</td></tr>
+              <tr><td><b>Aprendizaje y Mejora Continua</b></td><td>Se valoran iniciativas que generen conocimiento o eliminen causas raíz de errores.</td><td>Documentar patrones recurrentes de fallas y construir un checklist preventivo.</td></tr>
+              <tr><td><b>Reducción de Deuda Técnica</b></td><td>Atender componentes o prácticas obsoletas que comprometan la sostenibilidad.</td><td>Actualizar librerías de seguridad con vulnerabilidades conocidas.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Escala de valoración (0 a 3)</h3>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th style="width:26%">Criterio</th><th>Escala de valor</th></tr></thead>
+            <tbody>
+              <tr><td><b>Valor al Cliente</b></td><td>0 = sin impacto · 1 = impacto indirecto o parcial · 2 = mejora percibida · 3 = valor directo, visible e inmediato</td></tr>
+              <tr><td><b>Impacto en el Flujo de Valor</b></td><td>0 = no afecta a otros flujos · 1 = afecta mínimamente una dependencia · 2 = desbloquea o acelera otro flujo · 3 = desbloquea varios flujos simultáneamente</td></tr>
+              <tr><td><b>Esfuerzo vs Beneficio</b></td><td>0 = alto esfuerzo, bajo beneficio · 1 = esfuerzo similar al beneficio · 2 = bajo esfuerzo, buen beneficio · 3 = alto beneficio con bajo esfuerzo</td></tr>
+              <tr><td><b>Urgencia del Negocio</b></td><td>0 = sin urgencia · 1 = requiere atención próxima · 2 = alto impacto si se retrasa · 3 = crítico o debe hacerse de inmediato</td></tr>
+              <tr><td><b>Aprendizaje y Mejora Continua</b></td><td>0 = sin aportes de aprendizaje · 1 = aprendizaje limitado o local · 2 = mejora reutilizable · 3 = conocimiento clave para futuras soluciones</td></tr>
+              <tr><td><b>Reducción de Deuda Técnica</b></td><td>0 = no aplica · 1 = mitiga deuda leve · 2 = reduce riesgo técnico significativo · 3 = elimina deuda crítica que compromete la operación</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="chico">Estos criterios deben revisarse periódicamente y usarse como base para las decisiones de planificación, priorización y evaluación de resultados del servicio.</p>
+      </section>
+
+      <section id="wsjf" style="margin-top:48px">
+        <span class="eyebrow">Fórmula</span>
+        <h2>Priorización WSJF</h2>
+        <p>El WSJF (<i>Weighted Shortest Job First</i>) ordena el trabajo según el <b>retorno de valor por unidad de tiempo</b>.</p>
+        <div class="nota clave" style="text-align:center;font-size:17px">
+          <p><b>WSJF = (Valor para el Cliente + Urgencia + Reducción de Riesgo u Oportunidad) ÷ Duración Estimada del Servicio</b></p>
+        </div>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th style="width:30%">Componente</th><th>Pregunta que responde</th></tr></thead>
+            <tbody>
+              <tr><td><b>Valor para el Cliente</b></td><td>¿Qué tanto impacto tiene esta solicitud en el flujo de valor?</td></tr>
+              <tr><td><b>Urgencia (tiempo crítico)</b></td><td>¿Qué tan sensible es esta solicitud al tiempo?</td></tr>
+              <tr><td><b>Reducción de Riesgo u Oportunidad</b></td><td>¿Disminuye la probabilidad de incidentes futuros o abre una oportunidad importante?</td></tr>
+              <tr><td><b>Duración Estimada del Servicio</b></td><td>¿Cuánto tiempo le tomará al equipo completar este trabajo?</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><b>Cuanto mayor sea el valor del WSJF, más prioritario será el trabajo.</b> La fórmula permite balancear demandas de alta urgencia con aquellas de alto valor, considerando el esfuerzo involucrado.</p>
+      </section>
+
+      <section id="herramientas" style="margin-top:48px">
+        <span class="eyebrow">Caja de herramientas</span>
+        <h2>Herramientas complementarias</h2>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th style="width:38%">Herramienta</th><th>Reunión o momento de aplicación</th></tr></thead>
+            <tbody>
+              <tr><td><b>Value Stream Mapping</b></td><td>Reunión de preparación inicial · Revisión de estrategia</td></tr>
+              <tr><td><b>Matriz RACI</b></td><td>Reunión de preparación inicial · Revisión de operaciones</td></tr>
+              <tr><td><b>Lead Time Histogram</b></td><td>Revisión de métricas · Retrospectiva de mejora continua</td></tr>
+              <tr><td><b>Control Chart</b></td><td>Revisión operativa · Análisis de cuellos de botella</td></tr>
+              <tr><td><b>Criterios de priorización</b></td><td>Sesiones de planificación y refinamiento de backlog</td></tr>
+              <tr><td><b>Políticas de flujo (listo/hecho)</b></td><td>Documentadas al inicio y revisadas en Revisión de Servicios</td></tr>
+              <tr><td><b>Tableros visuales Kanban digitales</b></td><td>En todas las reuniones: Daily, Revisión de Servicios, Planificación</td></tr>
+              <tr><td><b>Plantilla de Evaluación de Servicio</b></td><td>Revisión de Servicios Prestados · Revisión de Estrategia</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="evaluacion" style="margin-top:48px">
+        <span class="eyebrow">Voz del cliente interno</span>
+        <h2>Plantilla de evaluación del servicio</h2>
+        <p>Diseñada para ser diligenciada por los <b>clientes internos</b> que reciben soporte de los equipos de servicio. Su objetivo es recopilar retroalimentación directa sobre experiencia, calidad y valor generado.</p>
+        <h3>Aspectos a calificar (1 = muy insatisfecho a 5 = muy satisfecho)</h3>
+        <div class="grid g2">
+          <ul class="check">
+            <li>Claridad en el canal de atención</li>
+            <li>Tiempo de respuesta inicial</li>
+            <li>Calidad de la solución entregada</li>
+            <li>Amabilidad y disposición del equipo</li>
+          </ul>
+          <ul class="check">
+            <li>Cumplimiento de compromisos (plazos, alcance)</li>
+            <li>Comunicación y seguimiento del caso</li>
+            <li>Contribución al flujo de trabajo o proceso del cliente</li>
+            <li>Experiencia general con el servicio</li>
+          </ul>
+        </div>
+        <h3>Preguntas abiertas</h3>
+        <ul>
+          <li>¿El servicio ha facilitado su trabajo o mejorado su eficiencia? ¿Cómo?</li>
+          <li>¿Qué tipo de impacto cree que tiene este servicio en el cliente final o usuario del producto?</li>
+          <li>¿Qué cambiaría del servicio actual? ¿Qué le gustaría que el equipo hiciera diferente o mejorara?</li>
+          <li>¿Le gustaría participar en sesiones de mejora continua o revisión de servicios?</li>
+        </ul>
+        <p class="chico">La plantilla también registra información del cliente evaluador (nombre, área o rol, fecha) y del servicio evaluado (nombre, tipo de interacción más frecuente y frecuencia de uso).</p>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="wrap"><nav class="nav-pag" aria-label="Navegación entre capítulos"><a href="laboratorio.html"><span>← Anterior</span><b>Laboratorio Digital</b></a><a class="der" href="proyectos.html"><span>Siguiente →</span><b>Equipos de Proyectos</b></a></nav></div>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie-grid">
+      <div>
+        <img class="pie-logo" src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+        <p>Marco operativo común del Instituto Nacional de Seguros para habilitar la entrega continua de valor, la adaptación al cambio y la alineación entre estrategia, ejecución y operación.</p>
+        <p class="chico" style="color:#8FB5B0">Subdirección de Transformación Digital · Dirección de Tecnologías de Información · Equipo de Acción Ejecutiva (EAT).</p>
+      </div>
+      <div>
+        <h4>Capítulos</h4>
+        <a href="principios.html">Principios</a>
+        <a href="gobierno.html">Gobierno corporativo</a>
+        <a href="cadencias.html">Cadencias y eventos</a>
+        <a href="topologias.html">Topologías de equipos</a>
+        <a href="metricas.html">Métricas</a>
+        <a href="practicas.html">Prácticas y patrones</a>
+      </div>
+      <div>
+        <h4>Herramientas</h4>
+        <a href="topologias.html#selector">Selector de topología</a>
+        <a href="roles.html">Explorador de roles</a>
+        <a href="cadencias.html#eventos">Calendario de eventos</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="#" data-buscar>Buscar en el sitio</a>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span>Instituto Nacional de Seguros · Documento de uso interno</span>
+      <span>Sitio explicativo del Modelo Operativo de Agilidad</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
