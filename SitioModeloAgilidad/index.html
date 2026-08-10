@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modelo Operativo de Agilidad · Instituto Nacional de Seguros</title>
+<meta name="description" content="Modelo Operativo de Agilidad del Instituto Nacional de Seguros: gobierno corporativo ágil, topologías de equipos, roles, cadencias y métricas.">
+<meta name="theme-color" content="#0B4E4E">
+<link rel="icon" href="assets/img/icono-ins-color.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="marca" href="index.html" aria-label="Inicio · Modelo Operativo de Agilidad del INS">
+      <img src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+      <span class="marca-sep" aria-hidden="true"></span>
+      <span class="marca-txt">Modelo Operativo de Agilidad</span>
+    </a>
+    <button class="btn-menu" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú de navegación">
+      <i></i><i></i><i></i>
+    </button>
+    <nav class="menu" id="menu-principal" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="principios.html">Principios</a>
+      <a href="gobierno.html">Gobierno</a>
+      <a href="cadencias.html">Cadencias</a>
+      <a href="topologias.html">Topologías</a>
+      <a href="roles.html">Roles</a>
+      <a href="metricas.html">Métricas</a>
+      <a href="practicas.html">Prácticas</a>
+      <a href="glosario.html">Glosario</a>
+      <button class="btn-buscar" type="button" aria-label="Buscar en el sitio">
+        <span aria-hidden="true">🔍</span><span>Buscar</span><kbd aria-hidden="true">Ctrl&nbsp;K</kbd>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero ancho">
+  <div class="wrap">
+    <p class="eyebrow" style="color:#F0B77A">Instituto Nacional de Seguros · Subdirección de Transformación Digital</p>
+    <h1>Gobernar la agilidad no es controlar equipos. Es orquestar decisiones para maximizar el valor.</h1>
+    <p>El Modelo Operativo de Agilidad conecta estrategia, ejecución y entrega continua de valor. Explore el modelo completo haciendo clic sobre cualquier bloque del diagrama.</p>
+    <div class="hero-chips">
+      <span>Gobernar por valor</span>
+      <span>Escalar por excepción</span>
+      <span>Transparencia organizacional</span>
+      <span>Entrega continua</span>
+      <span>Decisiones basadas en evidencia</span>
+    </div>
+    <div class="fila-btn">
+      <a class="btn naranja" href="#bigpicture">Explorar el modelo ↓</a>
+      <a class="btn linea" href="gobierno.html" style="border-color:rgba(255,255,255,.4);color:#fff">Cómo se gobierna</a>
+    </div>
+  </div>
+</div>
+
+<main id="contenido">
+
+<!-- ===================== BIG PICTURE ===================== -->
+<section class="bloque" id="bigpicture">
+  <div class="wrap">
+    <span class="eyebrow">El modelo en una vista</span>
+    <h2>Big Picture del Modelo Operativo</h2>
+    <p class="entradilla">Cada bloque es interactivo: haga clic para ver de qué se trata y saltar al capítulo completo.</p>
+
+    <div class="bp-ayuda">
+      <span aria-hidden="true">👆</span>
+      <span><b>Haga clic en cualquier bloque</b> para abrir su explicación. Use <b>Ctrl + K</b> o la lupa para buscar en todo el sitio.</span>
+    </div>
+
+    <div class="bp">
+
+      <div class="bp-col">
+        <p class="bp-rotulo">Fundamento</p>
+        <button class="bloq claro alto" type="button" data-panel="principios">
+          <span class="t">Transparencia</span><span class="s">Ver la realidad como es</span>
+        </button>
+        <button class="bloq claro alto" type="button" data-panel="principios">
+          <span class="t">Inspección</span><span class="s">Entenderla con evidencia</span>
+        </button>
+        <button class="bloq claro alto" type="button" data-panel="principios">
+          <span class="t">Adaptación</span><span class="s">Cambiarla en consecuencia</span>
+        </button>
+        <button class="bloq" type="button" data-panel="quecomo">
+          <span class="t">Ciclo del Qué y del Cómo</span>
+          <span class="s">Dueño de Producto conduce el Qué · Líder Técnico conduce el Cómo</span>
+        </button>
+        <button class="bloq" type="button" data-panel="practicas">
+          <span class="t">Prácticas y patrones</span>
+          <span class="s">CI/CD · Clean Code · MOB AI · Andon · Obeya</span>
+        </button>
+      </div>
+
+      <div class="bp-col">
+        <p class="bp-rotulo">De la estrategia a la entrega</p>
+
+        <button class="bloq oscuro" type="button" data-panel="estrategia">
+          <span class="t">ESTRATEGIA ORGANIZACIONAL</span>
+          <span class="s">Direcciones, apuestas y grandes objetivos</span>
+        </button>
+
+        <div class="grid g2" style="gap:12px">
+          <button class="bloq medio" type="button" data-panel="ems">
+            <span class="t">Meta Scrum Ejecutivo (EMS)</span>
+            <span class="s">Gobierna el valor · mensual</span>
+          </button>
+          <button class="bloq acento" type="button" data-panel="eat">
+            <span class="t">Equipo de Acción Ejecutiva (EAT)</span>
+            <span class="s">Gobierna el sistema · semanal</span>
+          </button>
+        </div>
+
+        <p class="bp-rotulo" style="margin-top:6px">
+          <button type="button" data-panel="topologias" style="all:unset;cursor:pointer;letter-spacing:1.5px;border-bottom:1px dashed var(--linea-fuerte)">Tipos de equipos ágiles ⓘ</button>
+        </p>
+        <div class="bp-topos">
+
+          <div class="topo-col">
+            <button class="topo-cab topo-lab" type="button" data-panel="lab">
+              <span class="t">Laboratorio Digital</span>
+              <span class="s">Creación y evolución continua</span>
+            </button>
+            <div class="topo-cuerpo">
+              <button class="mini" type="button" data-panel="eqLider"><b>Equipo Líder</b>Visión, backlog y prioridades</button>
+              <button class="mini" type="button" data-panel="eqAccion"><b>Equipo de Acción</b>Condiciones del sistema</button>
+              <button class="mini" type="button" data-panel="roles"><b>Equipos ágiles</b>LPL · Dueño de Producto · Líder Técnico · Developers</button>
+            </div>
+          </div>
+
+          <div class="topo-col">
+            <button class="topo-cab topo-serv" type="button" data-panel="serv">
+              <span class="t">Servicios Digitales</span>
+              <span class="s">Estabilidad operativa y soporte</span>
+            </button>
+            <div class="topo-cuerpo">
+              <button class="mini" type="button" data-panel="kanban"><b>Flujo Kanban</b>Épicas y servicios con WIP</button>
+              <button class="mini" type="button" data-panel="serv"><b>Acuerdos de servicio</b>SLA · SLO · políticas de flujo</button>
+              <button class="mini" type="button" data-panel="roles"><b>Roles</b>Dueño de Servicio · Líder Técnico</button>
+            </div>
+          </div>
+
+          <div class="topo-col">
+            <button class="topo-cab topo-proy" type="button" data-panel="proy">
+              <span class="t">Proyectos</span>
+              <span class="s">Iniciativas críticas</span>
+            </button>
+            <div class="topo-cuerpo">
+              <button class="mini" type="button" data-panel="eventosProy"><b>Eventos</b>Meta Scrum · Daily escalado</button>
+              <button class="mini" type="button" data-panel="proy"><b>Restricciones</b>Fecha · regulación · riesgo</button>
+              <button class="mini" type="button" data-panel="roles"><b>Roles</b>CPO · Project Manager · LT</button>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="bloq oscuro" type="button" data-panel="entrega">
+          <span class="t">ENTREGA CONTINUA DE VALOR</span>
+          <span class="s">Temprana, frecuente y sostenible</span>
+        </button>
+      </div>
+
+      <div class="bp-col">
+        <p class="bp-rotulo">Ritmo y evidencia</p>
+        <button class="bloq alto" type="button" data-panel="cadencia">
+          <span class="t">Cadencia organizacional</span>
+          <span class="s">1 año = 6 bimestres · 1 bimestre = 4 sprints · 1 sprint ≈ 10 días hábiles</span>
+        </button>
+        <button class="bloq alto" type="button" data-panel="metricas">
+          <span class="t">Cuatro ejes de métricas</span>
+          <span class="s">Experiencia · Crecimiento · Eficiencia · Servicio</span>
+        </button>
+        <button class="bloq alto" type="button" data-panel="entrega">
+          <span class="t">Métricas de flujo y DORA</span>
+          <span class="s">Flow Time · Flow Efficiency · Frecuencia de despliegue</span>
+        </button>
+        <button class="bloq alto" type="button" data-panel="roles">
+          <span class="t">Roles del modelo</span>
+          <span class="s">Responsabilidades en las 5 dimensiones de la agilidad</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LECTURA EJECUTIVA ===================== -->
+<section class="bloque alt">
+  <div class="wrap">
+    <span class="eyebrow">Lectura ejecutiva</span>
+    <h2>Qué habilita el modelo</h2>
+    <p class="entradilla">Cuatro capacidades organizacionales que el modelo pone a disposición del liderazgo.</p>
+    <div class="grid g4">
+      <div class="card azul">
+        <h3>Foco explícito</h3>
+        <p>La organización concentra su capacidad en los flujos e iniciativas de mayor impacto. Los trade-offs se hacen explícitos: qué se prioriza, qué se posterga y qué se detiene.</p>
+      </div>
+      <div class="card azul">
+        <h3>Decisiones oportunas</h3>
+        <p>Las decisiones se toman cerca del trabajo y solo se escalan por excepción. El liderazgo interviene donde agrega valor, no en el detalle de la ejecución.</p>
+      </div>
+      <div class="card azul">
+        <h3>Fricción visible y removida</h3>
+        <p>Los impedimentos que atraviesan áreas dejan de resolverse por gestión informal: tienen una instancia, un responsable y un plazo.</p>
+      </div>
+      <div class="card azul">
+        <h3>Evidencia para gobernar</h3>
+        <p>Métricas de negocio, de flujo y de estabilidad sustituyen al reporte de actividad como base de la conversación estratégica.</p>
+      </div>
+    </div>
+
+    <div class="grid g2" style="gap:22px;margin-top:26px">
+      <div class="nota clave" style="margin:0">
+        <b class="tit">Lo que el modelo pide del liderazgo</b>
+        <ul style="margin-bottom:0">
+          <li>Participar en el EMS con <b>autoridad real</b> para decidir y comprometer capacidad.</li>
+          <li>Sostener la estabilidad de las prioridades dentro del ciclo, evitando la repriorización reactiva.</li>
+          <li>Actuar sobre los impedimentos sistémicos que solo el nivel ejecutivo puede remover.</li>
+          <li>Proteger a los equipos del ruido estratégico y de los cambios erráticos de foco.</li>
+        </ul>
+      </div>
+      <div class="nota" style="margin:0">
+        <b class="tit">Cómo se sabe que está funcionando</b>
+        <ul style="margin-bottom:0">
+          <li>Claridad y estabilidad en las prioridades estratégicas.</li>
+          <li>Mejora en la contribución de los flujos de valor a los objetivos organizacionales.</li>
+          <li>Disminución de la recurrencia de los mismos bloqueos.</li>
+          <li>Capacidad organizacional asignada de forma explícita y consciente.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUÉ ES ===================== -->
+<section class="bloque">
+  <div class="wrap">
+    <div class="grid g2" style="gap:44px;align-items:start">
+      <div>
+        <span class="eyebrow">Punto de partida</span>
+        <h2>¿Qué es el Modelo Operativo de Agilidad?</h2>
+        <p>Es el marco operativo común que orienta comportamientos, decisiones y responsabilidades en todos los niveles de la organización, para habilitar la <b>entrega continua de valor</b>, la adaptación al cambio y la alineación efectiva entre estrategia, ejecución y operación.</p>
+        <p>Se fundamenta en <b>Scrum@Scale</b> como marco de coordinación y gobernanza ágil, y se complementa con gestión por flujos de valor, Kanban para equipos de servicio, DevOps y prácticas modernas de ingeniería, métricas de flujo y negocio, y mecanismos de gobierno ejecutivo.</p>
+        <div class="cita">Más que una guía metodológica, es un sistema vivo diseñado para evolucionar junto con las necesidades del negocio, los clientes y el entorno.</div>
+      </div>
+      <div class="card">
+        <h3 class="mt0">El modelo define</h3>
+        <ul class="check">
+          <li>Cómo se organiza el trabajo a través de <b>topologías de equipos</b></li>
+          <li>Cómo se <b>prioriza y gobierna</b> la entrega de valor</li>
+          <li>Cómo se <b>coordinan</b> múltiples equipos y flujos</li>
+          <li>Cómo se <b>inspecciona y adapta</b> el sistema de forma continua</li>
+        </ul>
+        <h4>Lo que no es</h4>
+        <ul class="cruz">
+          <li>Una receta fija o un manual de cumplimiento</li>
+          <li>Un mecanismo de control detallado de la ejecución</li>
+          <li>Una jerarquía de equipos por niveles</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RECORRIDO ===================== -->
+<section class="bloque alt">
+  <div class="wrap">
+    <span class="eyebrow">Recorrido sugerido</span>
+    <h2>Explore el modelo paso a paso</h2>
+    <p class="entradilla">Si es su primera vez, siga este orden. Cada capítulo se puede leer de forma independiente.</p>
+
+    <div class="grid g3">
+      <a class="card card-link azul" href="principios.html"><span class="n">1</span><h3>Principios</h3><p>Transparencia, inspección y adaptación: el fundamento sobre el que se sostiene todo lo demás.</p><span class="mas">Leer capítulo →</span></a>
+      <a class="card card-link azul" href="gobierno.html"><span class="n">2</span><h3>Gobierno corporativo</h3><p>Cómo se toman las decisiones: el EMS gobierna el valor y el EAT gobierna las condiciones del sistema.</p><span class="mas">Leer capítulo →</span></a>
+      <a class="card card-link azul" href="cadencias.html"><span class="n">3</span><h3>Cadencias y eventos</h3><p>El ritmo compartido: años, bimestres, sprints y la frecuencia de cada evento del modelo.</p><span class="mas">Leer capítulo →</span></a>
+      <a class="card card-link acento" href="topologias.html"><span class="n">4</span><h3>Topologías de equipos</h3><p>Tres formas de operar y las reglas para decidir cuál aplica. Incluye un selector interactivo.</p><span class="mas">Leer capítulo →</span></a>
+      <a class="card card-link acento" href="roles.html"><span class="n">5</span><h3>Roles</h3><p>Quién hace qué, con responsabilidades y métricas de éxito por rol.</p><span class="mas">Abrir explorador →</span></a>
+      <a class="card card-link acento" href="metricas.html"><span class="n">6</span><h3>Métricas</h3><p>Los cuatro ejes de negocio, el Flow Framework, DORA y las métricas de servicio.</p><span class="mas">Leer capítulo →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TRES TOPOLOGÍAS ===================== -->
+<section class="bloque">
+  <div class="wrap">
+    <span class="eyebrow">Lo esencial</span>
+    <h2>Tres topologías, tres formas de operar</h2>
+    <p class="entradilla">No son niveles ni jerarquías: son respuestas distintas según el tipo de demanda y el resultado esperado.</p>
+
+    <div class="grid g3">
+      <a class="card card-link azul" href="laboratorio.html">
+        <span class="tag">Topología 1</span><h3>Laboratorio Digital</h3>
+        <p><b>Resultado:</b> valor, adopción y evolución continua del producto.</p>
+        <p class="chico">Backlog de valor priorizable, cambios iterativos y aprendizaje continuo. Se mide por valor entregado, adopción, outcomes y flujo.</p>
+        <span class="mas">Ver topología →</span>
+      </a>
+      <a class="card card-link verde" href="servicios.html">
+        <span class="tag verde">Topología 2</span><h3>Equipos de Servicio Digital</h3>
+        <p><b>Resultado:</b> continuidad, estabilidad y capacidad operativa.</p>
+        <p class="chico">Demanda recurrente gestionada con Kanban, límites de WIP y acuerdos de servicio. Se mide por estabilidad y tiempos de respuesta.</p>
+        <span class="mas">Ver topología →</span>
+      </a>
+      <a class="card card-link morado" href="proyectos.html">
+        <span class="tag morado">Topología 3</span><h3>Equipos de Proyectos</h3>
+        <p><b>Resultado:</b> cumplimiento crítico y reducción de riesgo.</p>
+        <p class="chico">Restricciones fuertes de fecha, regulación o riesgo, con coordinación multi-equipo. Se mide por cumplimiento del objetivo crítico.</p>
+        <span class="mas">Ver topología →</span>
+      </a>
+    </div>
+
+    <div class="nota aviso" style="margin-top:28px">
+      <b class="tit">¿No sabe cuál aplica?</b>
+      <p>El selector de topología le hace cuatro preguntas y le indica la opción más alineada con las reglas de decisión del modelo.</p>
+      <p style="margin-top:14px"><a class="btn naranja" href="topologias.html#selector">Abrir selector de topología →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CICLO ===================== -->
+<section class="bloque alt">
+  <div class="wrap">
+    <span class="eyebrow">Ciclo fundamental</span>
+    <h2>El modelo funciona como un sistema vivo de aprendizaje</h2>
+    <p class="entradilla">Los tres principios no son conceptos abstractos: se materializan en decisiones, comportamientos y mecanismos operativos.</p>
+    <div class="ciclo">
+      <div class="ciclo-p">
+        <div class="ciclo-ic" style="background:var(--ins-700)" aria-hidden="true">👁</div>
+        <h3>Transparencia</h3>
+        <p>Permite ver la realidad. Backlogs claros, bloqueos expuestos, métricas como lenguaje común y trade-offs explícitos.</p>
+      </div>
+      <div class="ciclo-p">
+        <div class="ciclo-ic" style="background:var(--ambar)" aria-hidden="true">🔍</div>
+        <h3>Inspección</h3>
+        <p>Permite entenderla. Evaluación sistemática en cadencias definidas, no reportes aislados ni evaluaciones esporádicas.</p>
+      </div>
+      <div class="ciclo-p">
+        <div class="ciclo-ic" style="background:var(--topo-serv)" aria-hidden="true">🔄</div>
+        <h3>Adaptación</h3>
+        <p>Permite cambiarla. Ajuste real de prioridades, prácticas, políticas y estructuras según lo aprendido.</p>
+      </div>
+    </div>
+    <div class="centro" style="margin-top:28px">
+      <a class="btn" href="principios.html">Ver el capítulo de principios →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CIERRE ===================== -->
+<section class="bloque">
+  <div class="wrap centro">
+    <div class="cita" style="border:0;padding:0;font-size:clamp(20px,2.8vw,29px);max-width:60ch;margin:0 auto">
+      La gobernanza ágil no busca controlar el trabajo. Busca asegurar que la organización siempre esté trabajando en lo correcto y pueda hacerlo sin fricción.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie-grid">
+      <div>
+        <img class="pie-logo" src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+        <p>Marco operativo común del Instituto Nacional de Seguros para habilitar la entrega continua de valor, la adaptación al cambio y la alineación entre estrategia, ejecución y operación.</p>
+        <p class="chico" style="color:#8FB5B0">Subdirección de Transformación Digital · Dirección de Tecnologías de Información · Equipo de Acción Ejecutiva (EAT).</p>
+      </div>
+      <div>
+        <h4>Capítulos</h4>
+        <a href="principios.html">Principios</a>
+        <a href="gobierno.html">Gobierno corporativo</a>
+        <a href="cadencias.html">Cadencias y eventos</a>
+        <a href="topologias.html">Topologías de equipos</a>
+        <a href="metricas.html">Métricas</a>
+        <a href="practicas.html">Prácticas y patrones</a>
+      </div>
+      <div>
+        <h4>Herramientas</h4>
+        <a href="topologias.html#selector">Selector de topología</a>
+        <a href="roles.html">Explorador de roles</a>
+        <a href="cadencias.html#eventos">Calendario de eventos</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="#" data-buscar>Buscar en el sitio</a>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span>Instituto Nacional de Seguros · Documento de uso interno</span>
+      <span>Sitio explicativo del Modelo Operativo de Agilidad · Versión 4</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

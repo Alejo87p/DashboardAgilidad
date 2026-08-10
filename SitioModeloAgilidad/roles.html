@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explorador de roles — Modelo Operativo de Agilidad · INS</title>
+<meta name="description" content="Quién hace qué en el Modelo Operativo de Agilidad: responsabilidades y métricas de éxito de cada rol, filtrables por topología.">
+<meta name="theme-color" content="#0B4E4E">
+<link rel="icon" href="assets/img/icono-ins-color.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="marca" href="index.html" aria-label="Inicio · Modelo Operativo de Agilidad del INS">
+      <img src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+      <span class="marca-sep" aria-hidden="true"></span>
+      <span class="marca-txt">Modelo Operativo de Agilidad</span>
+    </a>
+    <button class="btn-menu" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú de navegación">
+      <i></i><i></i><i></i>
+    </button>
+    <nav class="menu" id="menu-principal" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="principios.html">Principios</a>
+      <a href="gobierno.html">Gobierno</a>
+      <a href="cadencias.html">Cadencias</a>
+      <a href="topologias.html">Topologías</a>
+      <a href="roles.html">Roles</a>
+      <a href="metricas.html">Métricas</a>
+      <a href="practicas.html">Prácticas</a>
+      <a href="glosario.html">Glosario</a>
+      <button class="btn-buscar" type="button" aria-label="Buscar en el sitio">
+        <span aria-hidden="true">🔍</span><span>Buscar</span><kbd aria-hidden="true">Ctrl&nbsp;K</kbd>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <nav class="migas" aria-label="Ruta de navegación"><ol><li><a href="index.html">Inicio</a></li><li aria-current="page">Roles</li></ol></nav>
+    <p class="eyebrow" style="color:#F0B77A;margin-top:16px">Capítulo 5</p>
+    <h1>Explorador de roles</h1>
+    <p>Quién hace qué en el Modelo Operativo de Agilidad: responsabilidades y métricas de éxito de cada rol, filtrables por topología.</p>
+    <div class="hero-chips"><span>15 roles</span><span>5 dimensiones de la agilidad</span><span>Filtrable por topología</span></div>
+  </div>
+</div>
+
+<main id="contenido">
+
+<section class="bloque">
+  <div class="wrap">
+
+    <p class="entradilla">Cada rol del modelo organiza sus responsabilidades en las <b>cinco dimensiones de la agilidad</b>: cliente en el centro, priorización, entrega, optimización organizacional, y cultura y mentalidad. Filtre por topología o busque por palabra clave.</p>
+
+    <div class="filtros" role="group" aria-label="Filtrar roles por topología">
+      <button class="filtro" type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+      <button class="filtro" type="button" data-filtro="lab" aria-pressed="false">Laboratorio Digital</button>
+      <button class="filtro" type="button" data-filtro="serv" aria-pressed="false">Equipos de Servicio</button>
+      <button class="filtro" type="button" data-filtro="proy" aria-pressed="false">Proyectos</button>
+      <button class="filtro" type="button" data-filtro="gob" aria-pressed="false">Gobierno</button>
+      <label class="solo-lectores" for="roles-buscar">Buscar rol</label>
+      <input class="buscar-rol" id="roles-buscar" type="search" placeholder="Buscar por responsabilidad o métrica…">
+    </div>
+    <p class="chico" id="roles-cuenta" aria-live="polite" style="margin-bottom:18px"></p>
+
+    <div class="grid g2" id="roles-lista"></div>
+
+    <div class="nota clave" style="margin-top:36px">
+      <b class="tit">Las cinco dimensiones de la agilidad</b>
+      <p>Son el marco común bajo el que se describen todas las responsabilidades del modelo, desde el EMS hasta el Developer: <b>Cliente en el Centro</b> · <b>Priorización</b> · <b>Entrega</b> · <b>Optimización Organizacional</b> · <b>Cultura y Mentalidad</b>.</p>
+    </div>
+
+    <div class="nota">
+      <b class="tit">El ciclo del Qué y el ciclo del Cómo</b>
+      <p>El modelo separa de forma explícita las responsabilidades: el <b>Dueño de Producto</b> o el <b>Dueño de Servicio</b> conduce el ciclo del <b>Qué</b> (visión, prioridad y valor); el <b>Líder Técnico</b> conduce el ciclo del <b>Cómo</b> (ejecución, calidad técnica y sostenibilidad). En los tres tipos de equipo existe siempre un Líder Técnico.</p>
+      <div class="tabla-wrap"><table>
+        <thead><tr><th style="width:50%">Ciclo del Qué — Dueño de Producto / Dueño de Servicio</th><th>Ciclo del Cómo — Líder Técnico</th></tr></thead>
+        <tbody>
+          <tr><td>Visión estratégica y backlog de producto o de servicio</td><td>Arquitectura y backlog técnico</td></tr>
+          <tr><td>Priorización por valor, urgencia y riesgo de negocio</td><td>Descomposición técnica y estimación con el equipo</td></tr>
+          <tr><td>Agenda y gestión de la Planificación y la Revisión del Sprint</td><td>Agenda y gestión del Daily Scrum y la Retrospectiva</td></tr>
+          <tr><td>Define qué constituye valor para el cliente</td><td>Define el criterio de «terminado» (Definición de Hecho) técnico</td></tr>
+        </tbody>
+      </table></div>
+      <p>Con esta división el Dueño de Producto <b>se libera de la logística operativa y de la coordinación transversal</b> para concentrarse en la estrategia y el valor.</p>
+    </div>
+
+    <div class="nota aviso">
+      <b class="tit">Por qué el Líder Técnico sustituye al Scrum Master</b>
+      <p>El nombre del rol queda formalizado como <b>Líder Técnico</b> —ya no «Scrum Master» ni «Ingeniero»— para toda referencia futura del modelo. El cambio responde a cuatro constataciones sobre el funcionamiento real de los equipos:</p>
+      <ul>
+        <li><b>Falta de claridad de rol</b> — el Scrum Master terminó ejerciéndose de forma administrativa, como gestor de reuniones sin criterio técnico.</li>
+        <li><b>Liderazgo técnico inconsistente</b> — se había planteado antes, pero nunca se ejecutó de manera consistente en los equipos.</li>
+        <li><b>Pérdida de tracción y calidad</b> — sin ejecución técnica real en el rol, el equipo acumula deuda y degrada la calidad de la solución.</li>
+        <li><b>Necesidad de autoridad técnica</b> — se requiere una figura que decida sobre arquitectura, deuda técnica y viabilidad, no solo que coordine ceremonias.</li>
+      </ul>
+      <p class="chico">Contrapartes por tipo de equipo: <b>producto</b> → Dueño de Producto + Líder Técnico · <b>servicio digital</b> → Dueño de Servicio + Líder Técnico · <b>laboratorio o proyecto</b> → liderazgo de negocio + Líder Técnico. A nivel de laboratorio o de proyecto la función se escala en el <b>Líder de TI Escalado</b>.</p>
+    </div>
+
+    <div class="nota">
+      <b class="tit">Relación con el proveedor</b>
+      <p>El foco principal del Líder Técnico es la <b>innovación técnica y la calidad de la solución</b>: la gestión del proveedor es un aspecto secundario y de soporte a ese foco, no el centro del rol. El objetivo no es ejercer control administrativo de horas, sino asegurar que el trabajo técnico del proveedor sea <b>sostenible y de calidad</b> para el equipo: seguimiento de estimaciones sin microgestión, cumplimiento de las garantías técnicas acordadas y propiedad técnica del conocimiento para que el código no dependa de una sola persona ni de un solo proveedor.</p>
+    </div>
+
+    <div class="nota">
+      <b class="tit">Gobernanza y rendición de cuentas</b>
+      <p>Los Líderes Técnicos <b>rinden cuentas ante el EAT</b>, de forma equivalente a como el negocio rinde cuentas de los Dueños de Producto. Esto da visibilidad formal al trabajo técnico y de gobernanza. El <b>Líder de TI Escalado</b> es el punto de referencia técnico a nivel de laboratorio y de proyecto, articulando entre los equipos y el EAT.</p>
+    </div>
+
+    <div class="nota">
+      <b class="tit">Lo que el rol pide al equipo</b>
+      <p>La división Qué / Cómo implica compromisos recíprocos: participación activa en Daily y Retrospectiva —no solo asistencia—, transparencia temprana sobre bloqueos técnicos, compromiso con Clean Code, testing automatizado y Definición de Hecho, al menos una mejora (Kaizen) por Sprint, colaboración cruzada mediante Swarming y uso disciplinado de las herramientas de visibilidad del flujo, incluido el <a href="practicas.html#andon">Andon Digital</a>.</p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<div class="wrap"><nav class="nav-pag" aria-label="Navegación entre capítulos"><a href="proyectos.html"><span>← Anterior</span><b>Equipos de Proyectos</b></a><a class="der" href="metricas.html"><span>Siguiente →</span><b>Métricas</b></a></nav></div>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie-grid">
+      <div>
+        <img class="pie-logo" src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+        <p>Marco operativo común del Instituto Nacional de Seguros para habilitar la entrega continua de valor, la adaptación al cambio y la alineación entre estrategia, ejecución y operación.</p>
+        <p class="chico" style="color:#8FB5B0">Subdirección de Transformación Digital · Dirección de Tecnologías de Información · Equipo de Acción Ejecutiva (EAT).</p>
+      </div>
+      <div>
+        <h4>Capítulos</h4>
+        <a href="principios.html">Principios</a>
+        <a href="gobierno.html">Gobierno corporativo</a>
+        <a href="cadencias.html">Cadencias y eventos</a>
+        <a href="topologias.html">Topologías de equipos</a>
+        <a href="metricas.html">Métricas</a>
+        <a href="practicas.html">Prácticas y patrones</a>
+      </div>
+      <div>
+        <h4>Herramientas</h4>
+        <a href="topologias.html#selector">Selector de topología</a>
+        <a href="roles.html">Explorador de roles</a>
+        <a href="cadencias.html#eventos">Calendario de eventos</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="#" data-buscar>Buscar en el sitio</a>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span>Instituto Nacional de Seguros · Documento de uso interno</span>
+      <span>Sitio explicativo del Modelo Operativo de Agilidad · Versión 4</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

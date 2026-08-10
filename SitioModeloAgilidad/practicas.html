@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prácticas y patrones — Modelo Operativo de Agilidad · INS</title>
+<meta name="description" content="Las prácticas técnicas y los patrones que hacen posible la entrega continua: MOB AI, Clean Code, CI/CD, Andon Digital, Obeya y ocho patrones de Scrum.">
+<meta name="theme-color" content="#0B4E4E">
+<link rel="icon" href="assets/img/icono-ins-color.png">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="marca" href="index.html" aria-label="Inicio · Modelo Operativo de Agilidad del INS">
+      <img src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+      <span class="marca-sep" aria-hidden="true"></span>
+      <span class="marca-txt">Modelo Operativo de Agilidad</span>
+    </a>
+    <button class="btn-menu" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú de navegación">
+      <i></i><i></i><i></i>
+    </button>
+    <nav class="menu" id="menu-principal" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="principios.html">Principios</a>
+      <a href="gobierno.html">Gobierno</a>
+      <a href="cadencias.html">Cadencias</a>
+      <a href="topologias.html">Topologías</a>
+      <a href="roles.html">Roles</a>
+      <a href="metricas.html">Métricas</a>
+      <a href="practicas.html">Prácticas</a>
+      <a href="glosario.html">Glosario</a>
+      <button class="btn-buscar" type="button" aria-label="Buscar en el sitio">
+        <span aria-hidden="true">🔍</span><span>Buscar</span><kbd aria-hidden="true">Ctrl&nbsp;K</kbd>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <nav class="migas" aria-label="Ruta de navegación"><ol><li><a href="index.html">Inicio</a></li><li aria-current="page">Prácticas y patrones</li></ol></nav>
+    <p class="eyebrow" style="color:#F0B77A;margin-top:16px">Capítulo 7</p>
+    <h1>Prácticas de ingeniería y patrones de Scrum</h1>
+    <p>Las prácticas técnicas y los patrones que hacen posible la entrega continua: MOB AI, Clean Code, CI/CD, Andon Digital, Obeya y ocho patrones de Scrum.</p>
+    <div class="hero-chips"><span>MOB AI</span><span>Clean Code</span><span>CI/CD</span><span>Andon</span><span>Obeya</span><span>Patrones</span></div>
+  </div>
+</div>
+
+<main id="contenido">
+
+<section class="bloque">
+  <div class="wrap con-indice">
+    <nav class="indice" aria-label="Índice de la página"><b>En esta página</b><div class="indice-links"><a href="#mobai">Modelo con MOB AI</a><a href="#cleancode">Clean Code</a><a href="#ingenieria">Prácticas de ingeniería</a><a href="#andon">Andon Digital</a><a href="#obeya">Obeya</a><a href="#patrones">Patrones de Scrum</a></div></nav>
+    <div>
+
+      <p class="entradilla">El modelo se apoya en prácticas técnicas y patrones de Scrum que hacen posible la entrega continua. Sin estas prácticas, el gobierno y las cadencias quedan sin sustento operativo.</p>
+
+      <section id="mobai">
+        <span class="eyebrow">Proceso a nivel de equipo</span>
+        <h2>Modelo con MOB AI</h2>
+        <p>El modelo MOB AI (<i>Mob Programming</i> potenciado por inteligencia artificial) se basa en la <b>colaboración extrema</b> dentro de un equipo de desarrollo: todas las personas trabajan simultáneamente en un solo problema, frente a una única estación de trabajo compartida. La técnica se complementa con herramientas de observabilidad e IA para enriquecer la toma de decisiones y acelerar el aprendizaje colectivo.</p>
+        <div class="grid g2">
+          <div class="card azul"><h4 class="mt0">Sesiones colaborativas guiadas</h4><p class="chico">Todos participan activamente en la resolución de un problema o funcionalidad, compartiendo contexto y promoviendo alineación técnica y funcional.</p></div>
+          <div class="card azul"><h4 class="mt0">Feedback inmediato</h4><p class="chico">Las decisiones se toman en tiempo real, con discusiones abiertas y evaluación constante del código o solución propuesta.</p></div>
+          <div class="card azul"><h4 class="mt0">Observabilidad inteligente</h4><p class="chico">Herramientas de monitoreo de flujo, rendimiento y calidad del código retroalimentan al equipo con recomendaciones predictivas.</p></div>
+          <div class="card azul"><h4 class="mt0">IA asistida</h4><p class="chico">Agentes de IA para detectar errores comunes, sugerir mejoras o anticipar cuellos de botella técnicos.</p></div>
+          <div class="card azul" style="grid-column:1/-1"><h4 class="mt0">Transferencia de conocimiento</h4><p class="chico">Al trabajar todos juntos se acelera la curva de aprendizaje de los miembros menos experimentados y se fortalecen las prácticas de equipo.</p></div>
+        </div>
+        <div class="nota clave">
+          <b class="tit">Beneficios</b>
+          <p>Mayor calidad técnica y funcional desde el inicio · reducción de errores y retrabajo · mejor comunicación y entendimiento del producto · cultura de aprendizaje colectivo y excelencia técnica.</p>
+        </div>
+      </section>
+
+      <section id="cleancode" style="margin-top:48px">
+        <span class="eyebrow">Calidad del código</span>
+        <h2>Clean Code</h2>
+        <p>Práctica de ingeniería que promueve la escritura de código <b>claro, simple, legible y mantenible</b>. Su objetivo es reducir la complejidad técnica, facilitar el trabajo en equipo y minimizar errores en el desarrollo de productos digitales.</p>
+        <div class="tabla-wrap">
+          <table>
+            <thead><tr><th style="width:34%">Principio</th><th>Qué implica</th></tr></thead>
+            <tbody>
+              <tr><td><b>Nombres descriptivos</b></td><td>Clases, funciones y variables deben reflejar claramente su propósito.</td></tr>
+              <tr><td><b>Funciones pequeñas y enfocadas</b></td><td>Cada función debe realizar una sola tarea de forma clara.</td></tr>
+              <tr><td><b>Eliminación de duplicidad</b></td><td>El código duplicado debe refactorizarse para mantener una única fuente de verdad.</td></tr>
+              <tr><td><b>Claridad sobre eficiencia prematura</b></td><td>El código debe ser primero comprensible antes de ser optimizado.</td></tr>
+              <tr><td><b>Convenciones comunes</b></td><td>Uso de estándares de codificación para asegurar consistencia.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="chico">El uso de Clean Code mejora la colaboración, reduce el tiempo de depuración y facilita la evolución del software a lo largo del tiempo.</p>
+      </section>
+
+      <section id="ingenieria" style="margin-top:48px">
+        <span class="eyebrow">Habilitadores técnicos</span>
+        <h2>Prácticas de ingeniería</h2>
+
+        <details class="acc" open><summary>CI/CD — Integración y despliegue continuos</summary><div class="acc-cuerpo">
+          <p>Automatización de pruebas, integración continua y despliegue continuo para <b>minimizar riesgo y acelerar la entrega de valor</b>. Toda funcionalidad debe pasar a producción de forma controlada y frecuente.</p>
+          <p>Esto requiere definir pipelines robustos con:</p>
+          <ul>
+            <li>Etapas claras de validación y pruebas automatizadas</li>
+            <li>Control de versiones</li>
+            <li>Monitoreo post-despliegue</li>
+            <li>Prácticas de rollback seguras</li>
+          </ul>
+          <p>Se promueve una cultura de entrega continua que reduce el inventario de trabajo pendiente y permite retroalimentación más rápida. Se recomienda incorporar <b>blue/green deployments</b> para reducir riesgos de despliegue y <b>feature flags</b> para activar funcionalidades bajo control en entornos reales sin impactar al usuario final.</p>
+        </div></details>
+
+        <details class="acc"><summary>Infraestructura como Código</summary><div class="acc-cuerpo">
+          <p>Estrategia clave para habilitar entornos <b>reproducibles, consistentes y automatizados</b>. Permite gestionar servidores, redes, almacenamiento y configuraciones como archivos versionados, integrados en los pipelines de CI/CD.</p>
+          <p>Mejora la trazabilidad, reduce errores humanos y acelera la provisión de ambientes de prueba, <i>staging</i> y producción. Herramientas comunes: Terraform, Ansible, Pulumi y AWS CloudFormation.</p>
+        </div></details>
+
+        <details class="acc"><summary>Testing automatizado</summary><div class="acc-cuerpo">
+          <p>Asegura calidad temprana y confianza en el producto mediante la ejecución continua de pruebas <b>unitarias, de integración, funcionales y de regresión</b>.</p>
+          <p>Se recomienda aplicar estrategias de cobertura progresiva y pipelines con validaciones desde el <i>commit</i> hasta producción. La integración con feature flags permite probar funcionalidades en producción de manera segura antes de habilitarlas para todos los usuarios.</p>
+        </div></details>
+      </section>
+
+      <section id="andon" style="margin-top:48px">
+        <span class="eyebrow">Transparencia operativa</span>
+        <h2>Andon Digital</h2>
+        <p>Mecanismo visual que permite a los equipos <b>declarar impedimentos y problemas en tiempo real</b>. Su propósito es generar atención inmediata, coordinación para su resolución y cultura de transparencia.</p>
+        <ul class="check">
+          <li>Activado manual o automáticamente desde herramientas de gestión.</li>
+          <li>Visibiliza bloqueos técnicos, funcionales o de negocio.</li>
+          <li>Escalable a niveles superiores para remoción estructural.</li>
+        </ul>
+      </section>
+
+      <section id="obeya" style="margin-top:48px">
+        <span class="eyebrow">Alineación visual</span>
+        <h2>Obeya</h2>
+        <p>Espacio físico o digital que concentra la información clave para la toma de decisiones basada en datos. Permite el alineamiento continuo entre niveles <b>operativos, tácticos y estratégicos</b>.</p>
+        <ul class="check">
+          <li>Incluye métricas de flujo, objetivos, riesgos y planes.</li>
+          <li>Se utiliza en reuniones de revisión, sincronización y estrategia.</li>
+          <li>Favorece la toma de decisiones compartida y la orientación a resultados.</li>
+        </ul>
+        <p class="chico">Las Obeya virtuales y físicas permiten que equipos y líderes accedan en tiempo real a indicadores, impedimentos, objetivos y planes, manteniendo alineación visual permanente.</p>
+      </section>
+
+      <section id="patrones" style="margin-top:48px">
+        <span class="eyebrow">Ocho patrones</span>
+        <h2>Patrones de Scrum</h2>
+        <p class="entradilla">Prácticas probadas que el modelo adopta explícitamente. Cada una responde a un problema recurrente de los equipos.</p>
+
+        <details class="acc" open><summary>Swarming (Enjambre)</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> varios miembros del equipo se enfocan colectivamente en una sola historia de usuario o ítem del Product Backlog. En lugar de que cada persona trabaje de forma independiente en tareas distintas, todos colaboran en una sola hasta que esté terminada.</p>
+          <p><b>Beneficios:</b> promueve la colaboración intensa y multifuncional · reduce el tiempo de ciclo al minimizar esperas entre fases · incrementa la calidad gracias a la revisión cruzada y la rápida retroalimentación.</p>
+          <p><b>Cuándo aplicarlo:</b> cuando el equipo necesita acelerar la entrega de valor o desbloquear ítems complejos que requieren múltiples habilidades al mismo tiempo.</p>
+        </div></details>
+
+        <details class="acc"><summary>Kaizen (Mejora Continua)</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> filosofía japonesa de mejora continua. En Scrum implica que el equipo revise periódicamente su forma de trabajar —especialmente en la retrospectiva— y proponga <b>pequeñas mejoras implementables rápidamente</b>.</p>
+          <p><b>Beneficios:</b> fomenta una cultura de aprendizaje constante · mejora la moral del equipo al darle control sobre su forma de trabajar · ayuda a descubrir ineficiencias y experimentar con nuevos enfoques.</p>
+          <p><b>Prácticas comunes:</b> aplicar una mejora por sprint · documentar las acciones de mejora y hacer seguimiento en el siguiente sprint.</p>
+        </div></details>
+
+        <details class="acc"><summary>Emergency Procedure (Procedimiento de Emergencia)</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> conjunto de acciones a seguir cuando el sprint se ve afectado por eventos imprevistos que impiden cumplir sus objetivos: interrupciones críticas, cambios de prioridad urgentes o fallas técnicas graves.</p>
+          <p><b>Opciones del procedimiento:</b></p>
+          <ol>
+            <li>Reducir el alcance de los objetivos para lo que resta del sprint.</li>
+            <li>Replanificar el sprint en colaboración con el Dueño de Producto.</li>
+            <li>Abortar el sprint y comenzar uno nuevo con nuevas prioridades.</li>
+            <li>Escalar el problema a gerencia o partes interesadas.</li>
+          </ol>
+          <p><b>Importancia:</b> evita el colapso del equipo ante crisis y garantiza que se mantenga el enfoque en entregar valor bajo nuevas condiciones.</p>
+        </div></details>
+
+        <details class="acc"><summary>Stable Teams (Equipos Estables)</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> mantener la composición de los equipos lo más constante posible en el tiempo, evitando rotaciones o reasignaciones frecuentes de personas.</p>
+          <p><b>Ventajas:</b> mejora la cohesión, la confianza y la comunicación · permite predecir con mayor precisión la capacidad de entrega · disminuye el tiempo de adaptación a nuevas dinámicas.</p>
+          <p><b>Consejo:</b> evitar reorganizaciones constantes a nivel de recursos y proteger la estabilidad del equipo frente a urgencias organizacionales.</p>
+        </div></details>
+
+        <details class="acc"><summary>Involve the Managers (Involucrar a los Gerentes)</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> los gerentes no deben ser excluidos del proceso Scrum, sino integrarse de forma útil para apoyar el trabajo de los equipos sin interferir en su autoorganización.</p>
+          <p><b>Roles útiles:</b> apoyar el desarrollo profesional de los miembros del equipo · eliminar impedimentos organizacionales que el equipo no puede resolver · alinear objetivos estratégicos entre equipos.</p>
+          <p><b>Peligro a evitar:</b> que los gerentes caigan en micromanagement o controlen las decisiones del equipo.</p>
+        </div></details>
+
+        <details class="acc"><summary>MetaScrum</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> evento donde Dueños de Producto, líderes de negocio, partes interesadas y otros interesados estratégicos se reúnen regularmente para alinear prioridades y tomar decisiones clave sobre el rumbo del producto.</p>
+          <p><b>Objetivo:</b> establecer una visión estratégica coherente para múltiples equipos y asegurar que las prioridades reflejen el mayor valor posible.</p>
+          <p><b>Características:</b> se centra en la gestión del Product Backlog a nivel organizacional · puede derivar en ajustes de prioridades o cambios de dirección.</p>
+          <p><b>Ideal para:</b> entornos con múltiples equipos Scrum trabajando en un producto o solución grande.</p>
+        </div></details>
+
+        <details class="acc"><summary>Definición de Listo</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> conjunto de criterios que un ítem del Backlog de Producto debe cumplir para ser considerado listo para trabajarse en un sprint.</p>
+          <p><b>Criterios típicos:</b> historia de usuario clara con aceptación definida · estimación hecha por el equipo · dependencias identificadas · datos o mockups disponibles si aplica.</p>
+          <p><b>Beneficios:</b> mejora la calidad de la Planificación del Sprint y disminuye riesgos e interrupciones durante la ejecución.</p>
+        </div></details>
+
+        <details class="acc"><summary>Value and ROI (Valor y Retorno de Inversión)</summary><div class="acc-cuerpo">
+          <p><b>Definición:</b> enfatiza la responsabilidad del Dueño de Producto de maximizar el valor entregado por el equipo, priorizando ítems que ofrezcan el mayor retorno por esfuerzo invertido.</p>
+          <p><b>Herramientas y enfoques:</b> evaluar el impacto esperado de cada historia · usar métricas como valor entregado por sprint · considerar el costo de oportunidad de no implementar algo.</p>
+          <p><b>Importancia:</b> una visión clara del valor ayuda a tomar decisiones de negocio más informadas y a orientar el trabajo hacia lo más importante para la organización.</p>
+        </div></details>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="wrap"><nav class="nav-pag" aria-label="Navegación entre capítulos"><a href="metricas.html"><span>← Anterior</span><b>Métricas</b></a><a class="der" href="glosario.html"><span>Siguiente →</span><b>Glosario y referencias</b></a></nav></div>
+
+<footer class="pie">
+  <div class="wrap">
+    <div class="pie-grid">
+      <div>
+        <img class="pie-logo" src="assets/img/logo-ins-blanco.png" alt="Instituto Nacional de Seguros">
+        <p>Marco operativo común del Instituto Nacional de Seguros para habilitar la entrega continua de valor, la adaptación al cambio y la alineación entre estrategia, ejecución y operación.</p>
+        <p class="chico" style="color:#8FB5B0">Subdirección de Transformación Digital · Dirección de Tecnologías de Información · Equipo de Acción Ejecutiva (EAT).</p>
+      </div>
+      <div>
+        <h4>Capítulos</h4>
+        <a href="principios.html">Principios</a>
+        <a href="gobierno.html">Gobierno corporativo</a>
+        <a href="cadencias.html">Cadencias y eventos</a>
+        <a href="topologias.html">Topologías de equipos</a>
+        <a href="metricas.html">Métricas</a>
+        <a href="practicas.html">Prácticas y patrones</a>
+      </div>
+      <div>
+        <h4>Herramientas</h4>
+        <a href="topologias.html#selector">Selector de topología</a>
+        <a href="roles.html">Explorador de roles</a>
+        <a href="cadencias.html#eventos">Calendario de eventos</a>
+        <a href="glosario.html">Glosario</a>
+        <a href="#" data-buscar>Buscar en el sitio</a>
+      </div>
+    </div>
+    <div class="pie-base">
+      <span>Instituto Nacional de Seguros · Documento de uso interno</span>
+      <span>Sitio explicativo del Modelo Operativo de Agilidad · Versión 4</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
